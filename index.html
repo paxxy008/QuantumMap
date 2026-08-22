@@ -23,10 +23,8 @@
   svg#routes line.hostile{ stroke: #ff3355; filter: drop-shadow(0 0 7px #ff3355) drop-shadow(0 0 16px #ff3355); stroke-dasharray: 5 10; }
   svg#routes line.neutral{ stroke: #ffd700; filter: drop-shadow(0 0 7px #ffd700) drop-shadow(0 0 14px #ffd700); }
   #info-panel{ position:absolute; right:22px; top:22px; width:410px; max-height:92vh; overflow-y:auto; background: linear-gradient(160deg, rgba(0,22,14,0.97) 0%, rgba(0,10,8,0.99) 100%); border: 1.5px solid #00ff88; box-shadow: 0 0 25px rgba(0,255,136,0.35), inset 0 0 35px rgba(0,60,30,0.5); backdrop-filter: blur(16px); border-radius:10px; display:none; z-index:10; }
-  #info-panel::-webkit-scrollbar{ width:5px; } #info-panel::-webkit-scrollbar-thumb{ background:#00ff88; border-radius:5px; }
-  #info-panel::before{ content:''; position:sticky; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, #ffd700, #00ff88, #ffd700, transparent); box-shadow: 0 0 10px #00ff88; z-index:11; display:block; }
-  .panel-img{ width:100%; height:230px; background-size:cover; background-position:center; position:relative; border-bottom: 1px solid rgba(0,255,136,0.3); }
-  .panel-img::after{ content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,15,10,1) 8%, transparent 70%); }
+  .panel-img{ width:100%; height:240px; background-size:cover; background-position:center; position:relative; border-bottom: 1px solid rgba(0,255,136,0.3); }
+  .panel-img::after{ content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,15,10,1) 10%, transparent 70%); }
   .panel-img .sector-tag{ position:absolute; bottom:12px; left:14px; z-index:2; background: rgba(0,0,0,0.6); border:1px solid #ffd700; color:#ffd700; font-family:'Orbitron'; font-size:9px; padding:4px 10px; letter-spacing:1px; border-radius:3px; }
   .panel-img .status-tag{ position:absolute; top:14px; left:14px; z-index:2; }
   .panel-body{ padding:18px 20px 20px; }
@@ -46,9 +44,9 @@
   .unit-head{ display:flex; justify-content:space-between; margin-bottom:5px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px; }
   .unit-head b{ color:#fff; } .unit-head i{ color:#00ff88; font-style:normal; }
   .bar{ width:100%; height:7px; background: rgba(0,255,136,0.1); border-radius:3px; overflow:hidden; }
-  .bar-fill{ height:100%; border-radius:3px; box-shadow:0 0 8px currentColor; transition: width 0.8s ease; }
+  .bar-fill{ height:100%; border-radius:3px; box-shadow:0 0 8px currentColor; }
   .bar.blue{ background: linear-gradient(90deg, #3ad4ff, #00aaff); color:#3ad4ff; } .bar.red{ background: linear-gradient(90deg, #ff4444, #ff0000); color:#ff4444; } .bar.gold{ background: linear-gradient(90deg, #ffcc33, #ffd700); color:#ffcc33; } .bar.green{ background: linear-gradient(90deg, #00ff88, #00ffcc); color:#00ff88; }
-  .unit-img{ width:100%; height:140px; border-radius:6px; background-size:cover; background-position:center; margin-bottom:14px; border:1px solid rgba(0,255,136,0.2); }
+  .unit-img{ width:100%; height:150px; border-radius:6px; background-size:cover; background-position:center; margin-bottom:14px; border:1px solid rgba(0,255,136,0.25); }
   .btn{ margin-top:18px; background: linear-gradient(90deg, #003322, #006644); border:1.5px solid #00ff88; padding:11px 14px; border-radius:6px; cursor:pointer; color:#00ff88; font-weight:bold; width:100%; letter-spacing:2px; font-family:'Orbitron', sans-serif; }
   .title-bar{ position:absolute; left:24px; top:20px; z-index:4; font-family:'Orbitron', sans-serif; font-weight:800; letter-spacing:3px; font-size:13px; color:#00ff88; opacity:0.9; }
 </style>
@@ -89,8 +87,8 @@ const planets = [
   { 
     id:"coruscant", name:"CORUSCANT", x:50, y:47, size:38, color:"#4da6ff", 
     img:"./Coruscant_QP.png", 
-    imgDetail:"./coruscant_city.png", 
-    unitImg:"./sh_troops.png",
+    imgDetail:"./CORUSCANT_CITY_QP.png", 
+    unitImg:"./SH_TROOPS_QP.png",
     status:"republic", statusText:"CAPITAL REPUBLICA", sector:"Núcleo Interior", 
     desc:"Núcleo galáctico y sede del Senado. Centro absoluto del poder político, militar y económico de la República. La Ciudad Galáctica se extiende por toda la superficie, iluminada por millones de luces que nunca se apagan.",
     stats:{ poblacion:"1 Trillón", clima:"Urbano Total", recursos:"Político / Económico", afiliacion:"República" }, 
@@ -137,8 +135,8 @@ function showInfo(p){
   document.getElementById('info-name').innerText = p.name;
   document.getElementById('info-desc').innerText = p.desc;
   document.getElementById('info-sector').innerText = p.sector;
-  document.getElementById('info-img').style.backgroundImage = p.imgDetail ? `url('${p.imgDetail}')` : (p.img ? `url('${p.img}')` : `none`);
-  document.getElementById('unit-img').style.backgroundImage = p.unitImg ? `url('${p.unitImg}')` : (p.imgDetail ? `url('${p.imgDetail}')` : `url('${p.img}')`);
+  document.getElementById('info-img').style.backgroundImage = `url('${p.imgDetail}')`;
+  document.getElementById('unit-img').style.backgroundImage = `url('${p.unitImg}')`;
   const st = document.getElementById('info-status'); st.innerText = p.statusText; st.className = 'status status-tag ' + p.status;
   document.getElementById('info-stats').innerHTML = `<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
   document.getElementById('info-forces').innerHTML = `<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
