@@ -23,7 +23,7 @@
   svg#routes line.hostile{ stroke: #ff3355; filter: drop-shadow(0 0 7px #ff3355) drop-shadow(0 0 16px #ff3355); stroke-dasharray: 5 10; }
   svg#routes line.neutral{ stroke: #ffd700; filter: drop-shadow(0 0 7px #ffd700) drop-shadow(0 0 14px #ffd700); }
   #info-panel{ position:absolute; right:22px; top:22px; width:410px; max-height:92vh; overflow-y:auto; background: linear-gradient(160deg, rgba(0,22,14,0.97) 0%, rgba(0,10,8,0.99) 100%); border: 1.5px solid #00ff88; box-shadow: 0 0 25px rgba(0,255,136,0.35), inset 0 0 35px rgba(0,60,30,0.5); backdrop-filter: blur(16px); border-radius:10px; display:none; z-index:10; }
-  .panel-img{ width:100%; height:240px; background-size:cover; background-position:center; position:relative; border-bottom: 1px solid rgba(0,255,136,0.3); }
+  .panel-img{ width:100%; height:240px; background-size:cover; background-position:center; position:relative; border-bottom: 1px solid rgba(0,255,136,0.3); background-color: #001a0f; }
   .panel-img::after{ content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,15,10,1) 10%, transparent 70%); }
   .panel-img .sector-tag{ position:absolute; bottom:12px; left:14px; z-index:2; background: rgba(0,0,0,0.6); border:1px solid #ffd700; color:#ffd700; font-family:'Orbitron'; font-size:9px; padding:4px 10px; letter-spacing:1px; border-radius:3px; }
   .panel-img .status-tag{ position:absolute; top:14px; left:14px; z-index:2; }
@@ -43,11 +43,11 @@
   .unit-row{ margin-bottom:14px; }
   .unit-head{ display:flex; justify-content:space-between; margin-bottom:5px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px; }
   .unit-head b{ color:#fff; } .unit-head i{ color:#00ff88; font-style:normal; }
-  .unit-head b.neon-yellow{ color:#ffff66 !important; text-shadow: 0 0 8px #ffff00, 0 0 16px #ffff00; }
+  .unit-head b.neon-yellow{ color:#ffff66 !important; text-shadow: 0 0 8px #ffff00, 0 0 18px #ffff00; }
   .bar{ width:100%; height:7px; background: rgba(0,255,136,0.1); border-radius:3px; overflow:hidden; }
   .bar-fill{ height:100%; border-radius:3px; box-shadow:0 0 8px currentColor; }
   .bar.blue{ background: linear-gradient(90deg, #3ad4ff, #00aaff); color:#3ad4ff; } .bar.red{ background: linear-gradient(90deg, #ff4444, #ff0000); color:#ff4444; } .bar.gold{ background: linear-gradient(90deg, #ffff66, #ffff00); color:#ffff00; box-shadow: 0 0 12px #ffff00; } .bar.green{ background: linear-gradient(90deg, #00ff88, #00ffcc); color:#00ff88; }
-  .unit-img{ width:100%; height:160px; border-radius:6px; background-size:cover; background-position:center top; margin-bottom:14px; border:1px solid rgba(255,255,100,0.4); box-shadow: 0 0 15px rgba(255,255,0,0.2); }
+  .unit-img{ width:100%; height:160px; border-radius:6px; background-size:cover; background-position:center top; margin-bottom:14px; border:1px solid rgba(255,255,100,0.5); background-color:#001a0f; }
   .btn{ margin-top:18px; background: linear-gradient(90deg, #003322, #006644); border:1.5px solid #00ff88; padding:11px 14px; border-radius:6px; cursor:pointer; color:#00ff88; font-weight:bold; width:100%; letter-spacing:2px; font-family:'Orbitron', sans-serif; }
   .title-bar{ position:absolute; left:24px; top:20px; z-index:4; font-family:'Orbitron', sans-serif; font-weight:800; letter-spacing:3px; font-size:13px; color:#00ff88; opacity:0.9; }
 </style>
@@ -114,7 +114,7 @@ const planets = [
     status:"contested", statusText:"EN DISPUTA - SELVA HOSTIL", sector:"Borde Exterior - Sector Felucia", 
     desc:"Felucia es un infierno bioluminiscente. Selva hiper-densa, esporas tóxicas, hongos de 100 metros y flora carnívora. El dosel es tan espeso que bloquea sensores orbitales. La 327th Star Corps al mando de la General Aayla Secura mantiene una cabeza de playa en el ecuador. La República sufre emboscadas constantes entre la niebla y las plantas carnívoras.", 
     stats:{ poblacion:"Nativa + 10k Tropas", clima:"Selva Bioluminiscente / Tóxico", recursos:"Plantas / Toxinas / Fuerza Viva", afiliacion:"En Disputa - 327th desplegado" }, 
-    forces:{ guarnicion:"327th Star Corps + Fauna + Droides", flota:"Soporte Venator en órbita baja", amenaza:88 }, 
+    forces:{ guarnicion:"327th Star Corps + Fauna Hostil + Droides", flota:"Soporte Venator en órbita baja", amenaza:88 }, 
     units:[ 
       {name:"327th STAR CORPS", count:"10.000 TROPAS + 5 JEDI", pct:90, color:"gold", neon:true},
       {name:"Droides Separatistas", count:"120,000 B1/B2 + 35 AAT + 12 Octuptarra", pct:92, color:"red"},
