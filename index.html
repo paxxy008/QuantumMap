@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quantum Pulse - Holomapa Galáctico</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:#000;font-family:'Segoe UI',sans-serif;color:#fff;overflow:hidden}
   #galaxy{
@@ -14,104 +15,122 @@
   }
   #galaxy::after{
     content:'';position:absolute;inset:0;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.15) 25%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.75) 95%);
     z-index:1;
+  }
+  /* efecto scanline holograma */
+  #galaxy::before{
+    content:'';position:absolute;inset:0;z-index:2;
+    background: repeating-linear-gradient(0deg, rgba(0,255,136,0.03) 0px, transparent 2px, transparent 4px);
+    pointer-events:none;
   }
   .planet{
     position:absolute; border-radius:50%; cursor:pointer;
     transform: translate(-50%,-50%);
-    box-shadow: 0 0 18px currentColor, inset -6px -6px 12px rgba(0,0,0,0.9);
-    transition: all 0.35s ease; z-index:2; border:1.5px solid rgba(255,255,255,0.75);
+    box-shadow: 0 0 22px currentColor, inset -7px -7px 14px rgba(0,0,0,0.95);
+    transition: all 0.35s ease; z-index:3; border:1.8px solid rgba(255,255,255,0.9);
     background-size: cover;
     background-position: center;
   }
-  .planet:hover{ transform: translate(-50%,-50%) scale(1.28); box-shadow: 0 0 32px currentColor; }
+  .planet:hover{ transform: translate(-50%,-50%) scale(1.35); box-shadow: 0 0 40px currentColor, 0 0 70px currentColor; }
   .planet.selected{
-    transform: translate(-50%,-50%) scale(1.45);
+    transform: translate(-50%,-50%) scale(1.55);
     z-index:6;
-    animation: pulse-aura 2.2s ease-in-out infinite;
+    animation: pulse-aura 1.6s ease-in-out infinite;
   }
   .planet.main{
-    box-shadow: 0 0 28px #00ff88, 0 0 55px #00ff88, 0 0 90px rgba(0,255,136,0.4), inset -6px -6px 14px rgba(0,0,0,0.85);
-    border: 2px solid #00ffcc;
+    box-shadow: 0 0 35px #00ff88, 0 0 70px #00ff88, 0 0 110px rgba(0,255,136,0.6), inset -7px -7px 14px rgba(0,0,0,0.85);
+    border: 2.5px solid #00ffcc;
   }
   @keyframes pulse-aura {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.35); }
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 10px currentColor); }
+    50% { filter: brightness(1.6) drop-shadow(0 0 20px currentColor); }
   }
   .planet-label{
-    position:absolute; top:128%; left:50%; transform:translateX(-50%);
-    font-size:11px; font-weight:bold; letter-spacing:1.2px; white-space:nowrap;
-    text-shadow: 0 1px 4px black, 0 0 10px black; pointer-events:none;
+    position:absolute; top:135%; left:50%; transform:translateX(-50%);
+    font-family:'Orbitron', sans-serif;
+    font-size:10px; font-weight:800; letter-spacing:1.8px; white-space:nowrap;
+    text-shadow: 0 1px 4px black, 0 0 12px currentColor; pointer-events:none;
   }
-  svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+  svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
   svg#routes line{
-    stroke-width:1.8;
-    stroke-dasharray:7 5;
-    filter: drop-shadow(0 0 3px currentColor);
+    stroke-width:2.8;
+    stroke-dasharray:10 8;
+    stroke-linecap:round;
+    animation: dash-move 1.2s linear infinite, neon-flicker 2.5s ease-in-out infinite;
   }
-  svg#routes line.friendly{ stroke: #00ffcc; opacity:0.55; }
-  svg#routes line.hostile{ stroke: #ff3355; opacity:0.6; }
-  svg#routes line.neutral{ stroke: #ffd700; opacity:0.5; }
+  @keyframes dash-move { to { stroke-dashoffset: -36; } }
+  @keyframes neon-flicker {
+    0%,100% { opacity:0.9; }
+    50% { opacity:0.6; }
+  }
+  svg#routes line.friendly{ stroke: #00ffcc; filter: drop-shadow(0 0 6px #00ffcc) drop-shadow(0 0 12px #00ffcc); opacity:0.95; }
+  svg#routes line.hostile{ stroke: #ff3355; filter: drop-shadow(0 0 6px #ff3355) drop-shadow(0 0 14px #ff3355); opacity:0.9; stroke-dasharray: 4 8; }
+  svg#routes line.neutral{ stroke: #ffd700; filter: drop-shadow(0 0 6px #ffd700) drop-shadow(0 0 12px #ffd700); opacity:0.9; }
+
   #info-panel{
-    position:absolute; right:22px; top:22px; width:360px;
-    background: linear-gradient(160deg, rgba(0,18,12,0.95) 0%, rgba(0,8,6,0.97) 100%);
-    border: 1px solid #00ff88;
-    box-shadow: 0 0 18px rgba(0,255,136,0.25), inset 0 0 30px rgba(0,40,25,0.6);
-    backdrop-filter: blur(14px);
-    padding:24px 22px;
-    border-radius:6px;
+    position:absolute; right:22px; top:22px; width:380px;
+    background: linear-gradient(160deg, rgba(0,22,14,0.96) 0%, rgba(0,10,8,0.98) 100%);
+    border: 1.5px solid #00ff88;
+    box-shadow: 0 0 22px rgba(0,255,136,0.35), inset 0 0 35px rgba(0,60,30,0.5);
+    backdrop-filter: blur(16px);
+    padding:26px 24px;
+    border-radius:8px;
     display:none; z-index:10;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
   }
   #info-panel::before{
     content:'';
     position:absolute; top:0; left:0; right:0; height:3px;
     background: linear-gradient(90deg, transparent, #ffd700, #00ff88, #ffd700, transparent);
+    box-shadow: 0 0 10px #00ff88;
   }
   #info-panel h2{
-    margin:0 0 12px;
+    margin:0 0 14px;
     color:#00ff88;
-    letter-spacing:2px;
-    font-size:20px;
-    text-shadow: 0 0 12px rgba(0,255,136,0.5);
+    letter-spacing:2.5px;
+    font-size:21px;
+    font-family:'Orbitron', sans-serif;
+    text-shadow: 0 0 14px rgba(0,255,136,0.6);
   }
   .status{
-    padding:5px 12px; border-radius:3px; font-size:11px;
-    display:inline-block; margin-bottom:14px; font-weight:bold;
-    letter-spacing:1px;
+    padding:6px 14px; border-radius:3px; font-size:11px;
+    display:inline-block; margin-bottom:16px; font-weight:bold;
+    letter-spacing:1.2px; font-family:'Orbitron', sans-serif;
   }
-  .republic{background:#0a2a40; border:1px solid #3ad4ff; color:#3ad4ff}
-  .separatist{background:#3a0a0a; border:1px solid #ff4444; color:#ff6666}
-  .contested{background:#3a300a; border:1px solid #ffcc33; color:#ffdd55}
-  .alpha{background:#0a2a1a; border:1px solid #00ff88; color:#00ff88; box-shadow:0 0 10px rgba(0,255,136,0.4)}
-  .mandalore{background:#2a0a3a; border:1px solid #c9a0ff; color:#c9a0ff; box-shadow:0 0 10px rgba(201,160,255,0.35)}
+  .republic{background:#0a2a40; border:1px solid #3ad4ff; color:#3ad4ff; box-shadow:0 0 10px #3ad4ff}
+  .separatist{background:#3a0a0a; border:1px solid #ff4444; color:#ff6666; box-shadow:0 0 10px #ff4444}
+  .contested{background:#3a300a; border:1px solid #ffcc33; color:#ffdd55; box-shadow:0 0 10px #ffcc33}
+  .alpha{background:#0a2a1a; border:1px solid #00ff88; color:#00ff88; box-shadow:0 0 12px rgba(0,255,136,0.6)}
+  .mandalore{background:#2a0a3a; border:1px solid #c9a0ff; color:#c9a0ff; box-shadow:0 0 12px rgba(201,160,255,0.5)}
   .neutral{background:#0a2a1a; border:1px solid #66ff99; color:#66ff99}
-  #info-panel p{font-size:13.5px; line-height:1.55; opacity:0.92; color:#d0ffe8}
+  #info-panel p{font-size:13.8px; line-height:1.6; opacity:0.95; color:#d0ffe8}
   #info-panel .coord-line{
-    margin-top:16px; font-size:11px; opacity:0.55;
-    color:#ffd700; letter-spacing:0.5px;
+    margin-top:18px; font-size:11px; opacity:0.6;
+    color:#ffd700; letter-spacing:0.8px; font-family:'Orbitron', sans-serif;
   }
   .btn{
-    margin-top:18px;
-    background: linear-gradient(90deg, #003322, #005533);
-    border:1px solid #00ff88;
-    padding:10px 14px; border-radius:3px;
+    margin-top:20px;
+    background: linear-gradient(90deg, #003322, #006644);
+    border:1.5px solid #00ff88;
+    padding:11px 14px; border-radius:4px;
     cursor:pointer; color:#00ff88; font-weight:bold;
-    width:100%; letter-spacing:1.5px;
+    width:100%; letter-spacing:2px;
     transition: all 0.25s;
-    text-shadow: 0 0 8px rgba(0,255,136,0.4);
+    font-family:'Orbitron', sans-serif;
+    text-shadow: 0 0 8px rgba(0,255,136,0.6);
   }
   .btn:hover{
-    background: linear-gradient(90deg, #004433, #007744);
-    box-shadow: 0 0 14px rgba(0,255,136,0.35);
+    background: linear-gradient(90deg, #004433, #008855);
+    box-shadow: 0 0 18px rgba(0,255,136,0.5);
     color:#fff;
   }
   .title-bar{
-    position:absolute; left:22px; top:20px; z-index:3;
-    font-weight:bold; letter-spacing:2.5px; font-size:13px;
-    color:#00ff88; opacity:0.85;
-    text-shadow: 0 0 10px rgba(0,255,136,0.4);
+    position:absolute; left:24px; top:20px; z-index:4;
+    font-family:'Orbitron', sans-serif;
+    font-weight:800; letter-spacing:3px; font-size:13px;
+    color:#00ff88; opacity:0.9;
+    text-shadow: 0 0 12px rgba(0,255,136,0.6);
   }
 </style>
 </head>
@@ -138,100 +157,15 @@ const auraColors = {
 };
 
 const planets = [
-  {
-    id: "coruscant",
-    name: "CORUSCANT",
-    x: 50, y: 47, size: 34,
-    color: "#4da6ff",
-    img: "./Coruscant_QP.png",
-    status: "republic",
-    statusText: "CAPITAL REPUBLICA",
-    desc: "Núcleo galáctico y sede del Senado. Centro absoluto del poder político, militar y económico de la República. Desde sus niveles superiores se coordinan todas las operaciones estratégicas de Quantum Pulse. La ciudad-planeta nunca duerme.",
-    sector: "Núcleo"
-  },
-  {
-    id: "pulsar",
-    name: "PULSAR",
-    x: 54, y: 36, size: 32,
-    color: "#00ffcc",
-    status: "alpha",
-    statusText: "BASTIÓN ALPHA — QP",
-    desc: "Bastión escondido de la República Galáctica. Cuartel general secreto de Quantum Pulse. Aquí se entrenan las unidades de élite, se desarrollan prototipos clasificados y se planifican las operaciones de mayor riesgo. Su ubicación exacta es conocida solo por un puñado de Jedi y oficiales de alto rango. El verdadero corazón de la resistencia.",
-    sector: "Borde Exterior",
-    main: true
-  },
-  {
-    id: "kamino",
-    name: "KAMINO",
-    x: 28, y: 62, size: 18,
-    color: "#8ecfff",
-    status: "republic",
-    statusText: "CONTROL REPUBLICA",
-    desc: "Mundo oceánico extragaláctico. Principal centro de clonación de la República. Aquí se producen y entrenan los ejércitos de clones que sostienen el esfuerzo de guerra. Las tormentas eternas y las plataformas elevadas protegen las instalaciones de posibles infiltraciones separatistas.",
-    sector: "Extragaláctico"
-  },
-  {
-    id: "anaxes",
-    name: "ANAXES",
-    x: 38, y: 58, size: 20,
-    color: "#ffcc66",
-    status: "republic",
-    statusText: "BASE MILITAR",
-    desc: "Fortaleza y academia de guerra de la República. Conocida como el «Defensor del Núcleo». En sus instalaciones se forman los oficiales más brillantes de la flota y el ejército. Posee astilleros orbitales de alta capacidad y sistemas de defensa planetaria de última generación.",
-    sector: "Núcleo"
-  },
-  {
-    id: "geonosis",
-    name: "GEONOSIS",
-    x: 70, y: 60, size: 30,
-    color: "#ff5533",
-    img: "./GeonosisQP.png",
-    status: "separatist",
-    statusText: "SEPARATISTA",
-    desc: "Desierto rojizo bajo control separatista. Alberga las mayores fábricas de droides de batalla de la Confederación. Sus cavernas y factorías subterráneas producen legiones enteras de unidades de combate. Zona de alto riesgo para cualquier incursion republicana.",
-    sector: "Borde Exterior"
-  },
-  {
-    id: "umbara",
-    name: "UMBARA",
-    x: 66, y: 48, size: 17,
-    color: "#9a66ff",
-    status: "contested",
-    statusText: "EN DISPUTA",
-    desc: "El planeta de las sombras. Cubierto por una atmósfera perpetuamente oscura y una flora bioluminiscente hostil. Actualmente en disputa entre fuerzas de la República y separatistas. Las operaciones especiales aquí son extremadamente peligrosas y se realizan bajo estricto secreto.",
-    sector: "Borde Medio"
-  },
-  {
-    id: "felucia",
-    name: "FELUCIA",
-    x: 42, y: 72, size: 16,
-    color: "#66ff99",
-    status: "contested",
-    statusText: "EN DISPUTA",
-    desc: "Selva bioluminiscente de proporciones colosales. La vegetación gigante y las formas de vida agresivas convierten el terreno en una pesadilla táctica. Ambas facciones luchan por controlar sus recursos naturales y sus rutas de suministro. El control del planeta cambia constantemente.",
-    sector: "Borde Exterior"
-  },
-  {
-    id: "mustafar",
-    name: "MUSTAFAR",
-    x: 78, y: 70, size: 15,
-    color: "#ff3300",
-    status: "separatist",
-    statusText: "SEPARATISTA",
-    desc: "Mundo volcánico de lava eterna. Bajo dominio separatista. Sus forjas y minas de minerales raros alimentan la maquinaria de guerra de la Confederación. El calor extremo y los ríos de magma hacen casi imposible cualquier asalto convencional. Solo las unidades más preparadas se atreven a operar aquí.",
-    sector: "Borde Exterior"
-  },
-  {
-    id: "mandalore",
-    name: "MANDALORE",
-    x: 58, y: 42, size: 32,
-    color: "#c9a0ff",
-    img: "./MandaloreQP.png",
-    status: "mandalore",
-    statusText: "MANDALORE",
-    desc: "Mundo natal de los Mandalorianos. Neutralidad estratégica vigilada con celo. Cuna de una de las culturas guerreras más temidas de la galaxia. Aunque oficialmente no se ha alineado con ninguna de las facciones principales, su influencia y su capacidad militar lo convierten en un factor decisivo en cualquier conflicto.",
-    sector: "Borde Exterior"
-  }
+  { id: "coruscant", name: "CORUSCANT", x: 50, y: 47, size: 36, color: "#4da6ff", img: "./Coruscant_QP.png", status: "republic", statusText: "CAPITAL REPUBLICA", desc: "Núcleo galáctico y sede del Senado. Centro absoluto del poder político, militar y económico de la República. Desde sus niveles superiores se coordinan todas las operaciones estratégicas de Quantum Pulse.", sector: "Núcleo" },
+  { id: "pulsar", name: "PULSAR", x: 54, y: 36, size: 34, color: "#00ffcc", status: "alpha", statusText: "BASTIÓN ALPHA — QP", desc: "Bastión escondido de la República Galáctica. Cuartel general secreto de Quantum Pulse. Aquí se entrenan las unidades de élite, se desarrollan prototipos clasificados y se planifican las operaciones de mayor riesgo.", sector: "Borde Exterior", main: true },
+  { id: "kamino", name: "KAMINO", x: 28, y: 62, size: 20, color: "#8ecfff", status: "republic", statusText: "CONTROL REPUBLICA", desc: "Mundo oceánico extragaláctico. Principal centro de clonación de la República.", sector: "Extragaláctico" },
+  { id: "anaxes", name: "ANAXES", x: 38, y: 58, size: 22, color: "#ffcc66", status: "republic", statusText: "BASE MILITAR", desc: "Fortaleza y academia de guerra de la República. Conocida como el «Defensor del Núcleo».", sector: "Núcleo" },
+  { id: "geonosis", name: "GEONOSIS", x: 70, y: 60, size: 32, color: "#ff5533", img: "./GeonosisQP.png", status: "separatist", statusText: "SEPARATISTA", desc: "Desierto rojizo bajo control separatista. Alberga las mayores fábricas de droides de batalla.", sector: "Borde Exterior" },
+  { id: "umbara", name: "UMBARA", x: 66, y: 48, size: 19, color: "#9a66ff", status: "contested", statusText: "EN DISPUTA", desc: "El planeta de las sombras. Cubierto por una atmósfera perpetuamente oscura y una flora bioluminiscente hostil.", sector: "Borde Medio" },
+  { id: "felucia", name: "FELUCIA", x: 42, y: 72, size: 18, color: "#66ff99", status: "contested", statusText: "EN DISPUTA", desc: "Selva bioluminiscente de proporciones colosales.", sector: "Borde Exterior" },
+  { id: "mustafar", name: "MUSTAFAR", x: 78, y: 70, size: 17, color: "#ff3300", status: "separatist", statusText: "SEPARATISTA", desc: "Mundo volcánico de lava eterna. Bajo dominio separatista.", sector: "Borde Exterior" },
+  { id: "mandalore", name: "MANDALORE", x: 58, y: 42, size: 34, color: "#c9a0ff", img: "./MandaloreQP.png", status: "mandalore", statusText: "MANDALORE", desc: "Mundo natal de los Mandalorianos. Neutralidad estratégica vigilada con celo.", sector: "Borde Exterior" }
 ];
 
 const routes = [
@@ -254,7 +188,6 @@ let selectedId = null;
 function render(){
   galaxy.querySelectorAll('.planet').forEach(e => e.remove());
   svg.innerHTML = "";
-
   routes.forEach(r => {
     const pA = planets.find(p => p.id === r.from);
     const pB = planets.find(p => p.id === r.to);
@@ -267,7 +200,6 @@ function render(){
     line.classList.add(r.type);
     svg.appendChild(line);
   });
-
   planets.forEach(p => {
     const el = document.createElement('div');
     el.className = 'planet' + (selectedId === p.id ? ' selected' : '') + (p.main ? ' main' : '');
@@ -285,19 +217,16 @@ function render(){
     } else {
       el.style.backgroundColor = p.color;
     }
-
     if (selectedId === p.id) {
       const aura = auraColors[p.status] || p.color;
-      el.style.boxShadow = `0 0 28px ${aura}, 0 0 55px ${aura}, 0 0 90px ${aura}, inset -6px -6px 14px rgba(0,0,0,0.9)`;
+      el.style.boxShadow = `0 0 32px ${aura}, 0 0 65px ${aura}, 0 0 100px ${aura}, inset -6px -6px 14px rgba(0,0,0,0.9)`;
       el.style.borderColor = aura;
     }
-
     el.innerHTML = `<div class="planet-label">${p.name}</div>`;
     el.onclick = () => showInfo(p);
     galaxy.appendChild(el);
   });
 }
-
 function showInfo(p){
   selectedId = p.id;
   render();
@@ -310,13 +239,11 @@ function showInfo(p){
   st.innerText = p.statusText;
   st.className = 'status ' + p.status;
 }
-
 function closePanel(){
   document.getElementById('info-panel').style.display = 'none';
   selectedId = null;
   render();
 }
-
 render();
 </script>
 </body>
