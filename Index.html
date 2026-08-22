@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Pulse - Holomapa Galáctico</title>
+<style>
+  body { margin:0; background:#000; overflow:hidden; font-family: 'Segoe UI', sans-serif; color:white; }
+  #galaxy {
+    width:100vw; height:100vh;
+    background: url('https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif') center/cover no-repeat;
+    position:relative;
+  }
+  /* Niebla/vapor sutil encima del gif para que se vea nocturno */
+  #galaxy::after { content:''; position:absolute; inset:0; background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8) 100%); }
+  
+  .planet {
+    position:absolute; border-radius:50%; cursor:pointer;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px currentColor, inset -5px -5px 15px rgba(0,0,0,0.8);
+    transition: all 0.3s; z-index:2;
+  }
+  .planet:hover { transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 30px currentColor; }
+  .planet-label { position:absolute; top:120%; left:50%; transform:translateX(-50%); font-size:11px; white-space:nowrap; text-shadow:0 0 5px black; letter-spacing:1px; }
+
+  #info-panel {
+    position:absolute; right:20px; top:20px; width:320px;
+    background: rgba(10,15,30,0.9); border:1px solid #3af; backdrop-filter: blur(10px);
+    padding:20px; border-radius:12px; display:none; z-index:10;
+  }
+  #info-panel h2 { margin:0 0 10px; color:#3af; }
+  .status { padding:4px 8px; border-radius:4px; font-size:12px; display:inline-block; margin-bottom:10px; }
+  .republic { background:#1a4d8f; } .separatist { background:#8f1a1a; } .contested { background:#8f7a1a; } .alpha { background:#1a8f4d; box-shadow:0 0 10px #1a8f4d; }
+
+  /* Líneas de hiperespacio */
+  svg#routes { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+  svg#routes line { stroke: rgba(60,170,255,0.15); stroke-width:1; stroke-dasharray:5 5; }
+</style>
+</head>
+<body>
+<div id="galaxy">
+  <svg id="routes"></svg>
+  <div id="info-panel">
+    <div id="info-status" class="status"></div>
+    <h2 id="info-name"></h2>
+    <p id="info-desc" style="font-size:14px; opacity:0.8; line-height:1.4"></p>
+    <p style="margin-top:15px; font-size:12px; opacity:0.5">COORD: <span id="info-coord"></span></p>
+    <button onclick="document.getElementById('info-panel').style.display='none'" style="margin-top:15px; background:#3af; border:0; padding:8px 12px; border-radius:6px; cursor:pointer; color:black; font-weight:bold">CERRAR</button>
+  </div>
+</div>
+
+<script>
+/* --- EDITÁ SOLO ESTO PARA AGREGAR PLANETAS (max 20) --- */
+const planets = [
+  { id:"coruscant", name:"CORUSCANT", x:50, y:50, size:28, color:"#4da6ff", status:"republic", statusText:"Capital de la República", desc:"Centro de la galaxia. Mando central de Quantum Pulse." },
+  { id:"kamino", name:"KAMINO", x:20, y:75, size:18, color:"#7fbfff", status:"republic", statusText:"Control República", desc:"Instalaciones de clonación. Reclutamiento activo." },
+  { id:"anaxes", name:"ANAXES", x:35, y:30, size:20, color:"#ffcc66", status:"republic", statusText:"Base Militar", desc:"Sede de la academia de oficiales." },
+  { id:"wiltos", name:"WILTOS [ALPHA]", x:70, y:35, size:22, color:"#00ff88", status:"alpha", statusText:"PRÓXIMA ALPHA", desc:"Próximo despliegue. Fase de pruebas. Preparen a todos los Jedis. Vendrán cosas espectaculares." },
+  { id:"geonosis", name:"GEONOSIS", x:80, y:70, size:20, color:"#ff6644", status:"separatist", statusText:"Bajo control Separatista", desc:"Fábricas de droides detectadas. Próximo objetivo." },
+  { id:"umbara", name:"UMBARA", x:60, y:80, size:16, color:"#8866ff", status:"contested", statusText:"En Disputa", desc:"Zona oscura. Operaciones especiales requeridas." },
+];
+
+const routes = [ ["coruscant","anaxes"], ["coruscant","wiltos"], ["anaxes","kamino"], ["wiltos","geonosis"] ];
+
+const galaxy = document.getElementById('galaxy');
+const svg = document.getElementById('routes');
+
+function render() {
+  galaxy.querySelectorAll('.planet').forEach(e=>e.remove());
+  svg.innerHTML = "";
+
+  // Rutas
+  routes.forEach(([a,b]) => {
+    const pA = planets.find(p=>p.id===a), pB = planets.find(p=>p.id===b);
+    if(!pA||!pB) return;
+    const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1", pA.x+"%"); line.setAttribute("y1", pA.y+"%");
+    line.setAttribute("x2", pB.x+"%"); line.setAttribute("y2", pB.y+"%");
+    svg.appendChild(line);
+  });
+
+  // Planetas
+  planets.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'planet';
+    el.style.left = p.x + '%'; el.style.top = p.y + '%';
+    el.style.width = p.size + 'px'; el.style.height = p.size + 'px';
+    el.style.backgroundColor = p.color; el.style.color = p.color;
+    el.innerHTML = `<div class="planet-label">${p.name}</div>`;
+    el.onclick = () => showInfo(p);
+    galaxy.appendChild(el);
+  });
+}
+
+function showInfo(p) {
+  document.getElementById('info-panel').style.display = 'block';
+  document.getElementById('info-name').innerText = p.name;
+  document.getElementById('info-desc').innerText = p.desc;
+  document.getElementById('info-coord').innerText = `X:${p.x} Y:${p.y}`;
+  const st = document.getElementById('info-status');
+  st.innerText = p.statusText; st.className = 'status ' + p.status;
+}
+render();
+</script>
+</body>
+</html>
