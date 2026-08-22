@@ -5,93 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quantum Pulse - Holomapa Galáctico</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;700&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#000;font-family:'Segoe UI',sans-serif;color:#fff;overflow:hidden}
-  #galaxy{
-    width:100vw;height:100vh;
-    background: url('./QUANTUM_MAP.png') center/cover no-repeat fixed;
-    position:relative;
-  }
-  #galaxy::after{
-    content:'';position:absolute;inset:0;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.75) 95%);
-    z-index:1;
-  }
-  #galaxy::before{
-    content:'';position:absolute;inset:0;z-index:2;
-    background: repeating-linear-gradient(0deg, rgba(0,255,136,0.03) 0px, transparent 2px, transparent 4px);
-    pointer-events:none;
-  }
-  .planet{
-    position:absolute; border-radius:50%; cursor:pointer;
-    transform: translate(-50%,-50%);
-    box-shadow: 0 0 22px currentColor, inset -7px -7px 14px rgba(0,0,0,0.95);
-    transition: all 0.35s ease; z-index:3; border:1.8px solid rgba(255,255,255,0.9);
-    background-size: cover;
-    background-position: center;
-  }
-  .planet:hover{ transform: translate(-50%,-50%) scale(1.35); box-shadow: 0 0 40px currentColor, 0 0 70px currentColor; }
-  .planet.selected{
-    transform: translate(-50%,-50%) scale(1.55);
-    z-index:6;
-    animation: pulse-aura 1.6s ease-in-out infinite;
-  }
-  .planet.main{
-    box-shadow: 0 0 35px #00ff88, 0 0 70px #00ff88, 0 0 110px rgba(0,255,136,0.6), inset -7px -7px 14px rgba(0,0,0,0.85);
-    border: 2.5px solid #00ffcc;
-  }
-  @keyframes pulse-aura {
-    0%, 100% { filter: brightness(1) drop-shadow(0 0 10px currentColor); }
-    50% { filter: brightness(1.6) drop-shadow(0 0 20px currentColor); }
-  }
-  .planet-label{
-    position:absolute; top:135%; left:50%; transform:translateX(-50%);
-    font-family:'Orbitron', sans-serif;
-    font-size:10px; font-weight:800; letter-spacing:1.8px; white-space:nowrap;
-    text-shadow: 0 1px 4px black, 0 0 12px currentColor; pointer-events:none;
-  }
+  body{background:#000;font-family:'Rajdhani', sans-serif;color:#fff;overflow:hidden}
+  #galaxy{ width:100vw;height:100vh; background: url('./QUANTUM_MAP.png') center/cover no-repeat fixed; position:relative; }
+  #galaxy::after{ content:'';position:absolute;inset:0; background: radial-gradient(circle at center, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.75) 95%); z-index:1; }
+  .planet{ position:absolute; border-radius:50%; cursor:pointer; transform: translate(-50%,-50%); box-shadow: 0 0 22px currentColor, inset -7px -7px 14px rgba(0,0,0,0.95); transition: all 0.35s ease; z-index:3; border:1.8px solid rgba(255,255,255,0.9); background-size: cover; background-position: center; }
+  .planet:hover{ transform: translate(-50%,-50%) scale(1.35); }
+  .planet.selected{ transform: translate(-50%,-50%) scale(1.55); z-index:6; animation: pulse-aura 1.6s ease-in-out infinite; }
+  .planet.main{ box-shadow: 0 0 35px #00ff88, 0 0 70px #00ff88, 0 0 110px rgba(0,255,136,0.6), inset -7px -7px 14px rgba(0,0,0,0.85); border: 2.5px solid #00ffcc; }
+  @keyframes pulse-aura { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.5)} }
+  .planet-label{ position:absolute; top:135%; left:50%; transform:translateX(-50%); font-family:'Orbitron', sans-serif; font-size:10px; font-weight:800; letter-spacing:1.8px; white-space:nowrap; text-shadow: 0 1px 4px black, 0 0 12px currentColor; pointer-events:none; }
   svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
-  svg#routes line{
-    stroke-width:3;
-    stroke-dasharray:12 10;
-    stroke-linecap:round;
-    animation: dash-move 1s linear infinite;
-  }
+  svg#routes line{ stroke-width:3; stroke-dasharray:12 10; stroke-linecap:round; animation: dash-move 1s linear infinite; }
   @keyframes dash-move { to { stroke-dashoffset: -44; } }
-  svg#routes line.friendly{ stroke: #00ffcc; filter: drop-shadow(0 0 7px #00ffcc) drop-shadow(0 0 14px #00ffcc); opacity:1; }
-  svg#routes line.hostile{ stroke: #ff3355; filter: drop-shadow(0 0 7px #ff3355) drop-shadow(0 0 16px #ff3355); opacity:1; stroke-dasharray: 5 10; }
-  svg#routes line.neutral{ stroke: #ffd700; filter: drop-shadow(0 0 7px #ffd700) drop-shadow(0 0 14px #ffd700); opacity:1; }
-
-  #info-panel{
-    position:absolute; right:22px; top:22px; width:380px;
-    background: linear-gradient(160deg, rgba(0,22,14,0.96) 0%, rgba(0,10,8,0.98) 100%);
-    border: 1.5px solid #00ff88;
-    box-shadow: 0 0 22px rgba(0,255,136,0.35), inset 0 0 35px rgba(0,60,30,0.5);
-    backdrop-filter: blur(16px);
-    padding:26px 24px;
-    border-radius:8px;
-    display:none; z-index:10;
-  }
-  #info-panel::before{
-    content:'';
-    position:absolute; top:0; left:0; right:0; height:3px;
-    background: linear-gradient(90deg, transparent, #ffd700, #00ff88, #ffd700, transparent);
-    box-shadow: 0 0 10px #00ff88;
-  }
-  #info-panel h2{ margin:0 0 14px; color:#00ff88; letter-spacing:2.5px; font-size:21px; font-family:'Orbitron', sans-serif; text-shadow: 0 0 14px rgba(0,255,136,0.6); }
-  .status{ padding:6px 14px; border-radius:3px; font-size:11px; display:inline-block; margin-bottom:16px; font-weight:bold; letter-spacing:1.2px; font-family:'Orbitron', sans-serif; }
-  .republic{background:#0a2a40; border:1px solid #3ad4ff; color:#3ad4ff; box-shadow:0 0 10px #3ad4ff}
-  .separatist{background:#3a0a0a; border:1px solid #ff4444; color:#ff6666; box-shadow:0 0 10px #ff4444}
-  .contested{background:#3a300a; border:1px solid #ffcc33; color:#ffdd55; box-shadow:0 0 10px #ffcc33}
-  .alpha{background:#0a2a1a; border:1px solid #00ff88; color:#00ff88; box-shadow:0 0 12px rgba(0,255,136,0.6)}
-  .mandalore{background:#2a0a3a; border:1px solid #c9a0ff; color:#c9a0ff; box-shadow:0 0 12px rgba(201,160,255,0.5)}
-  .neutral{background:#0a2a1a; border:1px solid #66ff99; color:#66ff99}
-  #info-panel p{font-size:13.8px; line-height:1.6; opacity:0.95; color:#d0ffe8}
-  #info-panel .coord-line{ margin-top:18px; font-size:11px; opacity:0.6; color:#ffd700; letter-spacing:0.8px; font-family:'Orbitron', sans-serif; }
-  .btn{ margin-top:20px; background: linear-gradient(90deg, #003322, #006644); border:1.5px solid #00ff88; padding:11px 14px; border-radius:4px; cursor:pointer; color:#00ff88; font-weight:bold; width:100%; letter-spacing:2px; transition: all 0.25s; font-family:'Orbitron', sans-serif; }
-  .btn:hover{ background: linear-gradient(90deg, #004433, #008855); box-shadow: 0 0 18px rgba(0,255,136,0.5); color:#fff; }
-  .title-bar{ position:absolute; left:24px; top:20px; z-index:4; font-family:'Orbitron', sans-serif; font-weight:800; letter-spacing:3px; font-size:13px; color:#00ff88; opacity:0.9; text-shadow: 0 0 12px rgba(0,255,136,0.6); }
+  svg#routes line.friendly{ stroke: #00ffcc; filter: drop-shadow(0 0 7px #00ffcc) drop-shadow(0 0 14px #00ffcc); }
+  svg#routes line.hostile{ stroke: #ff3355; filter: drop-shadow(0 0 7px #ff3355) drop-shadow(0 0 16px #ff3355); stroke-dasharray: 5 10; }
+  svg#routes line.neutral{ stroke: #ffd700; filter: drop-shadow(0 0 7px #ffd700) drop-shadow(0 0 14px #ffd700); }
+  #info-panel{ position:absolute; right:22px; top:22px; width:410px; max-height:92vh; overflow-y:auto; background: linear-gradient(160deg, rgba(0,22,14,0.97) 0%, rgba(0,10,8,0.99) 100%); border: 1.5px solid #00ff88; box-shadow: 0 0 25px rgba(0,255,136,0.35), inset 0 0 35px rgba(0,60,30,0.5); backdrop-filter: blur(16px); border-radius:10px; display:none; z-index:10; }
+  #info-panel::-webkit-scrollbar{ width:5px; } #info-panel::-webkit-scrollbar-thumb{ background:#00ff88; border-radius:5px; }
+  #info-panel::before{ content:''; position:sticky; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, #ffd700, #00ff88, #ffd700, transparent); box-shadow: 0 0 10px #00ff88; z-index:11; display:block; }
+  .panel-img{ width:100%; height:220px; background-size:cover; background-position:center; position:relative; border-bottom: 1px solid rgba(0,255,136,0.3); }
+  .panel-img::after{ content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,15,10,1) 8%, transparent 70%); }
+  .panel-img .sector-tag{ position:absolute; bottom:12px; left:14px; z-index:2; background: rgba(0,0,0,0.6); border:1px solid #ffd700; color:#ffd700; font-family:'Orbitron'; font-size:9px; padding:4px 10px; letter-spacing:1px; border-radius:3px; }
+  .panel-img .status-tag{ position:absolute; top:14px; left:14px; z-index:2; }
+  .panel-body{ padding:18px 20px 20px; }
+  #info-panel h2{ margin:0 0 4px; color:#00ff88; letter-spacing:2.5px; font-size:22px; font-family:'Orbitron', sans-serif; }
+  .status{ padding:5px 12px; border-radius:3px; font-size:10px; display:inline-block; font-weight:bold; letter-spacing:1.2px; font-family:'Orbitron', sans-serif; }
+  .republic{background:#0a2a40; border:1px solid #3ad4ff; color:#3ad4ff; box-shadow:0 0 10px #3ad4ff} .separatist{background:#3a0a0a; border:1px solid #ff4444; color:#ff6666; box-shadow:0 0 10px #ff4444} .contested{background:#3a300a; border:1px solid #ffcc33; color:#ffdd55; box-shadow:0 0 10px #ffcc33} .alpha{background:#0a2a1a; border:1px solid #00ff88; color:#00ff88; box-shadow:0 0 12px rgba(0,255,136,0.6)} .mandalore{background:#2a0a3a; border:1px solid #c9a0ff; color:#c9a0ff; box-shadow:0 0 12px rgba(201,160,255,0.5)}
+  .tabs{ display:flex; gap:12px; margin:14px 0 14px; border-bottom:1px solid rgba(0,255,136,0.15); padding-bottom:8px; flex-wrap:wrap; }
+  .tab{ cursor:pointer; font-family:'Orbitron'; font-size:9px; letter-spacing:1.2px; color:rgba(255,255,255,0.4); padding-bottom:4px; border-bottom:2px solid transparent; transition:0.25s; }
+  .tab.active{ color:#00ff88; border-bottom:2px solid #00ff88; text-shadow:0 0 8px #00ff88; }
+  .tab-content{ display:none; animation: fadeIn 0.3s ease; } .tab-content.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:translateY(0)} }
+  #info-panel p{font-size:14px; line-height:1.6; opacity:0.9; color:#c8ffe0}
+  .stat-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:4px; }
+  .stat{ background: rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.15); padding:10px 12px; border-radius:6px; }
+  .stat span{ display:block; font-family:'Orbitron'; font-size:8px; letter-spacing:1px; color:#ffd700; opacity:0.7; margin-bottom:3px; } .stat b{ font-size:13px; color:#fff; }
+  .unit-row{ margin-bottom:14px; }
+  .unit-head{ display:flex; justify-content:space-between; margin-bottom:5px; font-family:'Orbitron'; font-size:10px; letter-spacing:1px; }
+  .unit-head b{ color:#fff; } .unit-head i{ color:#00ff88; font-style:normal; }
+  .bar{ width:100%; height:7px; background: rgba(0,255,136,0.1); border-radius:3px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:3px; box-shadow:0 0 8px currentColor; transition: width 0.8s ease; }
+  .bar.blue{ background: linear-gradient(90deg, #3ad4ff, #00aaff); color:#3ad4ff; } .bar.red{ background: linear-gradient(90deg, #ff4444, #ff0000); color:#ff4444; } .bar.gold{ background: linear-gradient(90deg, #ffcc33, #ffd700); color:#ffcc33; } .bar.green{ background: linear-gradient(90deg, #00ff88, #00ffcc); color:#00ff88; }
+  .unit-img{ width:100%; height:130px; border-radius:6px; background-size:cover; background-position:center; margin-bottom:14px; border:1px solid rgba(0,255,136,0.2); }
+  .btn{ margin-top:18px; background: linear-gradient(90deg, #003322, #006644); border:1.5px solid #00ff88; padding:11px 14px; border-radius:6px; cursor:pointer; color:#00ff88; font-weight:bold; width:100%; letter-spacing:2px; font-family:'Orbitron', sans-serif; }
+  .title-bar{ position:absolute; left:24px; top:20px; z-index:4; font-family:'Orbitron', sans-serif; font-weight:800; letter-spacing:3px; font-size:13px; color:#00ff88; opacity:0.9; }
 </style>
 </head>
 <body>
@@ -99,111 +58,99 @@
   <div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA</div>
   <svg id="routes"></svg>
   <div id="info-panel">
-    <div id="info-status" class="status"></div>
-    <h2 id="info-name"></h2>
-    <p id="info-desc"></p>
-    <p class="coord-line">COORD: <span id="info-coord"></span>  |  SECTOR: <span id="info-sector"></span></p>
-    <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
+    <div class="panel-img" id="info-img">
+      <div id="info-status" class="status status-tag"></div>
+      <div class="sector-tag">SECTOR: <span id="info-sector"></span></div>
+    </div>
+    <div class="panel-body">
+      <h2 id="info-name"></h2>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">● LORE</div>
+        <div class="tab" onclick="switchTab(1)">● DATOS</div>
+        <div class="tab" onclick="switchTab(2)">● FUERZAS</div>
+        <div class="tab" onclick="switchTab(3)">● UNIDADES</div>
+      </div>
+      <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
+      <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
+      <div id="tab-2" class="tab-content">
+        <div class="stat-grid" id="info-forces"></div>
+        <div style="margin-top:12px"><span style="font-family:Orbitron; font-size:9px; color:#ffd700;">NIVEL DE AMENAZA</span><div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div></div>
+      </div>
+      <div id="tab-3" class="tab-content">
+        <div class="unit-img" id="unit-img"></div>
+        <div id="info-units"></div>
+      </div>
+      <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
+    </div>
   </div>
 </div>
 <script>
-const auraColors = {
-  republic:   '#3ad4ff',
-  separatist: '#ff4444',
-  contested:  '#ffcc33',
-  alpha:      '#00ff88',
-  mandalore:  '#c9a0ff',
-  neutral:    '#66ff99'
-};
-
+const auraColors = { republic:'#3ad4ff', separatist:'#ff4444', contested:'#ffcc33', alpha:'#00ff88', mandalore:'#c9a0ff' };
 const planets = [
-  { id: "coruscant", name: "CORUSCANT", x: 50, y: 47, size: 38, color: "#4da6ff", img: "./Coruscant_QP.png", status: "republic", statusText: "CAPITAL REPUBLICA", desc: "Núcleo galáctico y sede del Senado. Centro absoluto del poder político, militar y económico de la República.", sector: "Núcleo" },
-  { id: "pulsar", name: "PULSAR", x: 54, y: 36, size: 34, color: "#00ffcc", status: "alpha", statusText: "BASTIÓN ALPHA — QP", desc: "Bastión escondido de la República Galáctica. Cuartel general secreto de Quantum Pulse.", sector: "Borde Exterior", main: true },
-  { id: "kamino", name: "KAMINO", x: 28, y: 62, size: 30, color: "#8ecfff", img: "./Kamino_QP.png", status: "republic", statusText: "CONTROL REPUBLICA", desc: "Mundo oceánico extragaláctico. Principal centro de clonación de la República.", sector: "Extragaláctico" },
-  { id: "anaxes", name: "ANAXES", x: 38, y: 58, size: 22, color: "#ffcc66", status: "republic", statusText: "BASE MILITAR", desc: "Fortaleza y academia de guerra de la República.", sector: "Núcleo" },
-  { id: "geonosis", name: "GEONOSIS", x: 70, y: 60, size: 34, color: "#ff5533", img: "./Geonosis_QP.png", status: "separatist", statusText: "SEPARATISTA", desc: "Desierto rojizo bajo control separatista. Alberga las mayores fábricas de droides.", sector: "Borde Exterior" },
-  { id: "umbara", name: "UMBARA", x: 66, y: 48, size: 19, color: "#9a66ff", status: "contested", statusText: "EN DISPUTA", desc: "El planeta de las sombras. Cubierto por una atmósfera perpetuamente oscura.", sector: "Borde Medio" },
-  { id: "felucia", name: "FELUCIA", x: 42, y: 72, size: 30, color: "#66ff99", img: "./Felucia_QP.png", status: "contested", statusText: "EN DISPUTA", desc: "Selva bioluminiscente de proporciones colosales.", sector: "Borde Exterior" },
-  { id: "mustafar", name: "MUSTAFAR", x: 78, y: 70, size: 17, color: "#ff3300", status: "separatist", statusText: "SEPARATISTA", desc: "Mundo volcánico de lava eterna.", sector: "Borde Exterior" },
-  { id: "mandalore", name: "MANDALORE", x: 58, y: 42, size: 36, color: "#c9a0ff", img: "./Mandalore_QP.png", status: "mandalore", statusText: "MANDALORE", desc: "Mundo natal de los Mandalorianos. Neutralidad estratégica.", sector: "Borde Exterior" }
+  { 
+    id:"coruscant", name:"CORUSCANT", x:50, y:47, size:38, color:"#4da6ff", 
+    img:"./Coruscant_QP.png", 
+    imgDetail:"./GalacticCity.png", 
+    unitImg:"./SH_TROOPS_QP.png",
+    status:"republic", statusText:"CAPITAL REPUBLICA", sector:"Núcleo Interior", 
+    desc:"Núcleo galáctico y sede del Senado. Centro absoluto del poder político, militar y económico de la República. Desde sus niveles superiores se coordinan todas las operaciones estratégicas.",
+    stats:{ poblacion:"1 Trillón", clima:"Urbano Total", recursos:"Político / Económico", afiliacion:"República" }, 
+    forces:{ guarnicion:"Guardia Coruscant", flota:"Flota Interior", amenaza:20 }, 
+    units:[ 
+      {name:"Unidad del Senado", count:"12,500 Efectivos", pct:85, color:"blue"}, 
+      {name:"Guardia de Coruscant", count:"25,000 Efectivos", pct:92, color:"red"}, 
+      {name:"Shock Troopers", count:"8,200 Efectivos", pct:78, color:"red"}, 
+      {name:"Fuerza de Seguridad", count:"150,000 Efectivos", pct:65, color:"gold"}
+    ] 
+  },
+  { id:"pulsar", name:"PULSAR", x:54, y:36, size:36, color:"#00ffcc", img:"./Pulsar_QP.png", imgDetail:"./Pulsar_QP.png", unitImg:"./Pulsar_QP.png", status:"alpha", statusText:"BASTIÓN ALPHA — QP", sector:"Borde Exterior [CLASIFICADO]", desc:"Bastión escondido de la República. Cuartel general secreto de Quantum Pulse.", stats:{ poblacion:"45.000", clima:"Templado Tecnificado", recursos:"Tecnología QP", afiliacion:"Quantum Pulse" }, forces:{ guarnicion:"Élite QP", flota:"Sombra Alpha", amenaza:95 }, units:[ {name:"Operadores QP", count:"3,200", pct:95, color:"green"}, {name:"Ingenieros Alfa", count:"1,100", pct:80, color:"blue"} ], main:true },
+  { id:"kamino", name:"KAMINO", x:28, y:62, size:30, color:"#8ecfff", img:"./Kamino_QP.png", imgDetail:"./Kamino_QP.png", unitImg:"./Kamino_QP.png", status:"republic", statusText:"CONTROL REPUBLICA", sector:"Extragaláctico", desc:"Mundo oceánico extragaláctico. Principal centro de clonación.", stats:{ poblacion:"1M Kaminoanos", clima:"Oceánico Extremo", recursos:"Clonación", afiliacion:"República" }, forces:{ guarnicion:"Clones", flota:"Defensa Kaminoana", amenaza:40 }, units:[ {name:"Clones Fase II", count:"200,000", pct:88, color:"blue"} ] },
+  { id:"anaxes", name:"ANAXES", x:38, y:58, size:22, color:"#ffcc66", status:"republic", statusText:"BASE MILITAR", sector:"Núcleo Interior", desc:"Fortaleza y academia de guerra de la República.", stats:{ poblacion:"500M", clima:"Fortificado", recursos:"Academia / Astilleros", afiliacion:"República" }, forces:{ guarnicion:"Legión Anaxes", flota:"Cruceros Venator", amenaza:35 }, units:[ {name:"Cadetes", count:"15,000", pct:60, color:"gold"} ] },
+  { id:"geonosis", name:"GEONOSIS", x:70, y:60, size:34, color:"#ff5533", img:"./Geonosis_QP.png", imgDetail:"./Geonosis_QP.png", unitImg:"./Geonosis_QP.png", status:"separatist", statusText:"SEPARATISTA", sector:"Borde Exterior", desc:"Desierto rojizo bajo control separatista. Fábricas de droides.", stats:{ poblacion:"100B Geonosianos", clima:"Árido Rocoso", recursos:"Fábricas Droides", afiliacion:"Confederación" }, forces:{ guarnicion:"Droides B1/B2", flota:"Naves Separatistas", amenaza:85 }, units:[ {name:"Super Droides B2", count:"500,000", pct:90, color:"red"} ] },
+  { id:"umbara", name:"UMBARA", x:66, y:48, size:19, color:"#9a66ff", status:"contested", statusText:"EN DISPUTA", sector:"Borde Medio", desc:"El planeta de las sombras.", stats:{ poblacion:"Desconocida", clima:"Oscuridad Perpetua", recursos:"Kyber / Sombras", afiliacion:"En Disputa" }, forces:{ guarnicion:"Milicia Umbarana", flota:"Cazas Umbaranos", amenaza:90 }, units:[ {name:"Milicia Oscura", count:"60,000", pct:75, color:"red"} ] },
+  { id:"felucia", name:"FELUCIA", x:42, y:72, size:30, color:"#66ff99", img:"./Felucia_QP.png", imgDetail:"./Felucia_QP.png", unitImg:"./Felucia_QP.png", status:"contested", statusText:"EN DISPUTA", sector:"Borde Exterior", desc:"Selva bioluminiscente colosal.", stats:{ poblacion:"Nativa Feluciana", clima:"Selva Bioluminiscente", recursos:"Plantas / Toxinas", afiliacion:"En Disputa" }, forces:{ guarnicion:"Criaturas", flota:"Ninguna", amenaza:75 }, units:[ {name:"Defensores Felucianos", count:"5,000", pct:40, color:"green"} ] },
+  { id:"mustafar", name:"MUSTAFAR", x:78, y:70, size:17, color:"#ff3300", status:"separatist", statusText:"SEPARATISTA", sector:"Borde Exterior", desc:"Mundo volcánico de lava eterna.", stats:{ poblacion:"Mustafarianos", clima:"Volcánico Extremo", recursos:"Minerales / Lava", afiliacion:"Confederación" }, forces:{ guarnicion:"Droides Magma", flota:"Anillo Separatista", amenaza:80 }, units:[ {name:"Guardia de Lava", count:"12,000", pct:65, color:"red"} ] },
+  { id:"mandalore", name:"MANDALORE", x:58, y:42, size:36, color:"#c9a0ff", img:"./Mandalore_QP.png", imgDetail:"./Mandalore_QP.png", unitImg:"./Mandalore_QP.png", status:"mandalore", statusText:"MANDALORE", sector:"Borde Exterior", desc:"Mundo natal de los Mandalorianos.", stats:{ poblacion:"4M", clima:"Desértico / Domos", recursos:"Beskar / Mercenarios", afiliacion:"Mandalore - Neutral" }, forces:{ guarnicion:"Clan Mandaloriano", flota:"Kryze / Death Watch", amenaza:70 }, units:[ {name:"Supercomandos", count:"2,500", pct:95, color:"blue"} ] }
 ];
-
-const routes = [
-  { from: "coruscant", to: "anaxes",   type: "friendly" },
-  { from: "coruscant", to: "pulsar",   type: "friendly" },
-  { from: "pulsar",    to: "umbara",   type: "neutral"  },
-  { from: "anaxes",    to: "kamino",   type: "friendly" },
-  { from: "pulsar",    to: "geonosis", type: "hostile"  },
-  { from: "umbara",    to: "felucia",  type: "neutral"  },
-  { from: "pulsar",    to: "mandalore",type: "neutral"  },
-  { from: "mandalore", to: "umbara",   type: "neutral"  },
-  { from: "geonosis",  to: "mustafar", type: "friendly" },
-  { from: "coruscant", to: "kamino",   type: "friendly" }
-];
-
-const galaxy = document.getElementById('galaxy');
-const svg = document.getElementById('routes');
-let selectedId = null;
-
+const routes = [ {from:"coruscant",to:"anaxes",type:"friendly"}, {from:"coruscant",to:"pulsar",type:"friendly"}, {from:"pulsar",to:"umbara",type:"neutral"}, {from:"anaxes",to:"kamino",type:"friendly"}, {from:"pulsar",to:"geonosis",type:"hostile"}, {from:"umbara",to:"felucia",type:"neutral"}, {from:"pulsar",to:"mandalore",type:"neutral"}, {from:"mandalore",to:"umbara",type:"neutral"}, {from:"geonosis",to:"mustafar",type:"friendly"}, {from:"coruscant",to:"kamino",type:"friendly"} ];
+const galaxy = document.getElementById('galaxy'); const svg = document.getElementById('routes'); let selectedId = null;
 function render(){
-  galaxy.querySelectorAll('.planet').forEach(e => e.remove());
-  svg.innerHTML = "";
+  galaxy.querySelectorAll('.planet').forEach(e => e.remove()); svg.innerHTML = "";
   routes.forEach(r => {
-    const pA = planets.find(p => p.id === r.from);
-    const pB = planets.find(p => p.id === r.to);
-    if (!pA || !pB) return;
+    const pA = planets.find(p => p.id === r.from); const pB = planets.find(p => p.id === r.to); if (!pA || !pB) return;
     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", pA.x + "%");
-    line.setAttribute("y1", pA.y + "%");
-    line.setAttribute("x2", pB.x + "%");
-    line.setAttribute("y2", pB.y + "%");
-    line.classList.add(r.type);
-    svg.appendChild(line);
+    line.setAttribute("x1", pA.x + "%"); line.setAttribute("y1", pA.y + "%"); line.setAttribute("x2", pB.x + "%"); line.setAttribute("y2", pB.y + "%"); line.classList.add(r.type); svg.appendChild(line);
   });
   planets.forEach(p => {
-    const el = document.createElement('div');
-    el.className = 'planet' + (selectedId === p.id ? ' selected' : '') + (p.main ? ' main' : '');
-    el.dataset.id = p.id;
-    el.style.left = p.x + '%';
-    el.style.top = p.y + '%';
-    el.style.width = p.size + 'px';
-    el.style.height = p.size + 'px';
-    el.style.color = p.color;
-    if (p.img) {
-      el.style.backgroundImage = `url('${p.img}')`;
-      el.style.backgroundSize = "cover";
-      el.style.backgroundPosition = "center";
-      el.style.backgroundColor = "transparent";
-    } else {
-      el.style.backgroundColor = p.color;
-    }
-    if (selectedId === p.id) {
-      const aura = auraColors[p.status] || p.color;
-      el.style.boxShadow = `0 0 32px ${aura}, 0 0 65px ${aura}, 0 0 100px ${aura}, inset -6px -6px 14px rgba(0,0,0,0.9)`;
-      el.style.borderColor = aura;
-    }
-    el.innerHTML = `<div class="planet-label">${p.name}</div>`;
-    el.onclick = () => showInfo(p);
-    galaxy.appendChild(el);
+    const el = document.createElement('div'); el.className = 'planet' + (selectedId === p.id ? ' selected' : '') + (p.main ? ' main' : '');
+    el.style.left = p.x + '%'; el.style.top = p.y + '%'; el.style.width = p.size + 'px'; el.style.height = p.size + 'px'; el.style.color = p.color;
+    if (p.img) { el.style.backgroundImage = `url('${p.img}')`; el.style.backgroundSize="cover"; el.style.backgroundPosition="center"; } else { el.style.backgroundColor = p.color; }
+    el.innerHTML = `<div class="planet-label">${p.name}</div>`; el.onclick = () => showInfo(p); galaxy.appendChild(el);
   });
 }
+function switchTab(i){
+  document.querySelectorAll('.tab').forEach((t,idx)=> t.classList.toggle('active', idx===i));
+  document.querySelectorAll('.tab-content').forEach((c,idx)=> c.classList.toggle('active', idx===i));
+}
 function showInfo(p){
-  selectedId = p.id;
-  render();
+  selectedId = p.id; render(); switchTab(0);
   document.getElementById('info-panel').style.display = 'block';
   document.getElementById('info-name').innerText = p.name;
   document.getElementById('info-desc').innerText = p.desc;
-  document.getElementById('info-coord').innerText = `X:${p.x} Y:${p.y}`;
   document.getElementById('info-sector').innerText = p.sector;
-  const st = document.getElementById('info-status');
-  st.innerText = p.statusText;
-  st.className = 'status ' + p.status;
+  document.getElementById('info-img').style.backgroundImage = p.imgDetail ? `url('${p.imgDetail}')` : (p.img ? `url('${p.img}')` : `none`);
+  document.getElementById('unit-img').style.backgroundImage = p.unitImg ? `url('${p.unitImg}')` : (p.imgDetail ? `url('${p.imgDetail}')` : `url('${p.img}')`);
+  const st = document.getElementById('info-status'); st.innerText = p.statusText; st.className = 'status status-tag ' + p.status;
+  document.getElementById('info-stats').innerHTML = `<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-forces').innerHTML = `<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
+  document.getElementById('threat-bar').style.width = p.forces.amenaza + '%';
+  let unitsHTML = '';
+  p.units.forEach(u=>{
+    unitsHTML += `<div class="unit-row"><div class="unit-head"><b>${u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill ${u.color}" style="width:${u.pct}%"></div></div></div>`;
+  });
+  document.getElementById('info-units').innerHTML = unitsHTML;
 }
-function closePanel(){
-  document.getElementById('info-panel').style.display = 'none';
-  selectedId = null;
-  render();
-}
+function closePanel(){ document.getElementById('info-panel').style.display = 'none'; selectedId = null; render(); }
 render();
 </script>
 </body>
