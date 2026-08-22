@@ -21,9 +21,18 @@
     position:absolute; border-radius:50%; cursor:pointer;
     transform: translate(-50%,-50%);
     box-shadow: 0 0 18px currentColor, inset -6px -6px 12px rgba(0,0,0,0.9);
-    transition: all 0.25s; z-index:2; border:1.5px solid rgba(255,255,255,0.8);
+    transition: all 0.3s ease; z-index:2; border:1.5px solid rgba(255,255,255,0.8);
   }
-  .planet:hover{ transform: translate(-50%,-50%) scale(1.35); box-shadow: 0 0 35px currentColor; }
+  .planet:hover{ transform: translate(-50%,-50%) scale(1.25); box-shadow: 0 0 28px currentColor; }
+  .planet.selected{
+    transform: translate(-50%,-50%) scale(1.4);
+    z-index:5;
+    animation: pulse-aura 2s ease-in-out infinite;
+  }
+  @keyframes pulse-aura {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.25); }
+  }
   .planet-label{
     position:absolute; top:125%; left:50%; transform:translateX(-50%);
     font-size:11px; font-weight:bold; letter-spacing:1px; white-space:nowrap;
@@ -38,10 +47,12 @@
   }
   #info-panel h2{margin:0 0 10px; color:#3ad4ff; letter-spacing:1.5px}
   .status{padding:5px 10px;border-radius:6px;font-size:11px;display:inline-block;margin-bottom:12px;font-weight:bold}
-  .republic{background:#154080; border:1px solid #3a7eff} 
-  .separatist{background:#801a1a; border:1px solid #ff4444} 
-  .contested{background:#80701a; border:1px solid #ffcc33} 
+  .republic{background:#154080; border:1px solid #3a7eff}
+  .separatist{background:#801a1a; border:1px solid #ff4444}
+  .contested{background:#80701a; border:1px solid #ffcc33}
   .alpha{background:#0a5a2f; border:1px solid #00ff88; box-shadow:0 0 12px #00ff88}
+  .mandalore{background:#3a1a5a; border:1px solid #c9a0ff; box-shadow:0 0 12px #c9a0ff}
+  .neutral{background:#1a5a2f; border:1px solid #66ff99}
   #info-panel p{font-size:13.5px; line-height:1.5; opacity:0.9}
   .btn{margin-top:16px; background:#3ad4ff; border:0; padding:9px 14px; border-radius:8px; cursor:pointer; color:#000; font-weight:bold; width:100%}
   .title-bar{position:absolute; left:20px; top:18px; z-index:3; font-weight:bold; letter-spacing:2px; font-size:13px; opacity:0.7}
@@ -56,53 +67,104 @@
     <h2 id="info-name"></h2>
     <p id="info-desc"></p>
     <p style="margin-top:14px; font-size:11px; opacity:0.5">COORD: <span id="info-coord"></span> | SECTOR: <span id="info-sector"></span></p>
-    <button class="btn" onclick="document.getElementById('info-panel').style.display='none'">CERRAR TRANSMISION</button>
+    <button class="btn" onclick="closePanel()">CERRAR TRANSMISION</button>
   </div>
 </div>
 <script>
+const auraColors = {
+  republic:   '#3ad4ff',   // celeste
+  separatist: '#ff4444',   // rojo
+  contested:  '#ffcc33',   // amarillo
+  alpha:      '#00ff88',   // verde especial
+  mandalore:  '#c9a0ff',   // violeta claro
+  neutral:    '#66ff99'    // verde neutro
+};
+
 const planets = [
-  { id:"coruscant", name:"CORUSCANT", x:50, y:47, size:30, color:"#4da6ff", status:"republic", statusText:"CAPITAL REPUBLICA", desc:"Nucleo galactico. Mando Central Quantum Pulse.", sector:"Nucleo" },
+  { id:"coruscant", name:"CORUSCANT", x:50, y:47, size:30, color:"#4da6ff", status:"republic", statusText:"CAPITAL REPUBLICA", desc:"Nucleo galactico. Mando Central Quantum Pulse. Centro administrativo y politico de la Republica.", sector:"Nucleo" },
   { id:"wiltos", name:"WILTOS", x:54, y:36, size:26, color:"#00ff88", status:"alpha", statusText:"PROXIMA ALPHA - QP", desc:"NUEVO! Proximo mapa ALPHA. Preparen a todos los Jedi. Se vienen cosas espectaculares.", sector:"Borde Exterior" },
-  { id:"kamino", name:"KAMINO", x:28, y:62, size:18, color:"#8ecfff", status:"republic", statusText:"CONTROL REPUBLICA", desc:"Centro de clonacion. Reclutamiento activo.", sector:"Extragalactico" },
-  { id:"anaxes", name:"ANAXES", x:38, y:58, size:20, color:"#ffcc66", status:"republic", statusText:"BASE MILITAR", desc:"Fortaleza y academia de guerra.", sector:"Nucleo" },
-  { id:"geonosis", name:"GEONOSIS", x:70, y:60, size:19, color:"#ff5533", status:"separatist", statusText:"SEPARATISTA", desc:"Fabricas de droides detectadas.", sector:"Borde Exterior" },
-  { id:"umbara", name:"UMBARA", x:66, y:48, size:17, color:"#9a66ff", status:"contested", statusText:"EN DISPUTA", desc:"Zona oscura. Operaciones especiales.", sector:"Borde Medio" },
-  { id:"felucia", name:"FELUCIA", x:42, y:72, size:16, color:"#66ff99", status:"contested", statusText:"EN DISPUTA", desc:"Selva bioluminiscente.", sector:"Borde Exterior" },
-  { id:"mustafar", name:"MUSTAFAR", x:78, y:70, size:15, color:"#ff3300", status:"separatist", statusText:"SEPARATISTA", desc:"Mundo volcanico.", sector:"Borde Exterior" },
+  { id:"kamino", name:"KAMINO", x:28, y:62, size:18, color:"#8ecfff", status:"republic", statusText:"CONTROL REPUBLICA", desc:"Centro de clonacion. Reclutamiento activo y produccion de tropas.", sector:"Extragalactico" },
+  { id:"anaxes", name:"ANAXES", x:38, y:58, size:20, color:"#ffcc66", status:"republic", statusText:"BASE MILITAR", desc:"Fortaleza y academia de guerra. Entrenamiento de oficiales de la Republica.", sector:"Nucleo" },
+  { id:"geonosis", name:"GEONOSIS", x:70, y:60, size:19, color:"#ff5533", status:"separatist", statusText:"SEPARATISTA", desc:"Fabricas de droides detectadas. Alta actividad industrial hostil.", sector:"Borde Exterior" },
+  { id:"umbara", name:"UMBARA", x:66, y:48, size:17, color:"#9a66ff", status:"contested", statusText:"EN DISPUTA", desc:"Zona oscura. Operaciones especiales en curso. Visibilidad limitada.", sector:"Borde Medio" },
+  { id:"felucia", name:"FELUCIA", x:42, y:72, size:16, color:"#66ff99", status:"contested", statusText:"EN DISPUTA", desc:"Selva bioluminiscente. Terreno hostil y denso. Control disputado.", sector:"Borde Exterior" },
+  { id:"mustafar", name:"MUSTAFAR", x:78, y:70, size:15, color:"#ff3300", status:"separatist", statusText:"SEPARATISTA", desc:"Mundo volcanico. Instalaciones mineras y forjas bajo control separatista.", sector:"Borde Exterior" },
+  { id:"mandalore", name:"MANDALORE", x:58, y:42, size:22, color:"#c9a0ff", status:"mandalore", statusText:"MANDALORE", desc:"Mundo natal de los Mandalorianos. Neutralidad estrategica vigilada. Tradicion guerrera ancestral.", sector:"Borde Exterior" },
 ];
-const routes = [ ["coruscant","anaxes"], ["coruscant","wiltos"], ["wiltos","umbara"], ["anaxes","kamino"], ["wiltos","geonosis"], ["umbara","felucia"] ];
+
+const routes = [
+  ["coruscant","anaxes"],
+  ["coruscant","wiltos"],
+  ["wiltos","umbara"],
+  ["anaxes","kamino"],
+  ["wiltos","geonosis"],
+  ["umbara","felucia"],
+  ["wiltos","mandalore"],
+  ["mandalore","umbara"]
+];
+
 const galaxy = document.getElementById('galaxy');
 const svg = document.getElementById('routes');
+let selectedId = null;
+
 function render(){
-  galaxy.querySelectorAll('.planet').forEach(e=>e.remove());
-  svg.innerHTML="";
-  routes.forEach(([a,b])=>{
-    const pA=planets.find(p=>p.id===a), pB=planets.find(p=>p.id===b);
-    if(!pA||!pB) return;
-    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
-    line.setAttribute("x1",pA.x+"%"); line.setAttribute("y1",pA.y+"%");
-    line.setAttribute("x2",pB.x+"%"); line.setAttribute("y2",pB.y+"%");
+  galaxy.querySelectorAll('.planet').forEach(e => e.remove());
+  svg.innerHTML = "";
+  routes.forEach(([a,b]) => {
+    const pA = planets.find(p => p.id === a);
+    const pB = planets.find(p => p.id === b);
+    if (!pA || !pB) return;
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", pA.x + "%");
+    line.setAttribute("y1", pA.y + "%");
+    line.setAttribute("x2", pB.x + "%");
+    line.setAttribute("y2", pB.y + "%");
     svg.appendChild(line);
   });
-  planets.forEach(p=>{
-    const el=document.createElement('div');
-    el.className='planet';
-    el.style.left=p.x+'%'; el.style.top=p.y+'%';
-    el.style.width=p.size+'px'; el.style.height=p.size+'px';
-    el.style.backgroundColor=p.color; el.style.color=p.color;
-    el.innerHTML=`<div class="planet-label">${p.name}</div>`;
-    el.onclick=()=>showInfo(p);
+  planets.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'planet' + (selectedId === p.id ? ' selected' : '');
+    el.dataset.id = p.id;
+    el.style.left = p.x + '%';
+    el.style.top = p.y + '%';
+    el.style.width = p.size + 'px';
+    el.style.height = p.size + 'px';
+    el.style.backgroundColor = p.color;
+    el.style.color = p.color;
+    if (selectedId === p.id) {
+      const aura = auraColors[p.status] || p.color;
+      el.style.boxShadow = `0 0 25px ${aura}, 0 0 50px ${aura}, 0 0 80px ${aura}, inset -6px -6px 12px rgba(0,0,0,0.9)`;
+      el.style.borderColor = aura;
+    }
+    el.innerHTML = `<div class="planet-label">${p.name}</div>`;
+    el.onclick = () => showInfo(p);
     galaxy.appendChild(el);
   });
 }
+
 function showInfo(p){
-  document.getElementById('info-panel').style.display='block';
-  document.getElementById('info-name').innerText=p.name;
-  document.getElementById('info-desc').innerText=p.desc;
-  document.getElementById('info-coord').innerText=`X:${p.x} Y:${p.y}`;
-  document.getElementById('info-sector').innerText=p.sector;
-  const st=document.getElementById('info-status');
-  st.innerText=p.statusText; st.className='status '+p.status;
+  selectedId = p.id;
+  render();
+  document.getElementById('info-panel').style.display = 'block';
+  document.getElementById('info-name').innerText = p.name;
+  document.getElementById('info-desc').innerText = p.desc;
+  document.getElementById('info-coord').innerText = `X:\( {p.x} Y: \){p.y}`;
+  document.getElementById('info-sector').innerText = p.sector;
+  const st = document.getElementById('info-status');
+  st.innerText = p.statusText;
+  st.className = 'status ' + p.status;
+}
+
+function closePanel(){
+  document.getElementById('info-panel').style.display = 'none';
+  selectedId = null;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>  st.innerText=p.statusText; st.className='status '+p.status;
 }
 render();
 </script>
