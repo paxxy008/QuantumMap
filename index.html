@@ -75,71 +75,87 @@
 </head>
 <body>
 <div id="galaxy">
-<div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA v2.5</div>
-<svg id="routes"></svg>
-<div id="info-panel">
-<div class="panel-img" id="info-img"><div id="info-status" class="status status-tag"></div><div class="sector-tag">SECTOR: <span id="info-sector"></span></div></div>
-<div class="panel-body">
-<h2 id="info-name"></h2>
-<div class="tabs"><div class="tab active" onclick="switchTab(0)">● LORE</div><div class="tab" onclick="switchTab(1)">● DATOS</div><div class="tab" onclick="switchTab(2)">● FUERZAS</div><div class="tab" onclick="switchTab(3)">● UNIDADES</div></div>
-<div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
-<div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
-<div id="tab-2" class="tab-content"><div class="stat-grid" id="info-forces"></div><div style="margin-top:12px"><span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span><div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div></div></div>
-<div id="tab-3" class="tab-content"><div class="unit-img" id="unit-img"></div><div id="info-units"></div></div>
-<button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
-</div>
-</div>
+  <div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA v2.5</div>
+  <svg id="routes"></svg>
 
-<!-- Menú lateral izquierdo — independiente -->
-<div id="side-menu">
-  <div id="menu-toggle" onclick="toggleMenu()" title="Abrir / cerrar panel de operaciones">
-    <span></span>
-  </div>
-  <div id="menu-panel">
-    <div class="menu-header">PANEL DE OPERACIONES QP</div>
-    <div class="menu-body">
-
-      <div class="menu-section" id="sec-legiones">
-        <div class="menu-section-title" onclick="toggleSection('sec-legiones')">
-          <span>LEGIONES</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="menu-section-content">
-          <div class="menu-placeholder">Datos de legiones en actividad pendientes de carga. (Próximamente: listado de legiones Quantum Pulse desplegadas.)</div>
-        </div>
-      </div>
-
-      <div class="menu-section" id="sec-flota">
-        <div class="menu-section-title" onclick="toggleSection('sec-flota')">
-          <span>FLOTA REPUBLICANA</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="menu-section-content">
-          <div class="menu-placeholder">Inventario de flota y despliegues navales pendientes de carga. (Próximamente: Cruceros, cazas y unidades de soporte.)</div>
-        </div>
-      </div>
-
-      <div class="menu-section" id="sec-suministros">
-        <div class="menu-section-title" onclick="toggleSection('sec-suministros')">
-          <span>SUMINISTROS</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="menu-section-content">
-          <div class="menu-placeholder">Estado de logística y recursos pendientes de carga. (Próximamente: municiones, combustible, raciones y material crítico.)</div>
-        </div>
-      </div>
-
+  <div id="info-panel">
+    <div class="panel-img" id="info-img">
+      <div id="info-status" class="status status-tag"></div>
+      <div class="sector-tag">SECTOR: <span id="info-sector"></span></div>
     </div>
-    <div class="menu-footer">QP-ORACLE // ACCESO ALPHA</div>
+    <div class="panel-body">
+      <h2 id="info-name"></h2>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">● LORE</div>
+        <div class="tab" onclick="switchTab(1)">● DATOS</div>
+        <div class="tab" onclick="switchTab(2)">● FUERZAS</div>
+        <div class="tab" onclick="switchTab(3)">● UNIDADES</div>
+      </div>
+      <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
+      <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
+      <div id="tab-2" class="tab-content">
+        <div class="stat-grid" id="info-forces"></div>
+        <div style="margin-top:12px">
+          <span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span>
+          <div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div id="tab-3" class="tab-content">
+        <div class="unit-img" id="unit-img"></div>
+        <div id="info-units"></div>
+      </div>
+      <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
+    </div>
+  </div>
+
+  <!-- Menú lateral izquierdo — independiente -->
+  <div id="side-menu">
+    <div id="menu-toggle" onclick="toggleMenu()" title="Abrir / cerrar panel de operaciones">
+      <span></span>
+    </div>
+    <div id="menu-panel">
+      <div class="menu-header">PANEL DE OPERACIONES QP</div>
+      <div class="menu-body">
+        <div class="menu-section" id="sec-legiones">
+          <div class="menu-section-title" onclick="toggleSection('sec-legiones')">
+            <span>LEGIONES</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="menu-section-content">
+            <div class="menu-placeholder">Datos de legiones en actividad pendientes de carga. (Próximamente: listado de legiones Quantum Pulse desplegadas.)</div>
+          </div>
+        </div>
+        <div class="menu-section" id="sec-flota">
+          <div class="menu-section-title" onclick="toggleSection('sec-flota')">
+            <span>FLOTA REPUBLICANA</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="menu-section-content">
+            <div class="menu-placeholder">Inventario de flota y despliegues navales pendientes de carga. (Próximamente: Cruceros, cazas y unidades de soporte.)</div>
+          </div>
+        </div>
+        <div class="menu-section" id="sec-suministros">
+          <div class="menu-section-title" onclick="toggleSection('sec-suministros')">
+            <span>SUMINISTROS</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div class="menu-section-content">
+            <div class="menu-placeholder">Estado de logística y recursos pendientes de carga. (Próximamente: municiones, combustible, raciones y material crítico.)</div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-footer">QP-ORACLE // ACCESO ALPHA</div>
+    </div>
   </div>
 </div>
-</div>
+
 <script>
 // AUDIO CIBERNETICO QP
 let AC=null;function iA(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume()}
 function pt(f,t,d,v,s){try{iA();let o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.setValueAtTime(f,AC.currentTime);if(s)o.frequency.exponentialRampToValueAtTime(s,AC.currentTime+d);g.gain.setValueAtTime(0,AC.currentTime);g.gain.linearRampToValueAtTime(v,AC.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
 function sP(){pt(120,'sawtooth',.35,.28,520);setTimeout(()=>pt(850,'sine',.18,.22,1350),70);setTimeout(()=>pt(2200,'square',.06,.08),120)}
 function sT(){pt(900,'square',.09,.14,1600)} function sC(){pt(700,'triangle',.45,.22,70)} function sH(){pt(1600,'sine',.05,.07)}
+
 const planets=[
 {
 id:"coruscant",name:"CORUSCANT",x:50,y:48,size:38,color:"#4da6ff",
@@ -234,32 +250,100 @@ forces:{guarnicion:"Clan Kryze + Death Watch + Protectores Mandalorianos",flota:
 units:[{name:"Supercomandos Mandalorianos",count:"2,500 — Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch — Pre Vizsla",count:"800 — Sable Oscuro",pct:90,color:"red"}]
 }
 ];
+
 const routes=[{from:"coruscant",to:"anaxes",type:"friendly"},{from:"coruscant",to:"pulsar",type:"friendly"},{from:"pulsar",to:"umbara",type:"neutral"},{from:"anaxes",to:"kamino",type:"friendly"},{from:"pulsar",to:"geonosis",type:"hostile"},{from:"umbara",to:"felucia",type:"neutral"},{from:"pulsar",to:"mandalore",type:"neutral"},{from:"mandalore",to:"umbara",type:"neutral"},{from:"geonosis",to:"mustafar",type:"friendly"},{from:"coruscant",to:"kamino",type:"friendly"},{from:"anaxes",to:"felucia",type:"friendly"}];
-const galaxy=document.getElementById('galaxy');const svg=document.getElementById('routes');let selectedId=null;let menuOpen=false;
-function toggleMenu(){menuOpen=!menuOpen;document.getElementById('menu-toggle').classList.toggle('open',menuOpen);document.getElementById('menu-panel').classList.toggle('open',menuOpen);sT()}
-function toggleSection(id){document.getElementById(id).classList.toggle('open');sT()}
+
+const galaxy=document.getElementById('galaxy');
+const svg=document.getElementById('routes');
+let selectedId=null;
+let menuOpen=false;
+
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('menu-toggle').classList.toggle('open',menuOpen);
+  document.getElementById('menu-panel').classList.toggle('open',menuOpen);
+  sT();
+}
+
+function toggleSection(id){
+  document.getElementById(id).classList.toggle('open');
+  sT();
+}
+
 function render(){
-galaxy.querySelectorAll('.planet').forEach(e=>e.remove());svg.innerHTML="";
-routes.forEach(r=>{const pA=planets.find(p=>p.id===r.from);const pB=planets.find(p=>p.id===r.to);if(!pA||!pB)return;const l=document.createElementNS("http://www.w3.org/2000/svg","line");l.setAttribute("x1",pA.x+"%");l.setAttribute("y1",pA.y+"%");l.setAttribute("x2",pB.x+"%");l.setAttribute("y2",pB.y+"%");l.classList.add(r.type);svg.appendChild(l);});
-planets.forEach(p=>{const el=document.createElement('div');el.className='planet'+(selectedId===p.id?' selected':'')+(p.main?' main':'');el.style.left=p.x+'%';el.style.top=p.y+'%';el.style.width=p.size+'px';el.style.height=p.size+'px';el.style.color=p.color;if(p.img){el.style.backgroundImage=`url('\( {p.img}')`;el.style.backgroundSize="cover";el.style.backgroundPosition="center"}else{el.style.backgroundColor=p.color}el.innerHTML=`<div class="planet-label"> \){p.name}</div>`;el.onclick=()=>showInfo(p);el.onmouseenter=()=>sH();galaxy.appendChild(el);});
+  galaxy.querySelectorAll('.planet').forEach(e=>e.remove());
+  svg.innerHTML="";
+  routes.forEach(r=>{
+    const pA=planets.find(p=>p.id===r.from);
+    const pB=planets.find(p=>p.id===r.to);
+    if(!pA||!pB)return;
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",pA.x+"%");
+    l.setAttribute("y1",pA.y+"%");
+    l.setAttribute("x2",pB.x+"%");
+    l.setAttribute("y2",pB.y+"%");
+    l.classList.add(r.type);
+    svg.appendChild(l);
+  });
+  planets.forEach(p=>{
+    const el=document.createElement('div');
+    el.className='planet'+(selectedId===p.id?' selected':'')+(p.main?' main':'');
+    el.style.left=p.x+'%';
+    el.style.top=p.y+'%';
+    el.style.width=p.size+'px';
+    el.style.height=p.size+'px';
+    el.style.color=p.color;
+    if(p.img){
+      el.style.backgroundImage=`url('${p.img}')`;
+      el.style.backgroundSize="cover";
+      el.style.backgroundPosition="center";
+    }else{
+      el.style.backgroundColor=p.color;
+    }
+    el.innerHTML=`<div class="planet-label">${p.name}</div>`;
+    el.onclick=()=>showInfo(p);
+    el.onmouseenter=()=>sH();
+    galaxy.appendChild(el);
+  });
 }
-function switchTab(i){sT();document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));}
+
+function switchTab(i){
+  sT();
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));
+}
+
 function showInfo(p){
-sP();selectedId=p.id;render();switchTab(0);
-document.getElementById('info-panel').style.display='block';
-document.getElementById('info-name').innerText=p.name;
-document.getElementById('info-desc').innerText=p.desc;
-document.getElementById('info-sector').innerText=p.sector;
-document.getElementById('info-img').style.backgroundImage=`url('${p.imgDetail}')`;
-document.getElementById('unit-img').style.backgroundImage=`url('${p.unitImg}')`;
-const st=document.getElementById('info-status');st.innerText=p.statusText;st.className='status status-tag '+p.status;
-document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>\( {p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b> \){p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>\( {p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b> \){p.stats.afiliacion}</b></div>`;
-document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>\( {p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b> \){p.forces.flota}</b></div>`;
-document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
-let html='';p.units.forEach(u=>{const n=u.neon?' neon-yellow':'';html+=`<div class="unit-row"><div class="unit-head"><b class="\( {n}"> \){u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill \( {u.color}" style="width: \){u.pct}%"></div></div></div>`;});
-document.getElementById('info-units').innerHTML=html;
+  sP();
+  selectedId=p.id;
+  render();
+  switchTab(0);
+  document.getElementById('info-panel').style.display='block';
+  document.getElementById('info-name').innerText=p.name;
+  document.getElementById('info-desc').innerText=p.desc;
+  document.getElementById('info-sector').innerText=p.sector;
+  document.getElementById('info-img').style.backgroundImage=`url('${p.imgDetail}')`;
+  document.getElementById('unit-img').style.backgroundImage=`url('${p.unitImg}')`;
+  const st=document.getElementById('info-status');
+  st.innerText=p.statusText;
+  st.className='status status-tag '+p.status;
+  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>\( {p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b> \){p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>\( {p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b> \){p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>\( {p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b> \){p.forces.flota}</b></div>`;
+  document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
+  let html='';
+  p.units.forEach(u=>{
+    const n=u.neon?' neon-yellow':'';
+    html+=`<div class="unit-row"><div class="unit-head"><b class="\( {n}"> \){u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill \( {u.color}" style="width: \){u.pct}%"></div></div></div>`;
+  });
+  document.getElementById('info-units').innerHTML=html;
 }
-function closePanel(){sC();document.getElementById('info-panel').style.display='none';selectedId=null;render();}
+
+function closePanel(){
+  sC();
+  document.getElementById('info-panel').style.display='none';
+  selectedId=null;
+  render();
+}
 document.addEventListener('click',iA,{once:true});
 render();
 </script>
