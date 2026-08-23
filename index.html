@@ -48,6 +48,27 @@
   .btn{margin-top:18px;background:linear-gradient(90deg,#003322,#006644);border:1.5px solid #00ff88;padding:11px 14px;border-radius:6px;cursor:pointer;color:#00ff88;font-weight:bold;width:100%;letter-spacing:2px;font-family:'Orbitron'}
   .btn:hover{background:linear-gradient(90deg,#004422,#008855);box-shadow:0 0 15px #00ff88}
   .title-bar{position:absolute;left:24px;top:20px;z-index:4;font-family:'Orbitron';font-weight:800;letter-spacing:3px;font-size:13px;color:#00ff88;opacity:.9}
+
+  /* Menú lateral izquierdo */
+  #side-menu{position:absolute;left:0;top:0;height:100vh;z-index:12;display:flex;flex-direction:column}
+  #menu-toggle{width:48px;height:48px;margin:18px 0 0 18px;background:linear-gradient(160deg,rgba(0,22,14,0.97),rgba(0,10,8,0.99));border:1.5px solid #00ff88;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(0,255,136,0.35);transition:.25s;z-index:13}
+  #menu-toggle:hover{background:linear-gradient(160deg,rgba(0,40,25,0.98),rgba(0,18,12,0.99));box-shadow:0 0 25px rgba(0,255,136,0.55)}
+  #menu-toggle span{display:block;width:20px;height:2px;background:#00ff88;position:relative;transition:.25s}
+  #menu-toggle span::before,#menu-toggle span::after{content:'';position:absolute;left:0;width:20px;height:2px;background:#00ff88;transition:.25s}
+  #menu-toggle span::before{top:-6px} #menu-toggle span::after{top:6px}
+  #menu-toggle.open span{background:transparent}
+  #menu-toggle.open span::before{top:0;transform:rotate(45deg)} #menu-toggle.open span::after{top:0;transform:rotate(-45deg)}
+  #menu-panel{width:0;overflow:hidden;background:linear-gradient(160deg,rgba(0,18,12,0.98),rgba(0,8,6,0.99));border-right:1.5px solid #00ff88;box-shadow:8px 0 30px rgba(0,255,136,0.2);backdrop-filter:blur(14px);transition:width .32s ease;margin-top:12px;display:flex;flex-direction:column}
+  #menu-panel.open{width:280px}
+  .menu-header{padding:18px 20px 12px;font-family:'Orbitron';font-size:12px;letter-spacing:2px;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);white-space:nowrap}
+  .menu-list{flex:1;overflow-y:auto;padding:10px 0}
+  .menu-item{display:flex;align-items:center;gap:12px;padding:11px 20px;cursor:pointer;transition:.2s;border-left:3px solid transparent;white-space:nowrap}
+  .menu-item:hover{background:rgba(0,255,136,0.08);border-left-color:#00ff88}
+  .menu-item.active{background:rgba(0,255,136,0.14);border-left-color:#00ffcc}
+  .menu-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor}
+  .menu-item-name{font-family:'Orbitron';font-size:11px;letter-spacing:1.2px;color:#c8ffe0}
+  .menu-item-status{font-size:9px;opacity:.65;margin-top:2px;font-family:'Rajdhani'}
+  .menu-footer{padding:12px 20px;border-top:1px solid rgba(0,255,136,0.15);font-family:'Orbitron';font-size:8px;letter-spacing:1px;color:rgba(0,255,136,0.5);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -61,10 +82,22 @@
 <div class="tabs"><div class="tab active" onclick="switchTab(0)">● LORE</div><div class="tab" onclick="switchTab(1)">● DATOS</div><div class="tab" onclick="switchTab(2)">● FUERZAS</div><div class="tab" onclick="switchTab(3)">● UNIDADES</div></div>
 <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
 <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
-<div id="tab-2" class="tab-content"><div class="stat-grid" id="info-forces"></div><div style="margin-top:12px"><span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span><div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div></div></div>
+<div id="tab-2" class="tab-content"><div class="stat-grid" id="info-forces"></div><div style="margin-top:12px"><span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span><div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div></div>
 <div id="tab-3" class="tab-content"><div class="unit-img" id="unit-img"></div><div id="info-units"></div></div>
 <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
 </div>
+</div>
+
+<!-- Menú lateral izquierdo -->
+<div id="side-menu">
+  <div id="menu-toggle" onclick="toggleMenu()" title="Abrir / cerrar menú de sistemas">
+    <span></span>
+  </div>
+  <div id="menu-panel">
+    <div class="menu-header">SISTEMAS REGISTRADOS</div>
+    <div class="menu-list" id="menu-list"></div>
+    <div class="menu-footer">QP-ORACLE // ACCESO ALPHA</div>
+  </div>
 </div>
 </div>
 <script>
@@ -73,9 +106,10 @@ let AC=null;function iA(){if(!AC)AC=new(window.AudioContext||window.webkitAudioC
 function pt(f,t,d,v,s){try{iA();let o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.setValueAtTime(f,AC.currentTime);if(s)o.frequency.exponentialRampToValueAtTime(s,AC.currentTime+d);g.gain.setValueAtTime(0,AC.currentTime);g.gain.linearRampToValueAtTime(v,AC.currentTime+.02);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
 function sP(){pt(120,'sawtooth',.35,.28,520);setTimeout(()=>pt(850,'sine',.18,.22,1350),70);setTimeout(()=>pt(2200,'square',.06,.08),120)}
 function sT(){pt(900,'square',.09,.14,1600)} function sC(){pt(700,'triangle',.45,.22,70)} function sH(){pt(1600,'sine',.05,.07)}
+
 const planets=[
 {
-id:"coruscant",name:"CORUSCANT",x:50,y:47,size:38,color:"#4da6ff",
+id:"coruscant",name:"CORUSCANT",x:50,y:48,size:38,color:"#4da6ff",
 img:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",unitImg:"./SH_TROOPS_QP.png",
 status:"republic",statusText:"CAPITAL REPUBLICA + TEMPLO JEDI ACTIVO",sector:"Núcleo Interior — Distrito Federal / Templo Jedi — Coordenadas 0,0,0",
 desc:"Coruscant es una ecumenópolis total: 5,127 niveles urbanos, 1 trillón de habitantes y el corazón de la República. En la cima del Distrito Federal se alza el Templo Jedi, un zigurat de 5 torres que alberga ACTIVAMENTE a más de 10,000 Jedi. No es un museo: es un cuartel general de guerra. El Alto Consejo (Yoda, Mace Windu, Ki-Adi-Mundi, Plo Koon, Shaak Ti, Obi-Wan Kenobi, Anakin Skywalker y otros) dirige desde la Torre del Consejo las operaciones de toda la Galaxia. La Sala de Mapas, los Archivos Jedi de Madame Jocasta Nu, las armerías, los hangares con interceptores Delta-7B y lanzaderas T-6 están operativos 24/7. La Guardia del Templo (Temple Guards con picas amarillas) custodia los accesos internos, mientras la Guardia de Coruscant (Shock Troopers con armadura blanca y marcas rojas) patrulla las avenidas, el Senado y el bajo mundo. La Doctrina Quantum Pulse es clara: Si cae el Templo, cae Coruscant. Si cae Coruscant, cae la República.",
@@ -83,13 +117,13 @@ stats:{poblacion:"1 Trillón + 10,000 Jedi activos",clima:"Urbano Total — Ecum
 forces:{guarnicion:"Orden Jedi completa + Guardia del Templo + 8,200 Shock Troopers + Policía CSF",flota:"Flota de Defensa del Núcleo + Ala de Cazas Jedi + Cruceros Venator clase Open Circle",amenaza:15},
 units:[
 {name:"Alto Consejo Jedi",count:"12 Maestros + Sede Activa",pct:100,color:"blue"},
-{name:"Caballeros Jedi / Padawans",count:"~10,000 en Templo",pct:96,color:"blue"},
+{name:"Caballeros Jedi / Padawans",count:"\~10,000 en Templo",pct:96,color:"blue"},
 {name:"Guardia del Templo Jedi",count:"500 Temple Guards",pct:98,color:"gold"},
 {name:"Shock Troopers - Coruscant Guard",count:"8,200 Efectivos Fase II",pct:92,color:"red"}
 ]
 },
 {
-id:"pulsar",name:"PULSAR",x:54,y:36,size:36,color:"#00ffcc",
+id:"pulsar",name:"PULSAR",x:93,y:38,size:36,color:"#00ffcc",
 img:"./Pulsar_QP.png",imgDetail:"./Pulsar_QP.png",unitImg:"./Pulsar_QP.png",
 status:"alpha",statusText:"BASTIÓN ALPHA — QP [CLASIFICADO]",sector:"Borde Exterior — Coordenadas Eliminadas — Nivel Black",
 desc:"PULSAR no existe en ningún mapa oficial. Es el bastión escondido de Quantum Pulse, una luna fortificada dentro de una nebulosa de iones que bloquea cualquier escaneo. Es el cuartel general secreto de la República, base de operaciones encubiertas, I+D de armamento experimental y refugio de la Red Sombra. Solo personal con Nivel ALPHA tiene acceso. Sus hangares subterráneos albergan prototipos Venator negros, cazas Stealth y el sistema de inteligencia QP-ORACLE.",
@@ -99,7 +133,7 @@ units:[{name:"Operadores QP Sombra",count:"3,200 + ARC Null",pct:98,color:"green
 main:true
 },
 {
-id:"kamino",name:"KAMINO",x:28,y:62,size:30,color:"#8ecfff",
+id:"kamino",name:"KAMINO",x:7,y:18,size:30,color:"#8ecfff",
 img:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",unitImg:"./Kamino_QP.png",
 status:"republic",statusText:"CONTROL REPUBLICA — CENTRO DE CLONACION",sector:"Extragaláctico — Más allá del Rishi Maze",
 desc:"Mundo oceánico extragaláctico cubierto por tormentas eternas. Capital de la clonación. Aquí, en Tipoca City, los Kaminoanos crean al Gran Ejército de la República a partir del molde de Jango Fett. Cada día salen 10,000 clones listos. Sus laboratorios son el activo más valioso de la República y el objetivo número 1 de los Separatistas. La batalla de Kamino demostró que incluso aquí no estamos a salvo.",
@@ -108,15 +142,16 @@ forces:{guarnicion:"Clones Fase I/II + Milicia Kaminoana + Jedi Defensores",flot
 units:[{name:"Clones Fase II — Producción",count:"200,000 / mes",pct:88,color:"blue"},{name:"Clones ARC / Comando",count:"800 Élite",pct:99,color:"gold"}]
 },
 {
-id:"anaxes",name:"ANAXES",x:38,y:58,size:22,color:"#ffcc66",
+id:"anaxes",name:"ANAXES",x:38,y:62,size:22,color:"#ffcc66",
 img:"./Anaxes_QP.png",imgDetail:"./Anaxes_QP.png",unitImg:"./Anaxes_QP.png",
 status:"republic",statusText:"FORTALEZA REPUBLICA — BASE MILITAR",sector:"Núcleo Interior — Anaxes System — Astilleros",
 desc:"Apodada 'Defensora del Núcleo'. Anaxes es una fortaleza planetaria. Todo el planeta es una base militar, academia de guerra y astillero. Aquí se entrenan los mejores estrategas de la República y se reparan los Venator dañados. Su academia es legendaria: de aquí salieron Wilhuff Tarkin y la mayoría de los almirantes del Núcleo. Sus cinturones de asteroides están llenos de plataformas de defensa.",
 stats:{poblacion:"500M — Personal Militar",clima:"Fortificado / Industrializado",recursos:"Academia de Guerra / Astilleros / Estrategia",afiliacion:"República Galáctica — Alto Mando"},
 forces:{guarnicion:"Legión Anaxes + Academia Naval",flota:"Astilleros — 40 Venator en reparación + Flota de Reserva",amenaza:35},
 units:[{name:"Cadetes de Élite Anaxes",count:"15,000",pct:72,color:"gold"},{name:"Venator — Flota de Reserva",count:"40 Cruceros",pct:85,color:"blue"}]
-},{
-id:"geonosis",name:"GEONOSIS",x:70,y:60,size:34,color:"#ff5533",
+},
+{
+id:"geonosis",name:"GEONOSIS",x:72,y:55,size:34,color:"#ff5533",
 img:"./Geonosis_QP.png",imgDetail:"./Geonosis_QP.png",unitImg:"./Geonosis_QP.png",
 status:"separatist",statusText:"SEPARATISTA — FABRICAS DE DROIDES",sector:"Borde Exterior — Sector Arkanis — Anillo de Geonosis",
 desc:"Desierto rojizo, roca y colmenas. Geonosis es el infierno industrial Separatista. Bajo la superficie, millones de Geonosianos trabajan en fundiciones que vomitan cada segundo un droide de batalla. Aquí comenzó la Guerra de los Clones. Aquí se fabricó la Estrella de la Muerte. Sus cañones sónicos, sus fábricas subterráneas y su anillo de asteroides la hacen casi inexpugnable. La Primera y Segunda Batalla de Geonosis dejaron cicatrices que aún arden.",
@@ -125,7 +160,7 @@ forces:{guarnicion:"Colmenas Geonosianas + Droides B1/B2 + Supervisores Táctico
 units:[{name:"Super Droides B2 + B1",count:"500,000 + 2M B1",pct:92,color:"red"},{name:"Tanques AAT + Spider Droids",count:"800 AAT + 400 Octuptarra",pct:88,color:"red"}]
 },
 {
-id:"umbara",name:"UMBARA",x:66,y:48,size:20,color:"#9a66ff",
+id:"umbara",name:"UMBARA",x:62,y:42,size:20,color:"#9a66ff",
 img:"./Umbara_QP.png",imgDetail:"./Umbara_QP.png",unitImg:"./Umbara_QP.png",
 status:"contested",statusText:"EN DISPUTA — PLANETA DE LAS SOMBRAS",sector:"Borde Medio — Ghost Nebula — Niebla Umbarana",
 desc:"Umbara, el planeta de las sombras eternas. Su sol es una enana tenue que apenas atraviesa la bruma química de su atmósfera. Oscuridad perpetua. Los Umbaranos, con ojos que ven en ultravioleta, construyeron ciudades subterráneas y tecnología basada en plasma y rayos. Durante las Guerras Clon, Umbara se separó de la República y su milicia con tecnología de camuflaje, cazas que giran 360° y soldados con mochilas de plasma causaron bajas masivas a la Legión 501. La sombra aquí no es ausencia de luz, es un arma.",
@@ -134,7 +169,7 @@ forces:{guarnicion:"Milicia Umbarana + Cazas Umbaranos",flota:"Cazas de Plasma +
 units:[{name:"Milicia Oscura Umbarana",count:"60,000 + 200 Tanques Hover",pct:80,color:"red"}]
 },
 {
-id:"felucia",name:"FELUCIA",x:42,y:72,size:30,color:"#66ff99",
+id:"felucia",name:"FELUCIA",x:32,y:78,size:30,color:"#66ff99",
 img:"./Felucia_QP.png",imgDetail:"./felucia_main.jpg",unitImg:"./felucia_327th.jpg",
 status:"contested",statusText:"EN DISPUTA — SELVA HOSTIL NIVEL 5",sector:"Borde Exterior — Sector Felucia — Zona de Muerte Biológica",
 desc:"Felucia es un infierno bioluminiscente. Selva hiper-densa de hongos de 100 metros, plantas carnívoras del tamaño de AT-TE, esporas tóxicas que disuelven filtros de casco en 6 horas y un dosel tan espeso que bloquea cualquier escaneo orbital. La Fuerza Viva aquí es salvaje y retorcida. La 327th Star Corps, al mando de la General Jedi Aayla Secura (Twi'lek, tácticas de guerrilla en selva), mantiene una cabeza de playa en el ecuador conocida como 'Outpost Lethal'. Cada paso es una emboscada: la flora te estrangula, la fauna te caza y los Separatistas te esperan entre la niebla con AAT camuflados. Doctrina QP Felucia: Nada respira tranquilo. Todo mata.",
@@ -148,7 +183,7 @@ units:[
 ]
 },
 {
-id:"mustafar",name:"MUSTAFAR",x:78,y:70,size:17,color:"#ff3300",
+id:"mustafar",name:"MUSTAFAR",x:88,y:78,size:17,color:"#ff3300",
 img:"./Mustafar_QP.png",imgDetail:"./Mustafar_QP.png",unitImg:"./Mustafar_QP.png",
 status:"separatist",statusText:"SEPARATISTA — MUNDO VOLCANICO",sector:"Borde Exterior — Sector Atravis — Corredor Mustafar",
 desc:"Lava. Roca negra. Calor que derrite armadura. Mustafar es un mundo volcánico minero donde la Confederación extrae minerales para sus fábricas. Sus ríos de lava alimentan refinerías que nunca se apagan. Los Mustafarianos del norte y sur sobreviven en minas refrigeradas. Aquí el Consejo Separatista se esconderá al final de la guerra. Y aquí, según visiones de la Fuerza, dos hermanos se enfrentarán y la Galaxia cambiará.",
@@ -157,7 +192,7 @@ forces:{guarnicion:"Droides de Magma + Guardias Mustafarianos",flota:"Anillo de 
 units:[{name:"Guardia de Lava — Droides de Magma",count:"12,000 + 50 Magma Guards",pct:68,color:"red"}]
 },
 {
-id:"mandalore",name:"MANDALORE",x:58,y:42,size:36,color:"#c9a0ff",
+id:"mandalore",name:"MANDALORE",x:22,y:48,size:36,color:"#c9a0ff",
 img:"./Mandalore_QP.png",imgDetail:"./Mandalore_QP.png",unitImg:"./Mandalore_QP.png",
 status:"mandalore",statusText:"MANDALORE — NEUTRAL ARMADO",sector:"Borde Exterior — Sector Mandalore — Espacio Mandaloriano",
 desc:"Mandalore, mundo de guerreros. Desiertos blancos, domos que protegen ciudades como Sundari y bosques en la luna de Concordia. Neutral en la Guerra de los Clones por decreto de la Duquesa Satine Kryze, pero su neutralidad arde. Death Watch, liderado por Pre Vizsla con el Sable Oscuro, quiere devolver a Mandalore a sus raíces guerreras. Los Clanes — Kryze, Vizsla, Wren, Saxon — se dividen. Cada mandaloriano es un ejército. Cada armadura de Beskar es una historia. No los subestimes: un solo Supercomando vale por 10 clones.",
@@ -166,30 +201,123 @@ forces:{guarnicion:"Clan Kryze + Death Watch + Protectores Mandalorianos",flota:
 units:[{name:"Supercomandos Mandalorianos",count:"2,500 — Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch — Pre Vizsla",count:"800 — Sable Oscuro",pct:90,color:"red"}]
 }
 ];
-const routes=[{from:"coruscant",to:"anaxes",type:"friendly"},{from:"coruscant",to:"pulsar",type:"friendly"},{from:"pulsar",to:"umbara",type:"neutral"},{from:"anaxes",to:"kamino",type:"friendly"},{from:"pulsar",to:"geonosis",type:"hostile"},{from:"umbara",to:"felucia",type:"neutral"},{from:"pulsar",to:"mandalore",type:"neutral"},{from:"mandalore",to:"umbara",type:"neutral"},{from:"geonosis",to:"mustafar",type:"friendly"},{from:"coruscant",to:"kamino",type:"friendly"},{from:"anaxes",to:"felucia",type:"friendly"}];
-const galaxy=document.getElementById('galaxy');const svg=document.getElementById('routes');let selectedId=null;
+
+const routes=[
+{from:"coruscant",to:"anaxes",type:"friendly"},
+{from:"coruscant",to:"pulsar",type:"friendly"},
+{from:"pulsar",to:"umbara",type:"neutral"},
+{from:"anaxes",to:"kamino",type:"friendly"},
+{from:"pulsar",to:"geonosis",type:"hostile"},
+{from:"umbara",to:"felucia",type:"neutral"},
+{from:"pulsar",to:"mandalore",type:"neutral"},
+{from:"mandalore",to:"umbara",type:"neutral"},
+{from:"geonosis",to:"mustafar",type:"friendly"},
+{from:"coruscant",to:"kamino",type:"friendly"},
+{from:"anaxes",to:"felucia",type:"friendly"}
+];
+
+const galaxy=document.getElementById('galaxy');
+const svg=document.getElementById('routes');
+let selectedId=null;
+let menuOpen=false;
+
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('menu-toggle').classList.toggle('open',menuOpen);
+  document.getElementById('menu-panel').classList.toggle('open',menuOpen);
+  sT();
+}
+
+function buildMenu(){
+  const list=document.getElementById('menu-list');
+  list.innerHTML='';
+  planets.forEach(p=>{
+    const item=document.createElement('div');
+    item.className='menu-item'+(selectedId===p.id?' active':'');
+    item.innerHTML=`<div class="menu-dot" style="color:\( {p.color};background: \){p.color}"></div>
+      <div><div class="menu-item-name">${p.name}</div>
+      <div class="menu-item-status">${p.statusText}</div></div>`;
+    item.onclick=()=>{showInfo(p);if(menuOpen)toggleMenu();};
+    list.appendChild(item);
+  });
+}
+
 function render(){
-galaxy.querySelectorAll('.planet').forEach(e=>e.remove());svg.innerHTML="";
-routes.forEach(r=>{const pA=planets.find(p=>p.id===r.from);const pB=planets.find(p=>p.id===r.to);if(!pA||!pB)return;const l=document.createElementNS("http://www.w3.org/2000/svg","line");l.setAttribute("x1",pA.x+"%");l.setAttribute("y1",pA.y+"%");l.setAttribute("x2",pB.x+"%");l.setAttribute("y2",pB.y+"%");l.classList.add(r.type);svg.appendChild(l);});
-planets.forEach(p=>{const el=document.createElement('div');el.className='planet'+(selectedId===p.id?' selected':'')+(p.main?' main':'');el.style.left=p.x+'%';el.style.top=p.y+'%';el.style.width=p.size+'px';el.style.height=p.size+'px';el.style.color=p.color;if(p.img){el.style.backgroundImage=`url('${p.img}')`;el.style.backgroundSize="cover";el.style.backgroundPosition="center"}else{el.style.backgroundColor=p.color}el.innerHTML=`<div class="planet-label">${p.name}</div>`;el.onclick=()=>showInfo(p);el.onmouseenter=()=>sH();galaxy.appendChild(el);});
+  galaxy.querySelectorAll('.planet').forEach(e=>e.remove());
+  svg.innerHTML="";
+  routes.forEach(r=>{
+    const pA=planets.find(p=>p.id===r.from);
+    const pB=planets.find(p=>p.id===r.to);
+    if(!pA||!pB)return;
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",pA.x+"%");
+    l.setAttribute("y1",pA.y+"%");
+    l.setAttribute("x2",pB.x+"%");
+    l.setAttribute("y2",pB.y+"%");
+    l.classList.add(r.type);
+    svg.appendChild(l);
+  });
+  planets.forEach(p=>{
+    const el=document.createElement('div');
+    el.className='planet'+(selectedId===p.id?' selected':'')+(p.main?' main':'');
+    el.style.left=p.x+'%';
+    el.style.top=p.y+'%';
+    el.style.width=p.size+'px';
+    el.style.height=p.size+'px';
+    el.style.color=p.color;
+    if(p.img){
+      el.style.backgroundImage=`url('${p.img}')`;
+      el.style.backgroundSize="cover";
+      el.style.backgroundPosition="center";
+    }else{
+      el.style.backgroundColor=p.color;
+    }
+    el.innerHTML=`<div class="planet-label">${p.name}</div>`;
+    el.onclick=()=>showInfo(p);
+    el.onmouseenter=()=>sH();
+    galaxy.appendChild(el);
+  });
+  buildMenu();
 }
-function switchTab(i){sT();document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));}
+
+function switchTab(i){
+  sT();
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));
+}
+
 function showInfo(p){
-sP();selectedId=p.id;render();switchTab(0);
-document.getElementById('info-panel').style.display='block';
-document.getElementById('info-name').innerText=p.name;
-document.getElementById('info-desc').innerText=p.desc;
-document.getElementById('info-sector').innerText=p.sector;
-document.getElementById('info-img').style.backgroundImage=`url('${p.imgDetail}')`;
-document.getElementById('unit-img').style.backgroundImage=`url('${p.unitImg}')`;
-const st=document.getElementById('info-status');st.innerText=p.statusText;st.className='status status-tag '+p.status;
-document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
-document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
-document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
-let html='';p.units.forEach(u=>{const n=u.neon?' neon-yellow':'';html+=`<div class="unit-row"><div class="unit-head"><b class="${n}">${u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill ${u.color}" style="width:${u.pct}%"></div></div></div>`;});
-document.getElementById('info-units').innerHTML=html;
+  sP();
+  selectedId=p.id;
+  render();
+  switchTab(0);
+  document.getElementById('info-panel').style.display='block';
+  document.getElementById('info-name').innerText=p.name;
+  document.getElementById('info-desc').innerText=p.desc;
+  document.getElementById('info-sector').innerText=p.sector;
+  document.getElementById('info-img').style.backgroundImage=`url('${p.imgDetail}')`;
+  document.getElementById('unit-img').style.backgroundImage=`url('${p.unitImg}')`;
+  const st=document.getElementById('info-status');
+  st.innerText=p.statusText;
+  st.className='status status-tag '+p.status;
+  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>\( {p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b> \){p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>\( {p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b> \){p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>\( {p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b> \){p.forces.flota}</b></div>`;
+  document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
+  let html='';
+  p.units.forEach(u=>{
+    const n=u.neon?' neon-yellow':'';
+    html+=`<div class="unit-row"><div class="unit-head"><b class="\( {n}"> \){u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill \( {u.color}" style="width: \){u.pct}%"></div></div></div>`;
+  });
+  document.getElementById('info-units').innerHTML=html;
 }
-function closePanel(){sC();document.getElementById('info-panel').style.display='none';selectedId=null;render();}
+
+function closePanel(){
+  sC();
+  document.getElementById('info-panel').style.display='none';
+  selectedId=null;
+  render();
+}
+
 document.addEventListener('click',iA,{once:true});
 render();
 </script>
