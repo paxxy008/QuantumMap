@@ -327,13 +327,13 @@ function showInfo(p){
   const st=document.getElementById('info-status');
   st.innerText=p.statusText;
   st.className='status status-tag '+p.status;
-  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>\( {p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b> \){p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>\( {p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b> \){p.stats.afiliacion}</b></div>`;
-  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>\( {p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b> \){p.forces.flota}</b></div>`;
+    document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
   document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
   let html='';
-  p.units.forEach(u=>{
+      p.units.forEach(u=>{
     const n=u.neon?' neon-yellow':'';
-    html+=`<div class="unit-row"><div class="unit-head"><b class="\( {n}"> \){u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill \( {u.color}" style="width: \){u.pct}%"></div></div></div>`;
+     html+=`<div class="unit-row"><div class="unit-head"><b class="${n}">${u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill ${u.color}" style="width: ${u.pct}%"></div></div></div>`;
   });
   document.getElementById('info-units').innerHTML=html;
 }
