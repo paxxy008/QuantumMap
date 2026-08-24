@@ -397,8 +397,8 @@ function render(){
     el.onmouseenter=()=>sH();
     galaxy.appendChild(el);
   });
-  }
-  function switchTab(i){
+}
+function switchTab(i){
   sT();
   document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
   document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));
@@ -427,13 +427,17 @@ function showInfo(p){
   });
   document.getElementById('info-units').innerHTML=html;
 
-  // === GLITCH SOLO PARA MUSTAFAR Y GEONOSIS ===
+  // === GLITCH SOLO PARA MUSTAFAR Y GEONOSIS - VERSION CYBERPUNK ===
   const isGlitch = p.id==="mustafar" || p.id==="geonosis";
   const img1 = document.getElementById('info-img');
   const img2 = document.getElementById('unit-img');
   img1.classList.toggle('glitch-img', isGlitch);
   img2.classList.toggle('glitch-img', isGlitch);
-  if(isGlitch){ pt(100,'sawtooth',0.5,0.2,40); }
+  if(isGlitch){ 
+    // glitch suave, no arcade
+    cyberBass(120, 30, 0.5, 0.22);
+    setTimeout(()=>cyberBip(300, 90, 0.4, 0.08, 'triangle', 1200), 80);
+  }
 }
 function closePanel(){
   sC();
@@ -444,4 +448,4 @@ function closePanel(){
 render();
 </script>
 </body>
-</html>
+</html>e
