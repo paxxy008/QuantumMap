@@ -72,16 +72,19 @@
   .glitch-img{filter:contrast(1.8) brightness(0.5) hue-rotate(-20deg) saturate(0.3) !important;border-color:#ff2222 !important;position:relative;animation:flicker-glitch 0.16s infinite steps(2) !important}
   .glitch-img::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,0.15) 2px,transparent 3px);z-index:2;pointer-events:none}
   @keyframes flicker-glitch{0%{opacity:0.95;transform:translateX(0)} 20%{opacity:0.6;transform:translateX(-1px)} 40%{opacity:0.9;transform:translateX(1px)} 60%{opacity:0.5} 80%{opacity:0.95;transform:translateX(-1px)} 100%{opacity:0.9}}
-  /* === MOBILE OPTIMIZADO === */
-  @media(max-width:768px){
-    #galaxy{background-attachment:scroll !important}
-    .planet{box-shadow:0 0 12px currentColor !important; border-width:1px !important}
-    svg#routes line{stroke-width:1.5 !important}
-    #info-panel{right:8px;left:8px;top:auto;bottom:8px;width:auto;max-height:65vh;backdrop-filter:none !important;background:rgba(0,18,12,0.97) !important}
-    .panel-img{height:160px}
-    .unit-img{height:110px}
-    .title-bar{font-size:9px;letter-spacing:1.5px;left:70px}
-    #menu-panel.open{width:260px}
+  /* === MOBILE OPTIMIZADO - NEON FIJO + TOQUE === */
+@media(max-width:768px){
+  #galaxy{background-attachment:scroll !important}
+  .planet{box-shadow:0 0 12px currentColor !important; border-width:1px !important}
+  .planet:active{transform:translate(-50%,-50%) scale(1.6) !important; filter:brightness(1.4) !important}
+  .planet.selected{transform:translate(-50%,-50%) scale(1.7) !important}
+  svg#routes line{stroke-width:2.5;stroke-linecap:round;opacity:0.85}
+  #info-panel{right:8px;left:8px;top:auto;bottom:8px;width:auto;max-height:65vh;backdrop-filter:none !important;background:rgba(0,18,12,0.97) !important}
+  .panel-img{height:160px}
+  .unit-img{height:110px}
+  .title-bar{font-size:9px;letter-spacing:1.5px;left:70px}
+  #menu-panel.open{width:260px}
+}
   }
 </style>
 </head>
@@ -336,24 +339,43 @@ forces:{guarnicion:"Clan Kryze + Death Watch",flota:"Kom'rk / Fang",amenaza:70},
 units:[{name:"Supercomandos Mandalorianos",count:"2,500 Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch - Pre Vizsla",count:"800 Sable Oscuro",pct:90,color:"red"},{name:"Civiles Sundari",count:"3.5M Pacifistas",pct:65,color:"yellow"},{name:"Fauna - Shriek-Hawk",count:"Bestias Concordia",pct:50,color:"green"}]
 }
 ];
-  const routes=[ {from:"coruscant",to:"anaxes",type:"friendly"},
+  const routes=[
+  // FRIENDLY - CYAN - República (abastecimiento)
+  {from:"kamino",to:"coruscant",type:"friendly"},
+  {from:"kamino",to:"anaxes",type:"friendly"},
+  {from:"coruscant",to:"christophsis",type:"friendly"},
+  {from:"coruscant",to:"anaxes",type:"friendly"},
   {from:"coruscant",to:"pulsar",type:"friendly"},
-  {from:"pulsar",to:"umbara",type:"neutral"},
-  {from:"anaxes",to:"kamino",type:"friendly"},
-  {from:"pulsar",to:"geonosis",type:"hostile"},
-  {from:"umbara",to:"felucia",type:"neutral"},
-  {from:"pulsar",to:"mandalore",type:"neutral"},
-  {from:"mandalore",to:"umbara",type:"neutral"},
-  {from:"geonosis",to:"mustafar",type:"friendly"},
-  {from:"coruscant",to:"kamino",type:"friendly"},
-  {from:"anaxes",to:"felucia",type:"friendly"},
+  {from:"anaxes",to:"tatooine",type:"friendly"},
+  {from:"tatooine",to:"felucia",type:"friendly"},
   {from:"ryloth",to:"felucia",type:"friendly"},
-  {from:"christophsis",to:"coruscant",type:"friendly"},
-  {from:"christophsis",to:"felucia",type:"neutral"},
+  {from:"geonosis",to:"mustafar",type:"friendly"}, // ruta separatista interna pero la dejamos cyan para que no sea todo rojo
+
+  // NEUTRAL / CONTESTED - AMARILLO - Frentes cruzados
+  {from:"hoth",to:"umbara",type:"neutral"},
+  {from:"umbara",to:"pulsar",type:"neutral"},
+  {from:"mandalore",to:"pulsar",type:"neutral"},
+  {from:"mandalore",to:"umbara",type:"neutral"},
+  {from:"coruscant",to:"umbara",type:"neutral"},
+  {from:"anaxes",to:"umbara",type:"neutral"},
+  {from:"anaxes",to:"christophsis",type:"neutral"},
+  {from:"christophsis",to:"umbara",type:"neutral"},
+  {from:"umbara",to:"felucia",type:"neutral"},
   {from:"tatooine",to:"ryloth",type:"neutral"},
-  {from:"hoth",to:"anaxes",type:"neutral"},
-  {from:"tatooine",to:"geonosis",type:"neutral"},
-  {from:"tatooine",to:"coruscant",type:"friendly"}
+  {from:"tatooine",to:"christophsis",type:"neutral"},
+  {from:"geonosis",to:"tatooine",type:"neutral"},
+  {from:"felucia",to:"tatooine",type:"neutral"},
+  {from:"felucia",to:"christophsis",type:"neutral"},
+
+  // HOSTILE - ROJO - Rutas separatistas nuevas
+  {from:"pulsar",to:"geonosis",type:"hostile"},
+  {from:"geonosis",to:"felucia",type:"hostile"},
+  {from:"geonosis",to:"anaxes",type:"hostile"},
+  {from:"mustafar",to:"tatooine",type:"hostile"},
+  {from:"mustafar",to:"felucia",type:"hostile"},
+  {from:"coruscant",to:"geonosis",type:"hostile"},
+  {from:"umbara",to:"geonosis",type:"hostile"},
+  {from:"hoth",to:"geonosis",type:"hostile"},
 ];
   
 const galaxy=document.getElementById('galaxy');
