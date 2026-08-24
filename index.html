@@ -4,66 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quantum Pulse - Holomapa Galáctico ALPHA</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;700&display=swap');
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#000;font-family:'Rajdhani',sans-serif;color:#fff;overflow:hidden}
-  #galaxy{width:100vw;height:100vh;background:url('./QUANTUM_MAP.png') center/cover no-repeat fixed;position:relative}
-  #galaxy::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(0,0,0,0.1) 20%,rgba(0,0,0,0.78) 95%);z-index:1}
-  .planet{position:absolute;border-radius:50%;cursor:pointer;transform:translate(-50%,-50%);box-shadow:0 0 22px currentColor,inset -7px -7px 14px rgba(0,0,0,0.95);transition:.35s;z-index:3;border:1.8px solid rgba(255,255,255,0.9);background-size:cover;background-position:center}
-  .planet:hover{transform:translate(-50%,-50%) scale(1.35);filter:brightness(1.3)}
-  .planet.selected{transform:translate(-50%,-50%) scale(1.55);z-index:6;animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
-  .planet.main{box-shadow:0 0 35px #00ff88,0 0 70px #00ff88,0 0 110px rgba(0,255,136,0.6),inset -7px -7px 14px rgba(0,0,0,0.85);border:2.5px solid #00ffcc}
-  .planet-label{position:absolute;top:135%;left:50%;transform:translateX(-50%);font-family:'Orbitron';font-size:10px;font-weight:800;letter-spacing:1.8px;white-space:nowrap;text-shadow:0 1px 4px #000,0 0 12px currentColor;pointer-events:none}
-  svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
-  svg#routes line{stroke-width:3;stroke-dasharray:12 10;stroke-linecap:round;animation:dash 1s linear infinite}
-  @keyframes dash{to{stroke-dashoffset:-44}}
-  line.friendly{stroke:#00ffcc;filter:drop-shadow(0 0 7px #00ffcc)} line.hostile{stroke:#ff3355;filter:drop-shadow(0 0 7px #ff3355);stroke-dasharray:5 10} line.neutral{stroke:#ffd700;filter:drop-shadow(0 0 7px #ffd700)}
-  #info-panel{position:absolute;right:22px;top:22px;width:420px;max-height:92vh;overflow-y:auto;background:linear-gradient(160deg,rgba(0,22,14,0.97),rgba(0,10,8,0.99));border:1.5px solid #00ff88;box-shadow:0 0 25px rgba(0,255,136,0.35),inset 0 0 35px rgba(0,60,30,0.5);backdrop-filter:blur(16px);border-radius:10px;display:none;z-index:10}
-  .panel-img{width:100%;height:250px;background-size:cover;background-position:center;position:relative;border-bottom:1px solid rgba(0,255,136,0.3);background-color:#001a0f}
-  .panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,15,10,1) 10%,transparent 70%)}
-  .sector-tag{position:absolute;bottom:12px;left:14px;z-index:2;background:rgba(0,0,0,0.6);border:1px solid #ffd700;color:#ffd700;font-family:'Orbitron';font-size:9px;padding:4px 10px;border-radius:3px}
-  .status-tag{position:absolute;top:14px;left:14px;z-index:2}
-  .panel-body{padding:18px 20px 20px}
-  #info-panel h2{margin:0 0 4px;color:#00ff88;letter-spacing:2.5px;font-size:22px;font-family:'Orbitron'}
-  .status{padding:5px 12px;border-radius:3px;font-size:10px;display:inline-block;font-weight:bold;letter-spacing:1.2px;font-family:'Orbitron'}
-  .republic{background:#0a2a40;border:1px solid #3ad4ff;color:#3ad4ff;box-shadow:0 0 10px #3ad4ff} .separatist{background:#3a0a0a;border:1px solid #ff4444;color:#ff6666;box-shadow:0 0 10px #ff4444} .contested{background:#3a300a;border:1px solid #ffcc33;color:#ffdd55;box-shadow:0 0 10px #ffcc33} .alpha{background:#0a2a
-}
-#info-img.glitch-img::after, #unit-img.glitch-img::after {
-  content: "";
-  position: absolute;
-  top:0; left:0; width:100%; height:100%;
-  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.4) 0px, transparent 2px, transparent 4px);
-  pointer-events: none;
-}
-@keyframes glitchFlicker {
-  0% { transform: translate(0); opacity: 0.9; }
-  20% { transform: translate(-2px, 1px); opacity: 0.7; filter: hue-rotate(90deg); }
-  40% { transform: translate(2px, -1px); opacity: 1; }
-  60% { transform: translate(-1px, 0); opacity: 0.8; }
-  100% { transform: translate(0); opacity: 1; }
-}
-.scanline {
-  position: absolute;
-  top:0; left:0; width:100%; height:2px;
-  background: #ff0000;
-  box-shadow: 0 0 12px #f00;
-  animation: scanMove 2s linear infinite;
-  z-index: 20;
-}
-@keyframes scanMove { 0% { top:0% } 100% { top:100% } }
-.glitch-label {
-  position: absolute;
-  bottom: 6px; left: 6px;
-  background: rgba(255,0,0,0.25);
-  border: 1px solid red;
-  color: #ff5555;
-  font-family: monospace;
-  font-size: 9px;
-  padding: 2px 5px;
-  z-index: 20;
-}
+</style>
+</head>
+<body>
+<div id="galaxy">
+  <div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA v2.5</div>
+  <svg id="routes"></svg>
+
+  <div id="info-panel">
+    <div class="panel-img" id="info-img">
+      <div id="info-status" class="status status-tag"></div>
+      <div class="sector-tag">SECTOR: <span id="info-sector"></span></div>
+    </div>
+    <div class="panel-body">
+      <h2 id="info-name"></h2>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">● LORE</div>
+        <div class="tab" onclick="switchTab(1)">● DATOS</div>
+        <div class="tab" onclick="switchTab(2)">● FUERZAS</div>
+        <div class="tab" onclick="switchTab(3)">● UNIDADES</div>
+      </div>
+      <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
+      <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
+      <div id="tab-2" class="tab-content">
+        <div class="stat-grid" id="info-forces"></div>
+        <div style="margin-top:12px">
+          <span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span>
+          <div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div>
+        </div>
+      </div>
+      <div id="tab-3" class="tab-content">
+        <div class="unit-img" id="unit-img"></div>
+        <div id="info-units"></div>
+      </div>
+      <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
+    </div>
+  </div>
 </style>
 </head>
 <body>
