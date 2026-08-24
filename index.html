@@ -176,108 +176,120 @@ const planets=[
 {
 id:"coruscant",name:"CORUSCANT",x:50,y:48,size:38,color:"#4da6ff",
 img:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",unitImg:"./SH_TROOPS_QP.png",
-status:"republic",statusText:"CAPITAL REPUBLICA + TEMPLO JEDI ACTIVO",sector:"Núcleo Interior — Distrito Federal / Templo Jedi — Coordenadas 0,0,0",
-desc:"Coruscant es una ecumenópolis total: 5,127 niveles urbanos, 1 trillón de habitantes y el corazón de la República. En la cima del Distrito Federal se alza el Templo Jedi, un zigurat de 5 torres que alberga ACTIVAMENTE a más de 10,000 Jedi. No es un museo: es un cuartel general de guerra. El Alto Consejo (Yoda, Mace Windu, Ki-Adi-Mundi, Plo Koon, Shaak Ti, Obi-Wan Kenobi, Anakin Skywalker y otros) dirige desde la Torre del Consejo las operaciones de toda la Galaxia. La Sala de Mapas, los Archivos Jedi de Madame Jocasta Nu, las armerías, los hangares con interceptores Delta-7B y lanzaderas T-6 están operativos 24/7. La Guardia del Templo (Temple Guards con picas amarillas) custodia los accesos internos, mientras la Guardia de Coruscant (Shock Troopers con armadura blanca y marcas rojas) patrulla las avenidas, el Senado y el bajo mundo. La Doctrina Quantum Pulse es clara: Si cae el Templo, cae Coruscant. Si cae Coruscant, cae la República.",
-stats:{poblacion:"1 Trillón + 10,000 Jedi activos",clima:"Urbano Total — Ecumenópolis",recursos:"Político / Militar / Jedi / Económico",afiliacion:"República Galáctica — Orden Jedi"},
-forces:{guarnicion:"Orden Jedi completa + Guardia del Templo + 8,200 Shock Troopers + Policía CSF",flota:"Flota de Defensa del Núcleo + Ala de Cazas Jedi + Cruceros Venator clase Open Circle",amenaza:15},
-units:[
-{name:"Alto Consejo Jedi",count:"12 Maestros + Sede Activa",pct:100,color:"blue"},
-{name:"Caballeros Jedi / Padawans",count:"~10,000 en Templo",pct:96,color:"blue"},
-{name:"Guardia del Templo Jedi",count:"500 Temple Guards",pct:98,color:"gold"},
-{name:"Shock Troopers - Coruscant Guard",count:"8,200 Efectivos Fase II",pct:92,color:"red"}
-]
+status:"republic",statusText:"CAPITAL REPUBLICA + TEMPLO JEDI ACTIVO",sector:"Núcleo Interior — Distrito Federal",
+desc:"Ecumenópolis de 5,127 niveles, 1 trillón de habitantes. Templo Jedi con 10,000 Jedi activos, Alto Consejo dirigiendo la guerra. Guardia del Templo + 8,200 Shock Troopers. Doctrina QP: Si cae el Templo, cae la República.",
+stats:{poblacion:"1 Trillón + 10,000 Jedi",clima:"Urbano Total",recursos:"Político / Jedi / Militar",afiliacion:"República — Orden Jedi"},
+forces:{guarnicion:"Jedi + Temple Guard + 8,200 Shock Troopers",flota:"Flota Núcleo + Venator Open Circle",amenaza:15},
+units:[{name:"Alto Consejo Jedi",count:"12 Maestros",pct:100,color:"blue"},{name:"Guardia del Templo",count:"500 Temple Guards",pct:98,color:"gold"},{name:"Shock Troopers",count:"8,200 Fase II",pct:92,color:"red"}]
 },
 {
 id:"pulsar",name:"PULSAR",x:93,y:38,size:36,color:"#00ffcc",
 img:"./Pulsar_QP.png",imgDetail:"./Pulsar_QP.png",unitImg:"./Pulsar_QP.png",
-status:"alpha",statusText:"BASTIÓN ALPHA — QP [CLASIFICADO]",sector:"Borde Exterior — Coordenadas Eliminadas — Nivel Black",
-desc:"PULSAR no existe en ningún mapa oficial. Es el bastión escondido de Quantum Pulse, una luna fortificada dentro de una nebulosa de iones que bloquea cualquier escaneo. Es el cuartel general secreto de la República, base de operaciones encubiertas, I+D de armamento experimental y refugio de la Red Sombra. Solo personal con Nivel ALPHA tiene acceso. Sus hangares subterráneos albergan prototipos Venator negros, cazas Stealth y el sistema de inteligencia QP-ORACLE.",
-stats:{poblacion:"45,000 — Personal ALPHA",clima:"Templado Tecnificado — Cúpula Climática",recursos:"Tecnología QP / Inteligencia / Prototipos",afiliacion:"Quantum Pulse — República (Black Ops)"},
-forces:{guarnicion:"3,200 Operadores QP Élite + 150 ARC Troopers Null",flota:"Flota Sombra — 3 Venator Stealth + 40 Peltas Sigilo",amenaza:95},
+status:"alpha",statusText:"BASTIÓN ALPHA QP [CLASIFICADO]",sector:"Borde Exterior — Black Level",
+desc:"PULSAR no existe en mapas oficiales. Luna fortificada en nebulosa de iones. Cuartel secreto QP, I+D experimental y base QP-ORACLE. Solo Nivel ALPHA.",
+stats:{poblacion:"45,000 Personal ALPHA",clima:"Templado Tecnificado",recursos:"Tech QP / Intel",afiliacion:"Quantum Pulse Black Ops"},
+forces:{guarnicion:"3,200 Operadores QP + 150 ARC Null",flota:"Flota Sombra - 3 Venator Stealth",amenaza:95},
 units:[{name:"Operadores QP Sombra",count:"3,200 + ARC Null",pct:98,color:"green"}],
 main:true
 },
 {
- id:"tatooine",name:"TATOOINE",x:22,y:75,size:22,color:"#ffdd66",
- img:"./Tatooine_QP.png",imgDetail:"./Tatooine_QP.png",unitImg:"./Tatooine_QP.png",
- status:"civil",statusText:"CIVIL - TERRITORIO HUTT",sector:"Borde Exterior - Hutt Space",
- desc:"TATOOINE - Dos soles, cero ley. Jabba el Hutt. Clone Wars película 2008 Anakin y Ahsoka rescatan a Rotta. Sin clones por tratado Hutt. Jawas, Tusken, Krayt Dragon.",
- stats:{poblacion:"200k + 50k Jawas + 10k Tusken",clima:"Desértico - 2 Soles",recursos:"Chatarra / Especias",:{afiliacion:"Hutt - Neutral"},
- forces:{guarnicion:"Seguridad Hutt + Tusken",flota:"Cargueros Hutt",amenaza:55},
- units:[{name:"Civiles Granjeros",count:"200k + 50k Jawas",pct:40,color:"yellow"},{name:"Tusken Raiders",count:"10k Tribus",pct:60,color:"red"},{name:"Fauna - Krayt Dragon + Bantha",count:"Depredadores Nivel 4",pct:85,color:"green"},{name:"Clones - Patrulla 501",count:"Solo permiso Hutt",pct:10,color:"blue"}]},
-
-{id:"hoth",name:"HOTH",x:15,y:18,size:24,color:"#aaffff",img:"./Hoth_QP.png",imgDetail:"./Hoth_QP.png",unitImg:"./Hoth_QP.png",status:"civil",statusText:"INHABITADO - BALIZA CLON",sector:"Borde Exterior - Anoat",desc:"HOTH - Infierno blanco -60°C. Vientos 100km/h. Puestos de escucha República en Clone Wars para rutas Borde Exterior. Base Echo es posterior. Fauna Wampa caza Tauntaun. AT-TE se congelan.",stats:{poblacion:"0 + 20 Clones baliza",clima:"Tundra -60°C",recursos:"Hielo / Balizas",afiliacion:"Deshabitado"},forces:{guarnicion:"20 Clones Técnicos baliza abandonada",flota:"Caza 501 estrellado",amenaza:70},units:[{name:"Clones Baliza Echo Proto",count:"20 Técnicos Fase I",pct:30,color:"blue"},{name:"Fauna - Wampa + Tauntaun",count:"Wampas + Manadas",pct:90,color:"green"},{name:"Amenaza Ambiental",count:"-60°C / Ventisca",pct:95,color:"red"}]},
-
-{id:"ryloth",name:"RYLOTH",x:68,y:62,size:28,color:"#cc88ff",img:"./Ryloth_QP.png",imgDetail:"./Ryloth_QP.png",unitImg:"./Ryloth_QP.png",status:"contested",statusText:"EN DISPUTA - 212th + RESISTENCIA",sector:"Borde Exterior - Gaulus",desc:"RYLOTH - Mundo Twi'lek. Ocupado por Wat Tambor 100k droides + cañones protón. Clone Wars T1 E21-22 Obi-Wan, Waxer, Boil y 212th + Ghost Company liberan Nabat. Cham Syndulla Resistencia con Blurrgs.",stats:{poblacion:"1.5M Twi'lek + 10k 212th",clima:"Árido Rocoso",recursos:"Doonium / Especias",afiliacion:"212th - Obi-Wan / Cody"},forces:{guarnicion:"100k Droides + 10k 212th + Cham",flota:"Venator + Bloqueo droide",amenaza:85},units:[{name:"212th - Obi-Wan / Cody",count:"10k Ghost Company",pct:92,color:"gold"},{name:"Droides Techno Union",count:"100k B1/B2 + Cañones Protón",pct:90,color:"red"},{name:"Resistencia Twi'lek - Cham",count:"5k Twi'leks + Blurrgs",pct:75,color:"yellow"},{name:"Fauna - Blurrg + Gutkurr",count:"Bestias cañón",pct:80,color:"green"}]},
-
-{id:"christophsis",name:"CHRISTOPHSIS",x:48,y:62,size:26,color:"#55aaff",img:"./Christophsis_QP.png",imgDetail:"./Christophsis_QP.png",unitImg:"./Christophsis_QP.png",status:"contested",statusText:"EN DISPUTA - 501st / 212th - AHSOKA",sector:"Borde Medio - Savareen",desc:"CHRISTOPHSIS - Planeta cristales azules. Primera batalla Clone Wars película 2008. Obi-Wan y Anakin vs Whorm Loathsom 200k droides. Aquí Anakin conoce a Ahsoka. Slick traiciona clones. Cristales refractan disparos.",stats:{poblacion:"300k + 15k Clones + 200k Droides",clima:"Cristalino / Ruinas",recursos:"Cristales Kyber menor",afiliacion:"212th + 501st - Anakin / Obi-Wan / Ahsoka"},forces:{guarnicion:"15k 212th/501st + 200k Droides",flota:"12 Venator + Lucrehulk",amenaza:80},units:[{name:"501st - Anakin / Rex / Ahsoka",count:"7,500 Torrent - 1ra batalla Ahsoka",pct:94,color:"blue"},{name:"212th - Obi-Wan / Cody",count:"7,500 Ghost",pct:90,color:"gold"},{name:"Droides - Whorm Loathsom",count:"200k B1/B2 + 60 AAT",pct:88,color:"red"},{name:"Civiles Christophsianos",count:"300k Refugiados",pct:50,color:"yellow"}]}
-  },
+id:"tatooine",name:"TATOOINE",x:22,y:75,size:22,color:"#ffdd66",
+img:"./Tatooine_QP.png",imgDetail:"./Tatooine_QP.png",unitImg:"./Tatooine_QP.png",
+status:"civil",statusText:"CIVIL - TERRITORIO HUTT",sector:"Borde Exterior - Hutt Space",
+desc:"TATOOINE - Dos soles, cero ley. Jabba el Hutt. Clone Wars película 2008 Anakin y Ahsoka rescatan a Rotta. Sin clones por tratado Hutt. Jawas, Tusken, Krayt Dragon.",
+stats:{poblacion:"200k + 50k Jawas + 10k Tusken",clima:"Desértico - 2 Soles",recursos:"Chatarra / Especias",afiliacion:"Hutt - Neutral"},
+forces:{guarnicion:"Seguridad Hutt + Tusken",flota:"Cargueros Hutt",amenaza:55},
+units:[{name:"Civiles Granjeros",count:"200k + 50k Jawas",pct:40,color:"yellow"},{name:"Tusken Raiders",count:"10k Tribus",pct:60,color:"red"},{name:"Fauna - Krayt Dragon + Bantha",count:"Depredadores Nivel 4",pct:85,color:"green"},{name:"Clones - Patrulla 501",count:"Solo permiso Hutt",pct:10,color:"blue"}]
+},
+{
+id:"hoth",name:"HOTH",x:15,y:18,size:24,color:"#aaffff",
+img:"./Hoth_QP.png",imgDetail:"./Hoth_QP.png",unitImg:"./Hoth_QP.png",
+status:"civil",statusText:"INHABITADO - BALIZA CLON",sector:"Borde Exterior - Anoat",
+desc:"HOTH - Infierno blanco -60°C. Vientos 100km/h. Puestos de escucha República en Clone Wars. Base Echo posterior. Wampa caza Tauntaun. AT-TE se congelan.",
+stats:{poblacion:"0 + 20 Clones baliza",clima:"Tundra -60°C",recursos:"Hielo / Balizas",afiliacion:"Deshabitado"},
+forces:{guarnicion:"20 Clones baliza abandonada",flota:"Caza 501 estrellado",amenaza:70},
+units:[{name:"Clones Baliza Echo Proto",count:"20 Técnicos Fase I",pct:30,color:"blue"},{name:"Fauna - Wampa + Tauntaun",count:"Wampas + Manadas",pct:90,color:"green"},{name:"Amenaza Ambiental",count:"-60°C / Ventisca",pct:95,color:"red"}]
+},
+{
+id:"ryloth",name:"RYLOTH",x:68,y:62,size:28,color:"#cc88ff",
+img:"./Ryloth_QP.png",imgDetail:"./Ryloth_QP.png",unitImg:"./Ryloth_QP.png",
+status:"contested",statusText:"EN DISPUTA - 212th + RESISTENCIA",sector:"Borde Exterior - Gaulus",
+desc:"RYLOTH - Mundo Twi'lek. Ocupado por Wat Tambor 100k droides + cañones protón. Clone Wars T1 E21-22 Obi-Wan, Waxer, Boil y 212th liberan Nabat. Cham Syndulla Resistencia.",
+stats:{poblacion:"1.5M Twi'lek + 10k 212th",clima:"Árido Rocoso",recursos:"Doonium / Especias",afiliacion:"212th - Obi-Wan / Cody"},
+forces:{guarnicion:"100k Droides + 10k 212th + Cham",flota:"Venator + Bloqueo droide",amenaza:85},
+units:[{name:"212th - Obi-Wan / Cody",count:"10k Ghost Company",pct:92,color:"gold"},{name:"Droides Techno Union",count:"100k B1/B2 + Cañones",pct:90,color:"red"},{name:"Resistencia Twi'lek - Cham",count:"5k + Blurrgs",pct:75,color:"yellow"},{name:"Fauna - Blurrg + Gutkurr",count:"Bestias cañón",pct:80,color:"green"}]
+},
+{
+id:"christophsis",name:"CHRISTOPHSIS",x:48,y:62,size:26,color:"#55aaff",
+img:"./Christophsis_QP.png",imgDetail:"./Christophsis_QP.png",unitImg:"./Christophsis_QP.png",
+status:"contested",statusText:"EN DISPUTA - 501st / 212th - AHSOKA",sector:"Borde Medio - Savareen",
+desc:"CHRISTOPHSIS - Cristales azules. Primera batalla Clone Wars 2008. Obi-Wan y Anakin vs Whorm Loathsom 200k droides. Anakin conoce a Ahsoka. Slick traidor.",
+stats:{poblacion:"300k + 15k Clones + 200k Droides",clima:"Cristalino / Ruinas",recursos:"Kyber menor",afiliacion:"212th + 501st"},
+forces:{guarnicion:"15k 212th/501st + 200k Droides",flota:"12 Venator + Lucrehulk",amenaza:80},
+units:[{name:"501st - Anakin / Rex / Ahsoka",count:"7,500 Torrent",pct:94,color:"blue"},{name:"212th - Cody",count:"7,500 Ghost",pct:90,color:"gold"},{name:"Droides - Whorm Loathsom",count:"200k B1/B2 + 60 AAT",pct:88,color:"red"},{name:"Civiles Christophsianos",count:"300k Refugiados",pct:50,color:"yellow"}]
+},
   {
 id:"kamino",name:"KAMINO",x:7,y:18,size:30,color:"#8ecfff",
 img:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",unitImg:"./Kamino_QP.png",
-status:"republic",statusText:"CONTROL REPUBLICA — CENTRO DE CLONACION",sector:"Extragaláctico — Más allá del Rishi Maze",
-desc:"Mundo oceánico extragaláctico cubierto por tormentas eternas. Capital de la clonación. Aquí, en Tipoca City, los Kaminoanos crean al Gran Ejército de la República a partir del molde de Jango Fett. Cada día salen 10,000 clones listos. Sus laboratorios son el activo más valioso de la República y el objetivo número 1 de los Separatistas.",
-stats:{poblacion:"1M Kaminoanos + 2M Clones en desarrollo",clima:"Oceánico Extremo — Tormentas Perpetuas",recursos:"Clonación / ADN / Tecnología de crecimiento",afiliacion:"República Galáctica"},
-forces:{guarnicion:"Clones Fase I/II + Milicia Kaminoana + Jedi Defensores",flota:"Defensa Orbital Kaminoana + 12 Venator anclados",amenaza:40},
-units:[{name:"Clones Fase II — Producción",count:"200,000 / mes",pct:88,color:"blue"},{name:"Clones ARC / Comando",count:"800 Élite",pct:99,color:"gold"}]
+status:"republic",statusText:"CENTRO DE CLONACION",sector:"Extragaláctico",
+desc:"Mundo oceánico, tormentas eternas. Tipoca City crea 10,000 clones por día. Activo más valioso República, objetivo #1 Separatista.",
+stats:{poblacion:"1M Kaminoanos + 2M Clones",clima:"Oceánico Extremo",recursos:"Clonación / ADN",afiliacion:"República"},
+forces:{guarnicion:"Clones Fase I/II + Milicia Kaminoana",flota:"12 Venator defensa",amenaza:40},
+units:[{name:"Clones Fase II",count:"200,000 / mes",pct:88,color:"blue"},{name:"Clones ARC",count:"800 Élite",pct:99,color:"gold"},{name:"Civiles Kaminoanos",count:"1M Científicos",pct:70,color:"yellow"},{name:"Fauna - Aiwhas",count:"Criaturas marinas",pct:55,color:"green"}]
 },
 {
 id:"anaxes",name:"ANAXES",x:38,y:62,size:22,color:"#ffcc66",
 img:"./Anaxes_qp_Planet.png",imgDetail:"./ANAXES_qp_main.png",unitImg:"./ANAXES_qp_troops.png",
-status:"republic",statusText:"FORTALEZA REPUBLICA — BASE MILITAR",sector:"Núcleo Interior — Anaxes System — Astilleros",
-desc:"Apodada 'Defensora del Núcleo'. Anaxes es una fortaleza planetaria. Todo el planeta es una base militar, academia de guerra y astillero.",
-stats:{poblacion:"500M — Personal Militar",clima:"Fortificado / Industrializado",recursos:"Academia de Guerra / Astilleros / Estrategia",afiliacion:"República Galáctica — Alto Mando"},
-forces:{guarnicion:"Legión Anaxes + Academia Naval",flota:"Astilleros — 40 Venator en reparación + Flota de Reserva",amenaza:35},
-units:[{name:"Cadetes de Élite Anaxes",count:"15,000",pct:72,color:"gold"},{name:"Venator — Flota de Reserva",count:"40 Cruceros",pct:85,color:"blue"}]
+status:"republic",statusText:"FORTALEZA REPUBLICA",sector:"Núcleo Interior",
+desc:"Defensora del Núcleo. Planeta base militar y academia de guerra. De aquí salieron Tarkin y almirantes.",
+stats:{poblacion:"500M Militar",clima:"Fortificado",recursos:"Academia / Astilleros",afiliacion:"Alto Mando República"},
+forces:{guarnicion:"Legión Anaxes + Academia",flota:"40 Venator",amenaza:35},
+units:[{name:"Cadetes Élite",count:"15,000",pct:72,color:"gold"},{name:"Flota Reserva",count:"40 Cruceros",pct:85,color:"blue"}]
 },
-  {
+{
 id:"geonosis",name:"GEONOSIS",x:72,y:55,size:34,color:"#ff5533",
 img:"./Geonosis_QP.png",imgDetail:"./Geonosis_QP.png",unitImg:"./Geonosis_QP.png",
-status:"separatist",statusText:"SEPARATISTA — FABRICAS DE DROIDES",sector:"Borde Exterior — Sector Arkanis",
-desc:"Desierto rojizo, roca y colmenas. Geonosis es el infierno industrial Separatista. Bajo la superficie, millones de Geonosianos trabajan en fundiciones que vomitan cada segundo un droide de batalla. Aquí comenzó la Guerra de los Clones.",
-stats:{poblacion:"100B Geonosianos Obreros",clima:"Árido Rocoso — Tormentas de Arena",recursos:"Fábricas de Droides / Sónica",afiliacion:"Confederación de Sistemas Independientes"},
-forces:{guarnicion:"Colmenas Geonosianas + Droides B1/B2 + Supervisores Tácticos",flota:"Naves Nodriza Lucrehulk + Fragatas Munificent",amenaza:85},
-units:[{name:"Super Droides B2 + B1",count:"500,000 + 2M B1",pct:92,color:"red"},{name:"Tanques AAT + Spider Droids",count:"800 AAT + 400 Octuptarra",pct:88,color:"red"}]
+status:"separatist",statusText:"SEPARATISTA - FABRICAS DROIDES [CORRUPTA]",sector:"Borde Exterior - Arkanis",
+desc:"[SEÑAL CORRUPTA] Infierno industrial. Millones de Geonosianos producen 1 droide por segundo. Aquí empezó la Guerra Clon y se diseñó la Estrella Muerte.",
+stats:{poblacion:"100B Geonosianos",clima:"Árido Rocoso",recursos:"Droides / Sónica",afiliacion:"Confederación"},
+forces:{guarnicion:"Colmenas + B1/B2",flota:"Lucrehulk + Munificent",amenaza:85},
+units:[{name:"B2 + B1 Droides",count:"500k + 2M B1",pct:92,color:"red"},{name:"AAT + Spider",count:"800 AAT",pct:88,color:"red"},{name:"Geonosianos",count:"10M Colmena",pct:75,color:"yellow"},{name:"Fauna - Orray + Acklay",count:"Bestias arena",pct:60,color:"green"}]
 },
 {
 id:"umbara",name:"UMBARA",x:62,y:42,size:20,color:"#9a66ff",
 img:"./Umbara_QP.png",imgDetail:"./Umbara_QP.png",unitImg:"./Umbara_QP.png",
-status:"contested",statusText:"EN DISPUTA — PLANETA DE LAS SOMBRAS",sector:"Borde Medio — Ghost Nebula",
-desc:"Umbara, el planeta de las sombras eternas. Oscuridad perpetua. Los Umbaranos construyeron ciudades subterráneas y tecnología basada en plasma.",
-stats:{poblacion:"Desconocida — Milicia Umbarana",clima:"Oscuridad Perpetua / Niebla Tóxica",recursos:"Kyber Oscuro / Tecnología de Plasma",afiliacion:"En Disputa"},
-forces:{guarnicion:"Milicia Umbarana + Cazas Umbaranos",flota:"Cazas de Plasma + Tanques Hover",amenaza:90},
-units:[{name:"Milicia Oscura Umbarana",count:"60,000 + 200 Tanques Hover",pct:80,color:"red"}]
+status:"contested",statusText:"EN DISPUTA - SOMBRA PERPETUA",sector:"Borde Medio - Ghost Nebula",
+desc:"Planeta oscuridad perpetua. Umbaranos ven en UV, tech plasma y camuflaje. Milicia con cazas 360° masacró a la 501.",
+stats:{poblacion:"Milicia Umbarana",clima:"Oscuridad Perpetua",recursos:"Kyber Oscuro / Plasma",afiliacion:"En Disputa"},
+forces:{guarnicion:"Milicia Umbarana + Cazas",flota:"Cazas Plasma + Hover Tanks",amenaza:90},
+units:[{name:"Milicia Umbarana",count:"60k + 200 Hover Tanks",pct:80,color:"red"},{name:"Civiles Umbaranos",count:"Subterráneos",pct:45,color:"yellow"},{name:"Fauna - Banshee",count:"Depredadores nocturnos",pct:70,color:"green"}]
 },
 {
 id:"felucia",name:"FELUCIA",x:32,y:78,size:30,color:"#66ff99",
 img:"./Felucia_QP.png",imgDetail:"./felucia_main.jpg",unitImg:"./felucia_327th.jpg",
-status:"contested",statusText:"EN DISPUTA — SELVA HOSTIL NIVEL 5",sector:"Borde Exterior — Sector Felucia",
-desc:"Felucia es un infierno bioluminiscente. Selva hiper-densa de hongos de 100 metros, plantas carnívoras del tamaño de AT-TE, esporas tóxicas que disuelven filtros de casco en 6 horas.",
-stats:{poblacion:"Nativa Feluciana + 10,000 Tropas 327th",clima:"Selva Bioluminiscente / Tóxico",recursos:"Plantas Alucinógenas / Toxinas",afiliacion:"En Disputa — 327th Star Corps"},
-forces:{guarnicion:"327th Star Corps + Fauna Alfa + 120k Droides Separatistas",flota:"Soporte Orbital Venator en órbita baja",amenaza:88},
-units:[
-{name:"327th STAR CORPS",count:"10,000 TROPAS + 5 JEDI — AAYLA SECURA",pct:90,color:"gold",neon:true},
-{name:"Droides Separatistas — Legión Selva",count:"120,000 B1/B2 + 35 AAT",pct:92,color:"red"},
-{name:"Fauna Alfa Hostil — NIVEL 5",count:"Acklay Alfa + Rancor Jungle + Gelagrub Queen",pct:95,color:"green"},
-{name:"Fuerzas Felucianas / Tribus",count:"Tribus dispersas — Aliadas parciales",pct:42,color:"blue"}
- },
+status:"contested",statusText:"EN DISPUTA - SELVA NIVEL 5",sector:"Borde Exterior - Felucia",
+desc:"Infierno bioluminiscente. Hongos 100m, plantas carnívoras AT-TE, esporas disuelven filtros en 6h. 327th Star Corps Aayla Secura Outpost Lethal.",
+stats:{poblacion:"327th + Felucianos",clima:"Selva Tóxica",recursos:"Toxinas / Fuerza Viva",afiliacion:"327th Star Corps"},
+forces:{guarnicion:"10k 327th + 120k Droides + Fauna Alfa",flota:"Venator órbita baja",amenaza:88},
+units:[{name:"327th STAR CORPS - Bly/Secura",count:"10k + 5 Jedi",pct:90,color:"gold"},{name:"Droides Selva",count:"120k B1/B2 + 35 AAT",pct:92,color:"red"},{name:"Fauna Alfa NIVEL 5",count:"Acklay Alfa + Rancor + Sarlacc",pct:95,color:"green"},{name:"Tribus Felucianas",count:"Aliadas parciales",pct:42,color:"yellow"}]
+},
 {
 id:"mustafar",name:"MUSTAFAR",x:88,y:78,size:17,color:"#ff3300",
 img:"./Mustafar_QP.png",imgDetail:"./Mustafar_QP.png",unitImg:"./Mustafar_QP.png",
-status:"separatist",statusText:"SEPARATISTA — MUNDO VOLCANICO",sector:"Borde Exterior — Sector Atravis",
-desc:"Lava. Roca negra. Calor que derrite armadura. Mustafar es un mundo volcánico minero donde la Confederación extrae minerales para sus fábricas. Sus ríos de lava alimentan refinerías que nunca se apagan.",
-stats:{poblacion:"20,000 Mustafarianos + Droides Mineros",clima:"Volcánico Extremo — 800°C Superficie",recursos:"Minerales / Lava / Energía Geotérmica",afiliacion:"Confederación — Consejo Separatista"},
-forces:{guarnicion:"Droides de Magma + Guardias Mustafarianos",flota:"Anillo de Defensa Separatista + Refinerías",amenaza:80},
-units:[{name:"Guardia de Lava — Droides de Magma",count:"12,000 + 50 Magma Guards",pct:68,color:"red"}]
+status:"separatist",statusText:"SEPARATISTA - VOLCANICO [CORRUPTA]",sector:"Borde Exterior - Atravis",
+desc:"[SEÑAL CORRUPTA] Lava 800°C. Ríos de lava alimentan refinerías Separatistas. Mustafarianos en minas refrigeradas. Aquí se esconderá Consejo Separatista.",
+stats:{poblacion:"20k Mustafarianos + Droides",clima:"Volcánico 800°C",recursos:"Minerales / Lava",afiliacion:"Confederación"},
+forces:{guarnicion:"Droides Magma + Mustafarianos",flota:"Anillo Defensa",amenaza:80},
+units:[{name:"Guardia Lava",count:"12k + 50 Magma Guards",pct:68,color:"red"},{name:"Civiles Mustafarianos",count:"20k Mineros",pct:50,color:"yellow"},{name:"Fauna - Lava Flea",count:"Bestias volcánicas",pct:65,color:"green"}]
 },
 {
 id:"mandalore",name:"MANDALORE",x:22,y:48,size:36,color:"#c9a0ff",
 img:"./Mandalore_QP.png",imgDetail:"./Mandalore_QP.png",unitImg:"./Mandalore_QP.png",
-status:"mandalore",statusText:"MANDALORE — NEUTRAL ARMADO",sector:"Borde Exterior — Sector Mandalore",
-desc:"Mandalore, mundo de guerreros. Desiertos blancos, domos que protegen ciudades como Sundari y bosques en la luna de Concordia. Neutral en la Guerra de los Clones por decreto de la Duquesa Satine Kryze, pero su neutralidad arde.",
-stats:{poblacion:"4M Mandalorianos + Clanes",clima:"Desértico / Domos / Bosques Lunares",recursos:"Beskar / Mercenarios / Armas Antiguas",afiliacion:"Mandalore — Neutral / Death Watch Activo"},
-forces:{guarnicion:"Clan Kryze + Death Watch + Protectores",flota:"Kom'rk / Gauntlet + Cazas Fang + Cruceros Keldabe",amenaza:70},
-units:[{name:"Supercomandos Mandalorianos",count:"2,500 — Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch — Pre Vizsla",count:"800 — Sable Oscuro",pct:90,color:"red"}]
+status:"mandalore",statusText:"MANDALORE - NEUTRAL ARMADO",sector:"Borde Exterior - Mandalore",
+desc:"Mundo guerreros. Desiertos blancos, domos Sundari y bosques Concordia. Neutral por Satine Kryze, pero Death Watch de Pre Vizsla con Sable Oscuro quiere guerra.",
+stats:{poblacion:"4M Mandalorianos + Clanes",clima:"Desértico / Domos",recursos:"Beskar / Mercenarios",afiliacion:"Neutral / Death Watch"},
+forces:{guarnicion:"Clan Kryze + Death Watch",flota:"Kom'rk / Fang",amenaza:70},
+units:[{name:"Supercomandos Mandalorianos",count:"2,500 Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch - Pre Vizsla",count:"800 Sable Oscuro",pct:90,color:"red"},{name:"Civiles Sundari",count:"3.5M Pacifistas",pct:65,color:"yellow"},{name:"Fauna - Shriek-Hawk",count:"Bestias Concordia",pct:50,color:"green"}]
 }
 ];
   const routes=[ {from:"coruscant",to:"anaxes",type:"friendly"},
