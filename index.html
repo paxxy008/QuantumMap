@@ -71,6 +71,47 @@
   .menu-section.open .menu-section-content{max-height:400px}
   .menu-placeholder{padding:16px 20px;font-size:13px;line-height:1.5;color:rgba(200,255,224,0.55);font-style:italic}
   .menu-footer{padding:12px 20px;border-top:1px solid rgba(0,255,136,0.15);font-family:'Orbitron';font-size:8px;letter-spacing:1px;color:rgba(0,255,136,0.5);white-space:nowrap}
+/* === GLITCH MUSTAFAR / GEONOSIS === */
+#info-img.glitch-img, #unit-img.glitch-img {
+  filter: contrast(1.4) brightness(0.7) saturate(0.6) hue-rotate(-20deg);
+  animation: glitchFlicker 0.2s infinite;
+  border-color: #ff0000 !important;
+  position: relative;
+}
+#info-img.glitch-img::after, #unit-img.glitch-img::after {
+  content: "";
+  position: absolute;
+  top:0; left:0; width:100%; height:100%;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.4) 0px, transparent 2px, transparent 4px);
+  pointer-events: none;
+}
+@keyframes glitchFlicker {
+  0% { transform: translate(0); opacity: 0.9; }
+  20% { transform: translate(-2px, 1px); opacity: 0.7; filter: hue-rotate(90deg); }
+  40% { transform: translate(2px, -1px); opacity: 1; }
+  60% { transform: translate(-1px, 0); opacity: 0.8; }
+  100% { transform: translate(0); opacity: 1; }
+}
+.scanline {
+  position: absolute;
+  top:0; left:0; width:100%; height:2px;
+  background: #ff0000;
+  box-shadow: 0 0 12px #f00;
+  animation: scanMove 2s linear infinite;
+  z-index: 20;
+}
+@keyframes scanMove { 0% { top:0% } 100% { top:100% } }
+.glitch-label {
+  position: absolute;
+  bottom: 6px; left: 6px;
+  background: rgba(255,0,0,0.25);
+  border: 1px solid red;
+  color: #ff5555;
+  font-family: monospace;
+  font-size: 9px;
+  padding: 2px 5px;
+  z-index: 20;
+}
 </style>
 </head>
 <body>
@@ -327,17 +368,34 @@ function showInfo(p){
   const st=document.getElementById('info-status');
   st.innerText=p.statusText;
   st.className='status status-tag '+p.status;
-    document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
   document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
   document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
   let html='';
-      p.units.forEach(u=>{
+  p.units.forEach(u=>{
     const n=u.neon?' neon-yellow':'';
      html+=`<div class="unit-row"><div class="unit-head"><b class="${n}">${u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill ${u.color}" style="width: ${u.pct}%"></div></div></div>`;
   });
   document.getElementById('info-units').innerHTML=html;
-}
 
+  // === INICIO LÓGICA GLITCH MUSTAFAR / GEONOSIS ===
+  const infoImgDiv = document.getElementById('info-img');
+  const unitImgDiv = document.getElementById('unit-img');
+
+  // limpiar glitch anterior
+  infoImgDiv.classList.remove('glitch-img');
+  unitImgDiv.classList.remove('glitch-img');
+  infoImgDiv.querySelectorAll('.scanline, .glitch-label').forEach(e=>e.remove());
+  unitImgDiv.querySelectorAll('.scanline, .glitch-label').forEach(e=>e.remove());
+
+  const isGlitch = ["mustafar","geonosis"].includes(p.id);
+  if(isGlitch){
+    infoImgDiv.classList.add('glitch-img');
+    unitImgDiv.classList.add('glitch-img');
+    infoImgDiv.insertAdjacentHTML('beforeend', `<div class="scanline"></div><div class="glitch-label">[SEÑAL INESTABLE - SECTOR BLOQUEADO]</div>`);
+    unitImgDiv.insertAdjacentHTML('beforeend', `<div class="scanline"></div>`);
+  }
+  // === FIN LÓGICA GLITCH ===
 function closePanel(){
   sC();
   document.getElementById('info-panel').style.display='none';
