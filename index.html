@@ -46,7 +46,6 @@
 <div id="galaxy">
   <div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA v2.5</div>
   <svg id="routes"></svg>
-
   <div id="info-panel">
     <div class="panel-img" id="info-img">
       <div id="info-status" class="status status-tag"></div>
@@ -306,24 +305,6 @@ function showInfo(p){
   });
   document.getElementById('info-units').innerHTML=html;
 
-  // === INICIO LÓGICA GLITCH MUSTAFAR / GEONOSIS ===
-  const infoImgDiv = document.getElementById('info-img');
-  const unitImgDiv = document.getElementById('unit-img');
-
-  // limpiar glitch anterior
-  infoImgDiv.classList.remove('glitch-img');
-  unitImgDiv.classList.remove('glitch-img');
-  infoImgDiv.querySelectorAll('.scanline, .glitch-label').forEach(e=>e.remove());
-  unitImgDiv.querySelectorAll('.scanline, .glitch-label').forEach(e=>e.remove());
-
-  const isGlitch = ["mustafar","geonosis"].includes(p.id);
-  if(isGlitch){
-    infoImgDiv.classList.add('glitch-img');
-    unitImgDiv.classList.add('glitch-img');
-    infoImgDiv.insertAdjacentHTML('beforeend', `<div class="scanline"></div><div class="glitch-label">[SEÑAL INESTABLE - SECTOR BLOQUEADO]</div>`);
-    unitImgDiv.insertAdjacentHTML('beforeend', `<div class="scanline"></div>`);
-  }
-  // === FIN LÓGICA GLITCH ===
 function closePanel(){
   sC();
   document.getElementById('info-panel').style.display='none';
