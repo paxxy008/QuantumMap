@@ -197,7 +197,21 @@ forces:{guarnicion:"3,200 Operadores QP Élite + 150 ARC Troopers Null",flota:"F
 units:[{name:"Operadores QP Sombra",count:"3,200 + ARC Null",pct:98,color:"green"}],
 main:true
 },
-{
+{id:"tatooine",name:"TATOOINE",x:22,y:75,size:22,color:"#ffdd66",
+ img:"./Tatooine_QP.png",imgDetail:"./Tatooine_QP.png",unitImg:"./Tatooine_QP.png",
+ status:"civil",statusText:"CIVIL - TERRITORIO HUTT",sector:"Borde Exterior - Hutt Space",
+ desc:"TATOOINE - Dos soles, cero ley. Jabba el Hutt. Clone Wars película 2008 Anakin y Ahsoka rescatan a Rotta. Sin clones por tratado Hutt. Jawas, Tusken, Krayt Dragon.",
+ stats:{poblacion:"200k + 50k Jawas + 10k Tusken",clima:"Desértico - 2 Soles",recursos:"Chatarra / Especias",:{afiliacion:"Hutt - Neutral"},
+ forces:{guarnicion:"Seguridad Hutt + Tusken",flota:"Cargueros Hutt",amenaza:55},
+ units:[{name:"Civiles Granjeros",count:"200k + 50k Jawas",pct:40,color:"yellow"},{name:"Tusken Raiders",count:"10k Tribus",pct:60,color:"red"},{name:"Fauna - Krayt Dragon + Bantha",count:"Depredadores Nivel 4",pct:85,color:"green"},{name:"Clones - Patrulla 501",count:"Solo permiso Hutt",pct:10,color:"blue"}]},
+
+{id:"hoth",name:"HOTH",x:15,y:18,size:24,color:"#aaffff",img:"./Hoth_QP.png",imgDetail:"./Hoth_QP.png",unitImg:"./Hoth_QP.png",status:"civil",statusText:"INHABITADO - BALIZA CLON",sector:"Borde Exterior - Anoat",desc:"HOTH - Infierno blanco -60°C. Vientos 100km/h. Puestos de escucha República en Clone Wars para rutas Borde Exterior. Base Echo es posterior. Fauna Wampa caza Tauntaun. AT-TE se congelan.",stats:{poblacion:"0 + 20 Clones baliza",clima:"Tundra -60°C",recursos:"Hielo / Balizas",afiliacion:"Deshabitado"},forces:{guarnicion:"20 Clones Técnicos baliza abandonada",flota:"Caza 501 estrellado",amenaza:70},units:[{name:"Clones Baliza Echo Proto",count:"20 Técnicos Fase I",pct:30,color:"blue"},{name:"Fauna - Wampa + Tauntaun",count:"Wampas + Manadas",pct:90,color:"green"},{name:"Amenaza Ambiental",count:"-60°C / Ventisca",pct:95,color:"red"}]},
+
+{id:"ryloth",name:"RYLOTH",x:68,y:62,size:28,color:"#cc88ff",img:"./Ryloth_QP.png",imgDetail:"./Ryloth_QP.png",unitImg:"./Ryloth_QP.png",status:"contested",statusText:"EN DISPUTA - 212th + RESISTENCIA",sector:"Borde Exterior - Gaulus",desc:"RYLOTH - Mundo Twi'lek. Ocupado por Wat Tambor 100k droides + cañones protón. Clone Wars T1 E21-22 Obi-Wan, Waxer, Boil y 212th + Ghost Company liberan Nabat. Cham Syndulla Resistencia con Blurrgs.",stats:{poblacion:"1.5M Twi'lek + 10k 212th",clima:"Árido Rocoso",recursos:"Doonium / Especias",afiliacion:"212th - Obi-Wan / Cody"},forces:{guarnicion:"100k Droides + 10k 212th + Cham",flota:"Venator + Bloqueo droide",amenaza:85},units:[{name:"212th - Obi-Wan / Cody",count:"10k Ghost Company",pct:92,color:"gold"},{name:"Droides Techno Union",count:"100k B1/B2 + Cañones Protón",pct:90,color:"red"},{name:"Resistencia Twi'lek - Cham",count:"5k Twi'leks + Blurrgs",pct:75,color:"yellow"},{name:"Fauna - Blurrg + Gutkurr",count:"Bestias cañón",pct:80,color:"green"}]},
+
+{id:"christophsis",name:"CHRISTOPHSIS",x:48,y:62,size:26,color:"#55aaff",img:"./Christophsis_QP.png",imgDetail:"./Christophsis_QP.png",unitImg:"./Christophsis_QP.png",status:"contested",statusText:"EN DISPUTA - 501st / 212th - AHSOKA",sector:"Borde Medio - Savareen",desc:"CHRISTOPHSIS - Planeta cristales azules. Primera batalla Clone Wars película 2008. Obi-Wan y Anakin vs Whorm Loathsom 200k droides. Aquí Anakin conoce a Ahsoka. Slick traiciona clones. Cristales refractan disparos.",stats:{poblacion:"300k + 15k Clones + 200k Droides",clima:"Cristalino / Ruinas",recursos:"Cristales Kyber menor",afiliacion:"212th + 501st - Anakin / Obi-Wan / Ahsoka"},forces:{guarnicion:"15k 212th/501st + 200k Droides",flota:"12 Venator + Lucrehulk",amenaza:80},units:[{name:"501st - Anakin / Rex / Ahsoka",count:"7,500 Torrent - 1ra batalla Ahsoka",pct:94,color:"blue"},{name:"212th - Obi-Wan / Cody",count:"7,500 Ghost",pct:90,color:"gold"},{name:"Droides - Whorm Loathsom",count:"200k B1/B2 + 60 AAT",pct:88,color:"red"},{name:"Civiles Christophsianos",count:"300k Refugiados",pct:50,color:"yellow"}]}
+  },
+  {
 id:"kamino",name:"KAMINO",x:7,y:18,size:30,color:"#8ecfff",
 img:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",unitImg:"./Kamino_QP.png",
 status:"republic",statusText:"CONTROL REPUBLICA — CENTRO DE CLONACION",sector:"Extragaláctico — Más allá del Rishi Maze",
@@ -245,8 +259,7 @@ units:[
 {name:"Droides Separatistas — Legión Selva",count:"120,000 B1/B2 + 35 AAT",pct:92,color:"red"},
 {name:"Fauna Alfa Hostil — NIVEL 5",count:"Acklay Alfa + Rancor Jungle + Gelagrub Queen",pct:95,color:"green"},
 {name:"Fuerzas Felucianas / Tribus",count:"Tribus dispersas — Aliadas parciales",pct:42,color:"blue"}
-]
-},
+ },
 {
 id:"mustafar",name:"MUSTAFAR",x:88,y:78,size:17,color:"#ff3300",
 img:"./Mustafar_QP.png",imgDetail:"./Mustafar_QP.png",unitImg:"./Mustafar_QP.png",
@@ -266,9 +279,26 @@ forces:{guarnicion:"Clan Kryze + Death Watch + Protectores",flota:"Kom'rk / Gaun
 units:[{name:"Supercomandos Mandalorianos",count:"2,500 — Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch — Pre Vizsla",count:"800 — Sable Oscuro",pct:90,color:"red"}]
 }
 ];
-
-const routes=[{from:"coruscant",to:"anaxes",type:"friendly"},{from:"coruscant",to:"pulsar",type:"friendly"},{from:"pulsar",to:"umbara",type:"neutral"},{from:"anaxes",to:"kamino",type:"friendly"},{from:"pulsar",to:"geonosis",type:"hostile"},{from:"umbara",to:"felucia",type:"neutral"},{from:"pulsar",to:"mandalore",type:"neutral"},{from:"mandalore",to:"umbara",type:"neutral"},{from:"geonosis",to:"mustafar",type:"friendly"},{from:"coruscant",to:"kamino",type:"friendly"},{from:"anaxes",to:"felucia",type:"friendly"}];
-
+  const routes=[ {from:"coruscant",to:"anaxes",type:"friendly"},
+  {from:"coruscant",to:"pulsar",type:"friendly"},
+  {from:"pulsar",to:"umbara",type:"neutral"},
+  {from:"anaxes",to:"kamino",type:"friendly"},
+  {from:"pulsar",to:"geonosis",type:"hostile"},
+  {from:"umbara",to:"felucia",type:"neutral"},
+  {from:"pulsar",to:"mandalore",type:"neutral"},
+  {from:"mandalore",to:"umbara",type:"neutral"},
+  {from:"geonosis",to:"mustafar",type:"friendly"},
+  {from:"coruscant",to:"kamino",type:"friendly"},
+  {from:"anaxes",to:"felucia",type:"friendly"},
+  {from:"ryloth",to:"felucia",type:"friendly"},
+  {from:"christophsis",to:"coruscant",type:"friendly"},
+  {from:"christophsis",to:"felucia",type:"neutral"},
+  {from:"tatooine",to:"ryloth",type:"neutral"},
+  {from:"hoth",to:"anaxes",type:"neutral"},
+  {from:"tatooine",to:"geonosis",type:"neutral"},
+  {from:"tatooine",to:"coruscant",type:"friendly"}
+];
+  
 const galaxy=document.getElementById('galaxy');
 const svg=document.getElementById('routes');
 let selectedId=null;
