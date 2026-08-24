@@ -143,31 +143,75 @@
   </div>
 </div>
 <script>
-// === AUDIO CIBERNETICO QP - PULIDO Y LIGERO ===
+// === AUDIO QP - CYBERPUNK SUAVE V2 ===
 let AC=null;
 function iA(){ if(!AC) AC=new(window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended') AC.resume(); }
-function pt(f,type,dur,vol,f2){
+
+function env(g, vol, dur){
+  g.gain.setValueAtTime(0, AC.currentTime);
+  g.gain.linearRampToValueAtTime(vol, AC.currentTime+0.04);
+  g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime+dur);
+}
+
+function mkFilter(freq, q){
+  let f=AC.createBiquadFilter();
+  f.type='lowpass'; f.frequency.value=freq; f.Q.value=q||1;
+  return f;
+}
+
+// Cyberpunk = sine + triangle + mucho lowpass + delay corto
+function cyberBip(f1, f2, dur, vol, type='sine', fFilter=4500){
   try{
     iA(); if(AC.state!=='running') return;
-    let o=AC.createOscillator(), g=AC.createGain(), fl=AC.createBiquadFilter();
-    o.type=type; fl.type='lowpass'; fl.frequency.value=3500;
-    o.frequency.setValueAtTime(f,AC.currentTime);
-    if(f2) o.frequency.exponentialRampToValueAtTime(f2,AC.currentTime+dur);
-    g.gain.setValueAtTime(0,AC.currentTime);
-    g.gain.linearRampToValueAtTime(vol,AC.currentTime+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+dur);
+    let o=AC.createOscillator(), g=AC.createGain(), fl=mkFilter(fFilter, 2);
+    let o2=AC.createOscillator(); o2.type='sine'; o2.detune.value=7;
+    o.type=type;
+    o.frequency.setValueAtTime(f1, AC.currentTime);
+    o2.frequency.setValueAtTime(f1*1.01, AC.currentTime);
+    if(f2) {
+      o.frequency.exponentialRampToValueAtTime(f2, AC.currentTime+dur);
+      o2.frequency.exponentialRampToValueAtTime(f2*1.01, AC.currentTime+dur);
+    }
+    env(g, vol, dur);
+    fl.frequency.setValueAtTime(fFilter, AC.currentTime);
+    fl.frequency.linearRampToValueAtTime(fFilter*0.6, AC.currentTime+dur);
+    o.connect(fl); o2.connect(fl); fl.connect(g); g.connect(AC.destination);
+    o.start(); o2.start(); 
+    o.stop(AC.currentTime+dur); o2.stop(AC.currentTime+dur);
+  }catch(e){}
+}
+
+function cyberBass(f1, f2, dur, vol){
+  try{
+    iA();
+    let o=AC.createOscillator(), g=AC.createGain(), fl=mkFilter(800, 1.5);
+    o.type='triangle';
+    o.frequency.setValueAtTime(f1, AC.currentTime);
+    o.frequency.exponentialRampToValueAtTime(f2, AC.currentTime+dur);
+    env(g, vol, dur);
     o.connect(fl); fl.connect(g); g.connect(AC.destination);
     o.start(); o.stop(AC.currentTime+dur);
   }catch(e){}
 }
-// Planeta = bwoom grave + bip holografico
-function sP(){ pt(110,'sawtooth',0.38,0.32,520); setTimeout(()=>pt(820,'sine',0.22,0.24,1450),75); setTimeout(()=>pt(2100,'square',0.08,0.09),130); }
-// Tabs
-function sT(){ pt(900,'square',0.09,0.13,1600); }
-// Cerrar = bajada
-function sC(){ pt(680,'triangle',0.42,0.22,60); }
-// Hover planeta = tick muy corto
-function sH(){ pt(1800,'sine',0.05,0.06); }
+
+// S E L E C C I O N  P L A N E T A - bwoom cálido + shimmer cristal
+function sP(){
+  cyberBass(80, 40, 0.65, 0.28); // sub grave que respira
+  setTimeout(()=>cyberBip(600, 1200, 0.5, 0.12, 'sine', 5000), 60);
+  setTimeout(()=>cyberBip(1400, 2400, 0.35, 0.06, 'triangle', 7000), 140);
+}
+
+// T A B S - tick de cristal con glide
+function sT(){ cyberBip(900, 1350, 0.22, 0.09, 'sine', 6000); }
+
+// C E R R A R - whoosh descendente suave
+function sC(){ 
+  cyberBip(700, 180, 0.55, 0.14, 'triangle', 3000);
+  setTimeout(()=>cyberBass(150, 35, 0.6, 0.18), 30);
+}
+
+// H O V E R  P L A N E T A - apenas un tick holográfico, casi imperceptible
+function sH(){ cyberBip(2200, 2600, 0.12, 0.025, 'sine', 8000); }
 
 document.addEventListener('click', iA, {once:true});
 document.addEventListener('touchstart', iA, {once:true});
