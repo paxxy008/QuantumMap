@@ -110,11 +110,41 @@ body{padding-top:60px}
 <script>
 let audioCtx;
 function initAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
-function playTone(f,d,t='sine',v=0.12){ initAudio(); let o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+d); o.start(); o.stop(audioCtx.currentTime+d); }
-function soundHover(){ playTone(440,0.08,'sine',0.08); }
-function soundClick(){ playTone(880,0.15,'square',0.15); setTimeout(()=>playTone(1200,0.12,'sine',0.1),60); }
-function soundGlitch(){ playTone(80,0.3,'sawtooth',0.2); playTone(200,0.2,'square',0.15); }
-
+function playCyber(f1,f2,dur,type='access'){
+  initAudio();
+  let now=audioCtx.currentTime;
+  let o1=audioCtx.createOscillator(), o2=audioCtx.createOscillator();
+  let g=audioCtx.createGain(), filt=audioCtx.createBiquadFilter();
+  filt.type='bandpass'; filt.frequency.value=1800; filt.Q.value=1.2;
+  o1.type='sine'; o2.type='triangle';
+  o1.frequency.setValueAtTime(f1,now);
+  o1.frequency.exponentialRampToValueAtTime(f2,now+dur);
+  o2.frequency.setValueAtTime(f1*1.5,now);
+  o2.frequency.exponentialRampToValueAtTime(f2*0.8,now+dur);
+  g.gain.setValueAtTime(0,now);
+  g.gain.linearRampToValueAtTime(0.14,now+0.02);
+  g.gain.exponentialRampToValueAtTime(0.001,now+dur);
+  o1.connect(filt); o2.connect(filt); filt.connect(g); g.connect(audioCtx.destination);
+  o1.start(now); o2.start(now); o1.stop(now+dur); o2.stop(now+dur);
+}
+function soundHover(){ playCyber(800,1200,0.12,'hover'); } // pasas por planeta = scan corto
+function soundClick(){ // abrir base de datos
+  playCyber(200,900,0.35,'open');
+  setTimeout(()=>playCyber(1200,2200,0.18,'decrypt'),80);
+  setTimeout(()=>{ initAudio(); let n=audioCtx.createBufferSource(); let buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.08,audioCtx.sampleRate); for(let i=0;i<buf.length;i++) buf.getChannelData(0)[i]=(Math.random()*2-1)*Math.pow(1-i/buf.length,3); n.buffer=buf; let g=audioCtx.createGain(); g.gain.setValueAtTime(0.06, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.08); n.connect(g); g.connect(audioCtx.destination); n.start(); },120);
+}
+function soundGlitch(){ // solo Mustafar y Geonosis
+  initAudio();
+  let now=audioCtx.currentTime;
+  for(let i=0;i<4;i++){
+    let o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sawtooth'; o.frequency.setValueAtTime(60+Math.random()*400,now+i*0.06);
+    o.frequency.exponentialRampToValueAtTime(30,now+i*0.06+0.15);
+    g.gain.setValueAtTime(0.18,now+i*0.06); g.gain.exponentialRampToValueAtTime(0.001,now+i*0.06+0.15);
+    o.connect(g); g.connect(audioCtx.destination); o.start(now+i*0.06); o.stop(now+i*0.06+0.15);
+  }
+}
+function soundClose(){ playCyber(900,150,0.3,'close'); }
 const planets=[
 {id:"coruscant",name:"CORUSCANT",x:50,y:50,color:"#4da6ff",img:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",unitImg:"./SH_TROOPS_QP.png",status:"republic",statusText:"CAPITAL REPUBLICA",sector:"Núcleo",desc:"Ecumenópolis 5,127 niveles. 1 trillón habitantes. Templo Jedi 10k Jedi. 8,200 Shock Troopers Fase II. Si cae Coruscant cae la República.",stats:{poblacion:"1 Trillón + 10k Jedi",clima:"Ecumenópolis",recursos:"Político / Jedi",afiliacion:"República"},forces:{guarnicion:"Jedi + Temple Guard + 8,200 Shock Troopers",flota:"20 Venator + 3 Mandator",amenaza:15},units:[{name:"Shock Trooper - ROJO NEON",count:"8,200 - Fox",pct:92,color:"red"},{name:"501st - AZUL NEON",count:"Guardia Senado",pct:90,color:"blue"}]},
 {id:"anaxes",name:"ANAXES",x:38,y:30,color:"#ffd700",img:"./Anaxes_qp_Planet.png",imgDetail:"./ANAXES_qp_main.png",unitImg:"./ANAXES_qp_troops.png",status:"republic",statusText:"FORTALEZA REPUBLICA",sector:"Borde Interior",desc:"Astillero Venator. War College. Mace Windu y Anakin vs Trench.",stats:{poblacion:"2M + 30k Clones",clima:"Industrial",recursos:"Astillero",afiliacion:"República"},forces:{guarnicion:"30k 501st",flota:"20 Venator",amenaza:45},units:[{name:"501st - AZUL NEON",count:"15k - Rex",pct:93,color:"blue"}]},
@@ -180,7 +210,7 @@ let bar=document.getElementById('threat-bar');bar.style.width=p.forces.amenaza+'
 document.getElementById('info-units').innerHTML=p.units.map(u=>`<div style="margin-bottom:10px"><div class="unit-head"><span style="color:${u.color==='blue'?'#00aaff':u.color==='orange'?'#ff8800':u.color==='cyan'?'#00ffff':u.color==='red'?'#ff4444':u.color==='gold'?'#ffee88':u.color==='purple'?'#aa66ff':u.color}">${u.name}</span><span>${u.count}</span></div><div class="bar"><div class="bar-fill ${u.color}" style="width:${u.pct}%"></div></div></div>`).join('');
 switchTab(0);
 }
-function closePanel(){document.getElementById('info-panel').style.display='none';document.querySelectorAll('.planet').forEach(e=>e.classList.remove('selected'))}
+function closePanel(){ soundClose(); document.getElementById('info-panel').style.display='none';document.querySelectorAll('.planet').forEach(e=>e.classList.remove('selected'))}
 function switchTab(i){document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));}
 function toggleMenu(){initAudio(); document.getElementById('menu-toggle').classList.toggle('open');document.getElementById('menu-panel').classList.toggle('open'); soundClick();}
 function toggleSection(id){let el=document.getElementById(id); el.classList.toggle('open'); let cont=el.querySelector('.menu-section-content'); if(el.classList.contains('open')) cont.style.maxHeight='800px'; else cont.style.maxHeight='0'; soundHover();}
