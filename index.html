@@ -51,24 +51,28 @@ line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 
 /* TITULO QUANTUM PULSE NEON VERDE GIGANTE */
 .title-bar{
   position:fixed;
-  left:90px;
-  top:18px;
-  z-index:50;
+  left:50%;
+  top:14px;
+  transform:translateX(-50%);
+  z-index:90;
   font-family:'Orbitron';
   font-weight:900;
-  font-size:24px;
-  letter-spacing:4px;
+  font-size:28px;
+  letter-spacing:5px;
   color:#00ff88;
-  text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88,0 0 55px rgba(0,255,136,0.6);
-  opacity:1;
-  animation:neonPulse 2s infinite alternate;
-  pointer-events:none;
+  background:linear-gradient(160deg,rgba(0,22,14,0.95),rgba(0,10,8,0.98));
+  border:2.5px solid #00ff88;
+  border-radius:10px;
+  padding:10px 32px;
+  box-shadow:0 0 15px rgba(0,255,136,0.5),0 0 35px rgba(0,255,136,0.3),0 0 60px rgba(0,255,136,0.15),inset 0 0 20px rgba(0,255,136,0.08);
+  text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88;
+  animation:neonPulse 1.8s infinite alternate;
+  white-space:nowrap;
 }
 @keyframes neonPulse{
-  0%{text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88,0 0 55px rgba(0,255,136,0.6);opacity:1}
-  100%{text-shadow:0 0 12px #00ff88,0 0 24px #00ff88,0 0 45px #00ff88,0 0 75px rgba(0,255,136,0.8);opacity:0.92}
+  0%{box-shadow:0 0 15px rgba(0,255,136,0.5),0 0 35px rgba(0,255,136,0.3);text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88}
+  100%{box-shadow:0 0 22px rgba(0,255,136,0.7),0 0 45px rgba(0,255,136,0.4);text-shadow:0 0 12px #00ff88,0 0 24px #00ff88,0 0 45px #00ff88}
 }
-
 /* PANEL DERECHA GORDO CUADRADO + LETRAS GRANDES NEGRITAS */
 #info-panel{
   position:fixed;
@@ -164,7 +168,7 @@ line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 
   #galaxy{min-width:1800px;min-height:1400px}
   .planet{width:32px !important;height:32px !important}
   .planet.main{width:44px !important;height:44px !important}
-  .title-bar{font-size:14px !important;left:80px !important;letter-spacing:2px !important;top:20px !important}
+  .title-bar{font-size:16px !important;letter-spacing:2.5px !important;padding:8px 16px !important;top:10px !important;left:50% !important;transform:translateX(-50%) !important}
   #menu-panel.open{width:300px !important}
   .menu-header{font-size:13px !important;padding:18px 20px 14px !important}
   .menu-section-title{font-size:12px !important;padding:15px 20px !important}
