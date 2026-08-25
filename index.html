@@ -158,20 +158,34 @@ const planets=[
 {id:"umbara",name:"UMBARA",x:28,y:34,color:"#8a2be2",img:"./Umbara_planet.png",imgDetail:"./UMBARA_QP_main.png",unitImg:"./UMBARA_QP_Troops.png",status:"contested",statusText:"EN DISPUTA - 212th",sector:"Ghost Nebula - Borde Medio",desc:"Oscuridad perpetua, sol nunca llega. Tech Umbarana superior: plasma, hover, camuflaje óptico. Peor despliegue. Pong Krell traidor Besalisk 4 brazos hizo que clones se mataran entre sí, ejecutado por Dogma. Solo quedan 212th Waxer con apoyo 88th.",stats:{poblacion:"500k + 25k Clones",clima:"Oscuridad perpetua / Niebla tóxica",recursos:"Doonium / Plasma / Camuflaje",afiliacion:"212th vs Umbaranos"},forces:{guarnicion:"13k 212th (Waxer/Boil) + 100k Milicia Umbarana",flota:"1 Venator + Cazas camuflados",amenaza:95},units:[{name:"212th Attack Battalion",count:"13k - Boil/ Waxer",pct:85,color:"orange"},{name:"88th - Apoyo Pesado",count:"Baterías AT-AP y Morteros",pct:91,color:"cyan"}]},
 {id:"pulsar",name:"PULSAR",x:93,y:50,color:"#00ffcc",img:"./Pulsar_QP.png",imgDetail:"./Pulsar_QP.png",unitImg:"./Pulsar_QP.png",status:"alpha",statusText:"BASTION ALPHA - CLASIFICADO",sector:"Black Level - Nebulosa Iónica",desc:"Luna fortificada dentro nebulosa iones que ciega radar. No existe en mapa oficial. Cuartel secreto Quantum Pulse, unidad Black Ops. Aquí opera ORACLE, IA táctica. Solo autorización ALPHA. 3 Venators stealth.",stats:{poblacion:"45k ALPHA + 150 Null ARC",clima:"Nebulosa iónica / Vacío fortificado",recursos:"Tech QP / ORACLE IA / Stealth",afiliacion:"Black Ops - QP"},forces:{guarnicion:"3,200 Operadores Sombra + 150 Null ARC",flota:"3 Venator Stealth + V-Wing negros",amenaza:95},units:[{name:"Operadores Sombra",count:"3,200 - Unidad ALPHA",pct:98,color:"green"}],main:true}
 ];
-const routesData=[
-{from:"coruscant",to:"anaxes",type:"friendly",label:"Suministro"},
-{from:"anaxes",to:"kamino",type:"friendly",label:"Ruta Clones"},
-{from:"anaxes",to:"umbara",type:"hostile",label:"Frente Umbara"},
-{from:"umbara",to:"felucia",type:"hostile",label:"Avance Sep"},
-{from:"felucia",to:"geonosis",type:"hostile",label:"Bloqueo Droide"},
-{from:"geonosis",to:"tatooine",type:"neutral",label:"Ruta Hutt"},
-{from:"tatooine",to:"mandalore",type:"neutral",label:"Contrabando Beskar"},
-{from:"mandalore",to:"mustafar",type:"hostile",label:"Sombra Maul"},
-{from:"mustafar",to:"geonosis",type:"hostile",label:"Forja-Tech"},
-{from:"coruscant",to:"pulsar",type:"friendly",label:"ALPHA SECRETO"},
-{from:"coruscant",to:"mandalore",type:"neutral",label:"Negociación Satine"},
-{from:"anaxes",to:"felucia",type:"friendly",label:"Apoyo 327th"},
-{from:"coruscant",to:"tatooine",type:"neutral",label:"Acuerdo Hutt"}
+const routes = [
+// RED REPÚBLICA - Núcleo interno (verde en tu mapa)
+{from:"coruscant", to:"anaxes", type:"republic", color:"#00ff88", dash:false},
+{from:"anaxes", to:"kamino", type:"republic", color:"#00ff88", dash:false},
+{from:"anaxes", to:"felucia", type:"republic", color:"#00ff88", dash:false},
+
+// BASE SECRETA - SOLO CORUSCANT (lo que pediste)
+{from:"coruscant", to:"pulsar", type:"alpha", color:"#00ffcc", dash:false, alpha:true},
+
+// HOTH LEJOS - SOLO UMBARA (lo que pediste para acercarlo)
+{from:"hoth", to:"umbara", type:"republic", color:"#ccffff", dash:false},
+
+// RED NEUTRAL / CIVIL - Espacio Hutt y Mandaloriano (amarillo en tu mapa)
+{from:"coruscant", to:"tatooine", type:"neutral", color:"#ffcc00", dash:false},
+{from:"tatooine", to:"mandalore", type:"neutral", color:"#ffcc00", dash:false},
+{from:"mandalore", to:"coruscant", type:"neutral", color:"#ffcc00", dash:false},
+{from:"tatooine", to:"geonosis", type:"neutral", color:"#ffcc00", dash:false},
+
+// RED EN DISPUTA / SEPARATISTA (rojo punteado en tu mapa)
+{from:"anaxes", to:"umbara", type:"contested", color:"#ff3333", dash:true},
+{from:"umbara", to:"felucia", type:"contested", color:"#ff3333", dash:true},
+{from:"felucia", to:"geonosis", type:"contested", color:"#ff3333", dash:true},
+{from:"geonosis", to:"mustafar", type:"separatist", color:"#ff2222", dash:true},
+{from:"mandalore", to:"mustafar", type:"separatist", color:"#ff2222", dash:true},
+
+// Conexiones extra para que nadie quede aislado
+{from:"coruscant", to:"felucia", type:"republic", color:"#00ff88", dash:false, opacity:0.4},
+{from:"anaxes", to:"mandalore", type:"neutral", color:"#ffcc00", dash:false, opacity:0.4},
 ];
 const galaxy=document.getElementById('galaxy');const routes=document.getElementById('routes');
 function drawRoutes(){
