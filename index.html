@@ -4,106 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Quantum Pulse - Holomapa Galáctico ALPHA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;font-family:'Rajdhani',sans-serif;color:#fff;overflow:auto;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding-top:70px}
 #galaxy{
-  width:1400px;height:900px;max-width:92vw;max-height:82vh;
+  width:1200px;height:750px;
+  max-width:88vw;max-height:78vh;
   background:url('./Galaxy_Quantum_Main_Map.png') center/cover no-repeat;
   position:relative;border:2px solid rgba(0,255,136,0.25);border-radius:12px;
   box-shadow:0 0 30px rgba(0,255,136,0.2);overflow:hidden;flex-shrink:0;
+  font-size:0; line-height:0;
 }
 #galaxy::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(0,0,0,0.05) 30%,rgba(0,0,0,0.65) 95%);z-index:1;pointer-events:none}
 .planet{
-  position:absolute;width:28px;height:28px;border-radius:50%;cursor:pointer;
-  transform:translate(-50%,-50%);box-shadow:0 0 14px currentColor,inset -4px -4px 8px rgba(0,0,0,0.9);
-  transition:.3s;z-index:3;border:1.5px solid rgba(255,255,255,0.85);
+  position:absolute;width:22px;height:22px;
+  border-radius:50%;cursor:pointer;
+  transform:translate(-50%,-50%);box-shadow:0 0 12px currentColor,inset -3px -3px 6px rgba(0,0,0,0.9);
+  transition:.25s;z-index:3;border:1.5px solid rgba(255,255,255,0.9);
   background-size:cover;background-position:center;
 }
-.planet:hover{transform:translate(-50%,-50%) scale(1.35)}
-.planet.selected{transform:translate(-50%,-50%) scale(1.6);z-index:6;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.4)}}
-.planet.main{width:36px;height:36px;box-shadow:0 0 22px #00ff88,0 0 45px #00ff88; border:2px solid #00ffcc}
-.planet-label{position:absolute;top:135%;left:50%;transform:translateX(-50%);font-family:'Orbitron';font-size:9px;font-weight:800;letter-spacing:1.2px;white-space:nowrap;text-shadow:0 1px 4px #000,0 0 10px currentColor;pointer-events:none}
+.planet:hover{transform:translate(-50%,-50%) scale(1.35);filter:brightness(1.2)}
+.planet.selected{transform:translate(-50%,-50%) scale(1.55);z-index:6;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+.planet.main{width:30px;height:30px;box-shadow:0 0 20px #00ff88,0 0 40px #00ff88; border:2px solid #00ffcc}
+.planet-label{
+  position:absolute;top:135%;left:50%;transform:translateX(-50%);
+  font-family:'Orbitron';font-size:10px;font-weight:800;letter-spacing:1px;
+  white-space:nowrap;text-shadow:0 1px 4px #000,0 0 10px currentColor;pointer-events:none;
+  line-height:1;
+}
 svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
-svg#routes line{stroke-width:1.8;stroke-linecap:round;opacity:0.8}
-line.friendly{stroke:#00ffcc;filter:drop-shadow(0 0 5px #00ffcc)}
-line.hostile{stroke:#ff2244;filter:drop-shadow(0 0 5px #ff2244);stroke-width:2.2}
-line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 5px #ffcc00)}
+svg#routes line{stroke-width:1.6;stroke-linecap:round;opacity:0.75}
+line.friendly{stroke:#00ffcc} line.hostile{stroke:#ff2244;stroke-width:2} line.neutral{stroke:#ffcc00}
 .title-bar{
   position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:90;
-  font-family:'Orbitron';font-weight:900;font-size:20px;letter-spacing:4px;color:#00ff88;
-  background:linear-gradient(160deg,rgba(0,22,14,0.95),rgba(0,10,8,0.98));
-  border:2px solid #00ff88;border-radius:8px;padding:8px 24px;
-  box-shadow:0 0 15px rgba(0,255,136,0.45);text-shadow:0 0 8px #00ff88,0 0 18px #00ff88;white-space:nowrap;
+  font-family:'Orbitron';font-weight:900;font-size:18px;letter-spacing:3px;color:#00ff88;
+  background:rgba(0,18,12,0.95);border:2px solid #00ff88;border-radius:8px;padding:7px 22px;
+  box-shadow:0 0 15px rgba(0,255,136,0.45);text-shadow:0 0 8px #00ff88;white-space:nowrap;
 }#info-panel{
-  position:fixed;right:14px;top:70px;width:520px;max-width:38vw;max-height:86vh;overflow-y:auto;
+  position:fixed;right:14px;top:70px;width:440px;max-width:38vw;max-height:86vh;overflow-y:auto;
   background:linear-gradient(160deg,rgba(0,22,14,0.98),rgba(0,10,8,0.99));
   border:2px solid #00ff88;box-shadow:0 0 30px rgba(0,255,136,0.35);border-radius:12px;display:none;z-index:100
 }
-.panel-img{
-  width:100%;aspect-ratio:16/9;height:auto;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  background-color:#001a0f;border-bottom:1.5px solid rgba(0,255,136,0.3);position:relative;
-}
+.panel-img{width:100%;aspect-ratio:16/9;height:auto;background-size:cover;background-position:center;background-color:#001a0f;border-bottom:1.5px solid rgba(0,255,136,0.3);position:relative}
 .panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,15,10,0.9) 15%,transparent 60%)}
-.sector-tag{position:absolute;bottom:10px;left:12px;z-index:2;background:rgba(0,0,0,0.7);border:1px solid #ffd700;color:#ffd700;font-family:'Orbitron';font-size:10px;padding:4px 10px;border-radius:4px;font-weight:700}
+.sector-tag{position:absolute;bottom:10px;left:12px;z-index:2;background:rgba(0,0,0,0.75);border:1px solid #ffd700;color:#ffd700;font-family:'Orbitron';font-size:10px;padding:4px 10px;border-radius:4px;font-weight:700}
 .status-tag{position:absolute;top:12px;left:12px;z-index:2}
-.panel-body{padding:18px 20px;display:flex;flex-direction:column;gap:6px}
-#info-panel h2{margin:0 0 6px;color:#00ff88;letter-spacing:2.5px;font-size:24px;font-family:'Orbitron';text-shadow:0 0 10px #00ff88;font-weight:900}
-.status{padding:6px 12px;border-radius:4px;font-size:11px;display:inline-block;font-weight:900;letter-spacing:1.4px;font-family:'Orbitron'}
-.republic{background:#0a2a40;border:1px solid #3ad4ff;color:#3ad4ff} 
-.separatist{background:#3a0a0a;border:1px solid #ff4444;color:#ff6666}
-.contested{background:#3a300a;border:1px solid #ffcc33;color:#ffdd55} 
-.alpha{background:#0a2a1a;border:1px solid #00ff88;color:#00ff88}
-.mandalore{background:#2a0a3a;border:1px solid #c9a0ff;color:#c9a0ff}
-.tabs{display:flex;gap:12px;margin:14px 0;border-bottom:1.5px solid rgba(0,255,136,0.2);padding-bottom:8px}
-.tab{cursor:pointer;font-family:'Orbitron';font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,0.5);padding-bottom:5px;border-bottom:2px solid transparent;font-weight:700}
+.panel-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+#info-panel h2{margin:0;color:#00ff88;letter-spacing:2px;font-size:22px;font-family:'Orbitron';font-weight:900}
+.status{padding:6px 12px;border-radius:4px;font-size:11px;display:inline-block;font-weight:900;font-family:'Orbitron'}
+.republic{background:#0a2a40;border:1px solid #3ad4ff;color:#3ad4ff} .separatist{background:#3a0a0a;border:1px solid #ff4444;color:#ff6666}
+.contested{background:#3a300a;border:1px solid #ffcc33;color:#ffdd55} .alpha{background:#0a2a1a;border:1px solid #00ff88;color:#00ff88}
+.tabs{display:flex;gap:12px;margin:12px 0;border-bottom:1.5px solid rgba(0,255,136,0.2);padding-bottom:8px}
+.tab{cursor:pointer;font-family:'Orbitron';font-size:12px;color:rgba(255,255,255,0.5);padding-bottom:5px;border-bottom:2px solid transparent;font-weight:700}
 .tab.active{color:#00ff88;border-bottom:2px solid #00ff88}
 .tab-content{display:none}.tab-content.active{display:block}
-#info-panel p{font-size:15px;line-height:1.6;color:#e0ffee;font-weight:700;max-height:160px;overflow-y:auto;padding-right:6px}
+#info-panel p{font-size:16px;line-height:1.5;color:#e0ffee;font-weight:700;max-height:180px;overflow-y:auto}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .stat{background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.18);padding:10px;border-radius:6px}
-.stat span{display:block;font-family:'Orbitron';font-size:9px;color:#ffd700;margin-bottom:3px;font-weight:800} 
-.stat b{font-size:14px;color:#fff;font-weight:800}
-.unit-row{margin-bottom:14px} 
+.stat span{display:block;font-family:'Orbitron';font-size:10px;color:#ffd700;margin-bottom:3px;font-weight:800} 
+.stat b{font-size:15px;color:#fff;font-weight:800}
 .unit-head{display:flex;justify-content:space-between;margin-bottom:5px;font-family:'Orbitron';font-size:12px;font-weight:800}
-.unit-img{
-  width:100%;aspect-ratio:16/9;height:auto;border-radius:6px;
-  background-size:contain;background-position:center;background-repeat:no-repeat;
-  background-color:#000;margin-bottom:12px;border:1px solid rgba(255,255,100,0.5);
-}
-.btn{margin-top:14px;background:linear-gradient(90deg,#003322,#006644);border:1.5px solid #00ff88;padding:10px;border-radius:6px;cursor:pointer;color:#00ff88;font-weight:900;width:100%;letter-spacing:2px;font-family:'Orbitron';font-size:11px}
- #side-menu{position:fixed;left:0;top:0;height:100vh;z-index:60;display:flex;flex-direction:column}
-#menu-toggle{width:48px;height:48px;margin:12px 0 0 12px;background:linear-gradient(160deg,rgba(0,28,18,0.99),rgba(0,14,8,0.99));border:2px solid #00ff88;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:61}
+.unit-img{width:100%;aspect-ratio:16/9;height:auto;border-radius:6px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#000;margin-bottom:12px;border:1px solid rgba(255,255,100,0.5)}
+.btn{margin-top:12px;background:linear-gradient(90deg,#003322,#006644);border:1.5px solid #00ff88;padding:11px;border-radius:6px;cursor:pointer;color:#00ff88;font-weight:900;width:100%;letter-spacing:2px;font-family:'Orbitron';font-size:12px}
+#side-menu{position:fixed;left:0;top:0;height:100vh;z-index:60;display:flex;flex-direction:column}
+#menu-toggle{width:48px;height:48px;margin:12px 0 0 12px;background:rgba(0,22,14,0.98);border:2px solid #00ff88;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 #menu-toggle span{display:block;width:22px;height:2px;background:#00ff88;position:relative}
 #menu-toggle span::before,#menu-toggle span::after{content:'';position:absolute;left:0;width:22px;height:2px;background:#00ff88;transition:.25s}
 #menu-toggle span::before{top:-7px} #menu-toggle span::after{top:7px}
 #menu-toggle.open span{background:transparent} #menu-toggle.open span::before{top:0;transform:rotate(45deg)} #menu-toggle.open span::after{top:0;transform:rotate(-45deg)}
-#menu-panel{width:0;overflow:hidden;background:linear-gradient(160deg,rgba(0,22,16,0.99),rgba(0,12,8,0.99));border-right:2px solid #00ff88;transition:width .3s ease;margin-top:10px;display:flex;flex-direction:column}
+#menu-panel{width:0;overflow:hidden;background:rgba(0,18,12,0.99);border-right:2px solid #00ff88;transition:width .3s ease;margin-top:10px;display:flex;flex-direction:column}
 #menu-panel.open{width:320px}
 .menu-header{padding:18px 20px 14px;font-family:'Orbitron';font-size:13px;letter-spacing:2.5px;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.25);font-weight:800}
 .menu-body{flex:1;overflow-y:auto} .menu-section{border-bottom:1px solid rgba(0,255,136,0.12)}
 .menu-section-title{display:flex;justify-content:space-between;padding:14px 20px;cursor:pointer;font-family:'Orbitron';font-size:12px;color:#e8ffee;font-weight:700}
 .menu-section-content{max-height:0;overflow:hidden;transition:max-height .3s ease;background:rgba(0,0,0,0.3)}
 .menu-section.open .menu-section-content{max-height:500px}
-.menu-placeholder{padding:16px 20px;font-size:13px;color:rgba(200,255,224,0.6);font-style:italic}
+.menu-placeholder{padding:16px 20px;font-size:14px;color:rgba(200,255,224,0.6)}
 ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-thumb{background:#00ff88;border-radius:4px}
-@media(max-width:768px){
-  body{padding-top:60px;flex-direction:column;align-items:center}
-  #galaxy{width:1000px;min-width:1000px;height:700px;min-height:700px;max-width:none;max-height:none;margin:0;border-radius:0;border:none}
-  .planet{width:24px !important;height:24px !important}
-  .planet.main{width:32px !important;height:32px !important}
+.bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;margin-top:6px}
+.bar-fill{height:100%} .bar-fill.green{background:#00ff88} .bar-fill.yellow{background:#ffcc00} .bar-fill.red{background:#ff2244}
+  @media(max-width:768px){
+  body{padding-top:60px;align-items:center}
+  #galaxy{width:900px;min-width:900px;height:600px;min-height:600px;max-width:none;max-height:none;margin:0;border-radius:0;border:none}
+  .planet{width:26px !important;height:26px !important}
+  .planet.main{width:34px !important;height:34px !important}
+  .planet-label{font-size:11px !important}
   .title-bar{font-size:11px !important;letter-spacing:1.5px !important;padding:5px 12px !important;top:8px !important}
-  #menu-panel.open{width:260px !important}
+  #menu-panel.open{width:270px !important}
   #info-panel{
     right:0 !important;left:0 !important;top:auto !important;bottom:0 !important;
-    width:100% !important;max-width:100% !important;max-height:75vh !important;
-    border-radius:14px 14px 0 0 !important;border-left:none !important;border-right:none !important;border-bottom:none !important;
+    width:100% !important;max-width:100% !important;max-height:78vh !important;
+    border-radius:14px 14px 0 0 !important;
   }
-  .panel-img{aspect-ratio:16/9 !important;min-height:160px}
-  .unit-img{aspect-ratio:16/9 !important;min-height:140px;background-size:contain !important}
-  #info-panel h2{font-size:18px} #info-panel p{font-size:14px;max-height:100px}
+  #info-panel h2{font-size:20px !important}
+  #info-panel p{font-size:16px !important;max-height:120px !important}
+  .tab{font-size:12px !important}
+  .stat b{font-size:15px !important}
 }
 </style>
 </head>
@@ -111,382 +109,116 @@ line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 5px #ffcc00)}
 <div id="galaxy">
   <div class="title-bar">QUANTUM PULSE // MAPA GALACTICO</div>
   <svg id="routes"></svg>
-  <div id="info-panel">
-    <div class="panel-img" id="info-img">
-      <div id="info-status" class="status status-tag"></div>
-      <div class="sector-tag">SECTOR: <span id="info-sector"></span></div>
-    </div>
-    <div class="panel-body">
-      <h2 id="info-name"></h2>
-      <div class="tabs">
-        <div class="tab active" onclick="switchTab(0)">● LORE</div>
-        <div class="tab" onclick="switchTab(1)">● DATOS</div>
-        <div class="tab" onclick="switchTab(2)">● FUERZAS</div>
-        <div class="tab" onclick="switchTab(3)">● UNIDADES</div>
-      </div>
-      <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
-      <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
-      <div id="tab-2" class="tab-content">
-        <div class="stat-grid" id="info-forces"></div>
-        <div style="margin-top:12px">
-          <span style="font-family:Orbitron;font-size:9px;color:#ffd700;">NIVEL DE AMENAZA</span>
-          <div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div>
-        </div>
-      </div>
-      <div id="tab-3" class="tab-content">
-        <div class="unit-img" id="unit-img"></div>
-        <div id="info-units"></div>
-      </div>
-      <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
-    </div>
+</div>
+<div id="info-panel">
+  <div class="panel-img" id="info-img">
+    <div id="info-status" class="status status-tag"></div>
+    <div class="sector-tag">SECTOR: <span id="info-sector"></span></div>
   </div>
-  <div id="side-menu">
-    <div id="menu-toggle" onclick="toggleMenu()" title="Abrir / cerrar panel">
-      <span></span>
+  <div class="panel-body">
+    <h2 id="info-name"></h2>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(0)">● LORE</div>
+      <div class="tab" onclick="switchTab(1)">● DATOS</div>
+      <div class="tab" onclick="switchTab(2)">● FUERZAS</div>
+      <div class="tab" onclick="switchTab(3)">● UNIDADES</div>
     </div>
-    <div id="menu-panel">
-      <div class="menu-header">PANEL DE OPERACIONES QP</div>
-      <div class="menu-body">
-        <div class="menu-section" id="sec-legiones">
-          <div class="menu-section-title" onclick="toggleSection('sec-legiones')"><span>LEGIONES</span><span class="arrow">▶</span></div>
-          <div class="menu-section-content"><div class="menu-placeholder">Datos de legiones en actividad pendientes de carga.</div></div>
-        </div>
-        <div class="menu-section" id="sec-flota">
-          <div class="menu-section-title" onclick="toggleSection('sec-flota')"><span>FLOTA REPUBLICANA</span><span class="arrow">▶</span></div>
-          <div class="menu-section-content"><div class="menu-placeholder">Inventario de flota y despliegues navales pendientes.</div></div>
-        </div>
-        <div class="menu-section" id="sec-suministros">
-          <div class="menu-section-title" onclick="toggleSection('sec-suministros')"><span>SUMINISTROS</span><span class="arrow">▶</span></div>
-          <div class="menu-section-content"><div class="menu-placeholder">Estado de logística y recursos pendientes.</div></div>
-        </div>
+    <div id="tab-0" class="tab-content active"><p id="info-desc"></p></div>
+    <div id="tab-1" class="tab-content"><div class="stat-grid" id="info-stats"></div></div>
+    <div id="tab-2" class="tab-content">
+      <div class="stat-grid" id="info-forces"></div>
+      <div style="margin-top:12px">
+        <span style="font-family:Orbitron;font-size:10px;color:#ffd700;">NIVEL DE AMENAZA</span>
+        <div class="bar"><div id="threat-bar" class="bar-fill green" style="width:60%"></div></div>
       </div>
-      <div class="menu-footer">QP-ORACLE // ACCESO ALPHA</div>
     </div>
+    <div id="tab-3" class="tab-content">
+      <div class="unit-img" id="unit-img"></div>
+      <div id="info-units"></div>
+    </div>
+    <button class="btn" onclick="closePanel()">CERRAR TRANSMISIÓN</button>
   </div>
 </div>
-<script>
-// === AUDIO QP - CYBERPUNK SUAVE V2 ===
-let AC=null;
-function iA(){ if(!AC) AC=new(window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended') AC.resume(); }
-
-function env(g, vol, dur){
-  g.gain.setValueAtTime(0, AC.currentTime);
-  g.gain.linearRampToValueAtTime(vol, AC.currentTime+0.04);
-  g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime+dur);
-}
-
-function mkFilter(freq, q){
-  let f=AC.createBiquadFilter();
-  f.type='lowpass'; f.frequency.value=freq; f.Q.value=q||1;
-  return f;
-}
-
-// Cyberpunk = sine + triangle + mucho lowpass + delay corto
-function cyberBip(f1, f2, dur, vol, type='sine', fFilter=4500){
-  try{
-    iA(); if(AC.state!=='running') return;
-    let o=AC.createOscillator(), g=AC.createGain(), fl=mkFilter(fFilter, 2);
-    let o2=AC.createOscillator(); o2.type='sine'; o2.detune.value=7;
-    o.type=type;
-    o.frequency.setValueAtTime(f1, AC.currentTime);
-    o2.frequency.setValueAtTime(f1*1.01, AC.currentTime);
-    if(f2) {
-      o.frequency.exponentialRampToValueAtTime(f2, AC.currentTime+dur);
-      o2.frequency.exponentialRampToValueAtTime(f2*1.01, AC.currentTime+dur);
-    }
-    env(g, vol, dur);
-    fl.frequency.setValueAtTime(fFilter, AC.currentTime);
-    fl.frequency.linearRampToValueAtTime(fFilter*0.6, AC.currentTime+dur);
-    o.connect(fl); o2.connect(fl); fl.connect(g); g.connect(AC.destination);
-    o.start(); o2.start(); 
-    o.stop(AC.currentTime+dur); o2.stop(AC.currentTime+dur);
-  }catch(e){}
-}
-
-function cyberBass(f1, f2, dur, vol){
-  try{
-    iA();
-    let o=AC.createOscillator(), g=AC.createGain(), fl=mkFilter(800, 1.5);
-    o.type='triangle';
-    o.frequency.setValueAtTime(f1, AC.currentTime);
-    o.frequency.exponentialRampToValueAtTime(f2, AC.currentTime+dur);
-    env(g, vol, dur);
-    o.connect(fl); fl.connect(g); g.connect(AC.destination);
-    o.start(); o.stop(AC.currentTime+dur);
-  }catch(e){}
-}
-
-// S E L E C C I O N  P L A N E T A - bwoom cálido + shimmer cristal
-function sP(){
-  cyberBass(80, 40, 0.65, 0.28); // sub grave que respira
-  setTimeout(()=>cyberBip(600, 1200, 0.5, 0.12, 'sine', 5000), 60);
-  setTimeout(()=>cyberBip(1400, 2400, 0.35, 0.06, 'triangle', 7000), 140);
-}
-
-// T A B S - tick de cristal con glide
-function sT(){ cyberBip(900, 1350, 0.22, 0.09, 'sine', 6000); }
-
-// C E R R A R - whoosh descendente suave
-function sC(){ 
-  cyberBip(700, 180, 0.55, 0.14, 'triangle', 3000);
-  setTimeout(()=>cyberBass(150, 35, 0.6, 0.18), 30);
-}
-
-// H O V E R  P L A N E T A - apenas un tick holográfico, casi imperceptible
-function sH(){ cyberBip(2200, 2600, 0.12, 0.025, 'sine', 8000); }
-
-document.addEventListener('click', iA, {once:true});
-document.addEventListener('touchstart', iA, {once:true});
+<div id="side-menu">
+  <div id="menu-toggle" onclick="toggleMenu()"><span></span></div>
+  <div id="menu-panel">
+    <div class="menu-header">PANEL DE OPERACIONES QP</div>
+    <div class="menu-body">
+      <div class="menu-section" id="sec-legiones">
+        <div class="menu-section-title" onclick="toggleSection('sec-legiones')"><span>LEGIONES</span><span>▶</span></div>
+        <div class="menu-section-content"><div class="menu-placeholder">Datos de legiones pendientes.</div></div>
+      </div>
+      <div class="menu-section" id="sec-flota">
+        <div class="menu-section-title" onclick="toggleSection('sec-flota')"><span>FLOTA REPUBLICANA</span><span>▶</span></div>
+        <div class="menu-section-content"><div class="menu-placeholder">Inventario de flota pendiente.</div></div>
+      </div>
+      <div class="menu-section" id="sec-suministros">
+        <div class="menu-section-title" onclick="toggleSection('sec-suministros')"><span>SUMINISTROS</span><span>▶</span></div>
+        <div class="menu-section-content"><div class="menu-placeholder">Logística pendiente.</div></div>
+      </div>
+    </div>
+  </div>
+</div><script>
+let AC=null;function iA(){if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();}
+function cyberBip(f1,f2,d,v,t='sine'){try{iA();let o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.value=f1;if(f2)o.frequency.exponentialRampToValueAtTime(f2,AC.currentTime+d);g.gain.setValueAtTime(0,AC.currentTime);g.gain.linearRampToValueAtTime(v,AC.currentTime+0.04);g.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d);}catch(e){}}
+function sP(){cyberBip(600,1200,0.5,0.12);cyberBip(1400,2400,0.35,0.06,'triangle')}
+function sT(){cyberBip(900,1350,0.22,0.09)} function sC(){cyberBip(700,180,0.55,0.14,'triangle')} function sH(){cyberBip(2200,2600,0.12,0.025)}
+document.addEventListener('click',iA,{once:true});document.addEventListener('touchstart',iA,{once:true});
 
 const planets=[
-{
-id:"coruscant",name:"CORUSCANT",x:50,y:50,size:80,color:"#4da6ff",
-img:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",unitImg:"./SH_TROOPS_QP.png",
-status:"republic",statusText:"CAPITAL REPUBLICA + TEMPLO JEDI ACTIVO",sector:"Núcleo Interior — Distrito Federal",
-desc:"Ecumenópolis de 5,127 niveles, 1 trillón de habitantes. Templo Jedi con 10,000 Jedi activos, Alto Consejo dirigiendo la guerra. Guardia del Templo + 8,200 Shock Troopers. Doctrina QP: Si cae el Templo, cae la República.",
-stats:{poblacion:"1 Trillón + 10,000 Jedi",clima:"Urbano Total",recursos:"Político / Jedi / Militar",afiliacion:"República — Orden Jedi"},
-forces:{guarnicion:"Jedi + Temple Guard + 8,200 Shock Troopers",flota:"Flota Núcleo + Venator Open Circle",amenaza:15},
-units:[{name:"Alto Consejo Jedi",count:"12 Maestros",pct:100,color:"blue"},{name:"Guardia del Templo",count:"500 Temple Guards",pct:98,color:"gold"},{name:"Shock Troopers",count:"8,200 Fase II",pct:92,color:"red"}]
-},
-{
-id:"pulsar",name:"PULSAR",x:93,y:50,size:60,color:"#00ffcc",
-img:"./Pulsar_QP.png",imgDetail:"./Pulsar_QP.png",unitImg:"./Pulsar_QP.png",
-status:"alpha",statusText:"BASTIÓN ALPHA QP [CLASIFICADO]",sector:"Borde Exterior — Black Level",
-desc:"PULSAR no existe en mapas oficiales. Luna fortificada en nebulosa de iones. Cuartel secreto QP, I+D experimental y base QP-ORACLE. Solo Nivel ALPHA.",
-stats:{poblacion:"45,000 Personal ALPHA",clima:"Templado Tecnificado",recursos:"Tech QP / Intel",afiliacion:"Quantum Pulse Black Ops"},
-forces:{guarnicion:"3,200 Operadores QP + 150 ARC Null",flota:"Flota Sombra - 3 Venator Stealth",amenaza:95},
-units:[{name:"Operadores QP Sombra",count:"3,200 + ARC Null",pct:98,color:"green"}],
-main:true
-},
-{
-id:"tatooine",name:"TATOOINE",x:14,y:82,size:60,color:"#ffdd66",
-img:"./Tatooine_planet.png",imgDetail:"./Tatooine_main.png",unitImg:"./Tatooine_QP.png",
-status:"civil",statusText:"CIVIL - TERRITORIO HUTT",sector:"Borde Exterior - Hutt Space",
-desc:"TATOOINE - Dos soles, cero ley. Jabba el Hutt. Clone Wars película 2008 Anakin y Ahsoka rescatan a Rotta. Sin clones por tratado Hutt. Jawas, Tusken, Krayt Dragon.",
-stats:{poblacion:"200k + 50k Jawas + 10k Tusken",clima:"Desértico - 2 Soles",recursos:"Chatarra / Especias",afiliacion:"Hutt - Neutral"},
-forces:{guarnicion:"Seguridad Hutt + Tusken",flota:"Cargueros Hutt",amenaza:55},
-units:[{name:"Civiles Granjeros",count:"200k + 50k Jawas",pct:40,color:"yellow"},{name:"Tusken Raiders",count:"10k Tribus",pct:60,color:"red"},{name:"Fauna - Krayt Dragon + Bantha",count:"Depredadores Nivel 4",pct:85,color:"green"},{name:"Clones - Patrulla 501",count:"Solo permiso Hutt",pct:10,color:"blue"}]
-},
-{
-id:"hoth",name:"HOTH",x:78,y:28,size:60,color:"#aaffff",
-img:"./Hoth_QP.png",imgDetail:"./Hoth_QP.png",unitImg:"./Hoth_QP.png",
-status:"civil",statusText:"INHABITADO - BALIZA CLON",sector:"Borde Exterior - Anoat",
-desc:"HOTH - Infierno blanco -60°C. Vientos 100km/h. Puestos de escucha República en Clone Wars. Base Echo posterior. Wampa caza Tauntaun. AT-TE se congelan.",
-stats:{poblacion:"0 + 20 Clones baliza",clima:"Tundra -60°C",recursos:"Hielo / Balizas",afiliacion:"Deshabitado"},
-forces:{guarnicion:"20 Clones baliza abandonada",flota:"Caza 501 estrellado",amenaza:70},
-units:[{name:"Clones Baliza Echo Proto",count:"20 Técnicos Fase I",pct:30,color:"blue"},{name:"Fauna - Wampa + Tauntaun",count:"Wampas + Manadas",pct:90,color:"green"},{name:"Amenaza Ambiental",count:"-60°C / Ventisca",pct:95,color:"red"}]
-},
-{
-id:"ryloth",name:"RYLOTH",x:62,y:68,size:60,color:"#cc88ff",
-img:"./Ryloth_QP.png",imgDetail:"./Ryloth_QP.png",unitImg:"./Ryloth_QP.png",
-status:"contested",statusText:"EN DISPUTA - 212th + RESISTENCIA",sector:"Borde Exterior - Gaulus",
-desc:"RYLOTH - Mundo Twi'lek. Ocupado por Wat Tambor 100k droides + cañones protón. Clone Wars T1 E21-22 Obi-Wan, Waxer, Boil y 212th liberan Nabat. Cham Syndulla Resistencia.",
-stats:{poblacion:"1.5M Twi'lek + 10k 212th",clima:"Árido Rocoso",recursos:"Doonium / Especias",afiliacion:"212th - Obi-Wan / Cody"},
-forces:{guarnicion:"100k Droides + 10k 212th + Cham",flota:"Venator + Bloqueo droide",amenaza:85},
-units:[{name:"212th - Obi-Wan / Cody",count:"10k Ghost Company",pct:92,color:"gold"},{name:"Droides Techno Union",count:"100k B1/B2 + Cañones",pct:90,color:"red"},{name:"Resistencia Twi'lek - Cham",count:"5k + Blurrgs",pct:75,color:"yellow"},{name:"Fauna - Blurrg + Gutkurr",count:"Bestias cañón",pct:80,color:"green"}]
-},
-{
-id:"christophsis",name:"CHRISTOPHSIS",x:46,y:46,size:60,color:"#55aaff",
-img:"./Christophsis_QP.png",imgDetail:"./Christophsis_QP.png",unitImg:"./Christophsis_QP.png",
-status:"contested",statusText:"EN DISPUTA - 501st / 212th - AHSOKA",sector:"Borde Medio - Savareen",
-desc:"CHRISTOPHSIS - Cristales azules. Primera batalla Clone Wars 2008. Obi-Wan y Anakin vs Whorm Loathsom 200k droides. Anakin conoce a Ahsoka. Slick traidor.",
-stats:{poblacion:"300k + 15k Clones + 200k Droides",clima:"Cristalino / Ruinas",recursos:"Kyber menor",afiliacion:"212th + 501st"},
-forces:{guarnicion:"15k 212th/501st + 200k Droides",flota:"12 Venator + Lucrehulk",amenaza:80},
-units:[{name:"501st - Anakin / Rex / Ahsoka",count:"7,500 Torrent",pct:94,color:"blue"},{name:"212th - Cody",count:"7,500 Ghost",pct:90,color:"gold"},{name:"Droides - Whorm Loathsom",count:"200k B1/B2 + 60 AAT",pct:88,color:"red"},{name:"Civiles Christophsianos",count:"300k Refugiados",pct:50,color:"yellow"}]
-},
-  {
-id:"kamino",name:"KAMINO",x:35,y:10,size:60,color:"#8ecfff",
-img:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",unitImg:"./Kamino_troops.png",
-status:"republic",statusText:"CENTRO DE CLONACION",sector:"Extragaláctico",
-desc:"Mundo oceánico, tormentas eternas. Tipoca City crea 10,000 clones por día. Activo más valioso República, objetivo #1 Separatista.",
-stats:{poblacion:"1M Kaminoanos + 2M Clones",clima:"Oceánico Extremo",recursos:"Clonación / ADN",afiliacion:"República"},
-forces:{guarnicion:"Clones Fase I/II + Milicia Kaminoana",flota:"12 Venator defensa",amenaza:40},
-units:[{name:"Clones Fase II",count:"200,000 / mes",pct:88,color:"blue"},{name:"Clones ARC",count:"800 Élite",pct:99,color:"gold"},{name:"Civiles Kaminoanos",count:"1M Científicos",pct:70,color:"yellow"},{name:"Fauna - Aiwhas",count:"Criaturas marinas",pct:55,color:"green"}]
-},
-{
-id:"anaxes",name:"ANAXES",x:38,y:62,size:60,color:"#ffcc66",
-img:"./Anaxes_qp_Planet.png",imgDetail:"./ANAXES_qp_main.png",unitImg:"./ANAXES_qp_troops.png",
-status:"republic",statusText:"FORTALEZA REPUBLICA",sector:"Núcleo Interior",
-desc:"Defensora del Núcleo. Planeta base militar y academia de guerra. De aquí salieron Tarkin y almirantes.",
-stats:{poblacion:"500M Militar",clima:"Fortificado",recursos:"Academia / Astilleros",afiliacion:"Alto Mando República"},
-forces:{guarnicion:"Legión Anaxes + Academia",flota:"40 Venator",amenaza:35},
-units:[{name:"Cadetes Élite",count:"15,000",pct:72,color:"gold"},{name:"Flota Reserva",count:"40 Cruceros",pct:85,color:"blue"}]
-},
-{
-id:"geonosis",name:"GEONOSIS",x:72,y:65,size:60,color:"#ff5533",
-img:"./Geonosis_QP.png",imgDetail:"./Geonosis_QP.png",unitImg:"./Geonosis_QP.png",
-status:"separatist",statusText:"SEPARATISTA - FABRICAS DROIDES [CORRUPTA]",sector:"Borde Exterior - Arkanis",
-desc:"[SEÑAL CORRUPTA] Infierno industrial. Millones de Geonosianos producen 1 droide por segundo. Aquí empezó la Guerra Clon y se diseñó la Estrella Muerte.",
-stats:{poblacion:"100B Geonosianos",clima:"Árido Rocoso",recursos:"Droides / Sónica",afiliacion:"Confederación"},
-forces:{guarnicion:"Colmenas + B1/B2",flota:"Lucrehulk + Munificent",amenaza:85},
-units:[{name:"B2 + B1 Droides",count:"500k + 2M B1",pct:92,color:"red"},{name:"AAT + Spider",count:"800 AAT",pct:88,color:"red"},{name:"Geonosianos",count:"10M Colmena",pct:75,color:"yellow"},{name:"Fauna - Orray + Acklay",count:"Bestias arena",pct:60,color:"green"}]
-},
-{
-id:"umbara",name:"UMBARA",x:38,y:38,size:60,color:"#9a66ff",
-img:"./Umbara_planet.png",imgDetail:"./UMBARA_QP_main.png",unitImg:"./UMBARA_QP_Troops.png",
-status:"contested",statusText:"EN DISPUTA - SOMBRA PERPETUA",sector:"Borde Medio - Ghost Nebula",
-desc:"Planeta oscuridad perpetua. Umbaranos ven en UV, tech plasma y camuflaje. Milicia con cazas 360° masacró a la 501.",
-stats:{poblacion:"Milicia Umbarana",clima:"Oscuridad Perpetua",recursos:"Kyber Oscuro / Plasma",afiliacion:"En Disputa"},
-forces:{guarnicion:"Milicia Umbarana + Cazas",flota:"Cazas Plasma + Hover Tanks",amenaza:90},
-units:[{name:"Milicia Umbarana",count:"60k + 200 Hover Tanks",pct:80,color:"red"},{name:"Civiles Umbaranos",count:"Subterráneos",pct:45,color:"yellow"},{name:"Fauna - Banshee",count:"Depredadores nocturnos",pct:70,color:"green"}]
-},
-{
-id:"felucia",name:"FELUCIA",x:21,y:98,size:60,color:"#66ff99",
-img:"./Felucia_QP.png",imgDetail:"./felucia_main.jpg",unitImg:"./felucia_327th.jpg",
-status:"contested",statusText:"EN DISPUTA - SELVA NIVEL 5",sector:"Borde Exterior - Felucia",
-desc:"Infierno bioluminiscente. Hongos 100m, plantas carnívoras AT-TE, esporas disuelven filtros en 6h. 327th Star Corps Aayla Secura Outpost Lethal.",
-stats:{poblacion:"327th + Felucianos",clima:"Selva Tóxica",recursos:"Toxinas / Fuerza Viva",afiliacion:"327th Star Corps"},
-forces:{guarnicion:"10k 327th + 120k Droides + Fauna Alfa",flota:"Venator órbita baja",amenaza:88},
-units:[{name:"327th STAR CORPS - Bly/Secura",count:"10k + 5 Jedi",pct:90,color:"gold"},{name:"Droides Selva",count:"120k B1/B2 + 35 AAT",pct:92,color:"red"},{name:"Fauna Alfa NIVEL 5",count:"Acklay Alfa + Rancor + Sarlacc",pct:95,color:"green"},{name:"Tribus Felucianas",count:"Aliadas parciales",pct:42,color:"yellow"}]
-},
-{
-id:"mustafar",name:"MUSTAFAR",x:90,y:92,size:60,color:"#ff3300",
-img:"./Mustafar_planet.png",imgDetail:"./Mustafar_main.png",unitImg:"./Mustafar_QP.png",
-status:"separatist",statusText:"SEPARATISTA - VOLCANICO [CORRUPTA]",sector:"Borde Exterior - Atravis",
-desc:"[SEÑAL CORRUPTA] Lava 800°C. Ríos de lava alimentan refinerías Separatistas. Mustafarianos en minas refrigeradas. Aquí se esconderá Consejo Separatista.",
-stats:{poblacion:"20k Mustafarianos + Droides",clima:"Volcánico 800°C",recursos:"Minerales / Lava",afiliacion:"Confederación"},
-forces:{guarnicion:"Droides Magma + Mustafarianos",flota:"Anillo Defensa",amenaza:80},
-units:[{name:"Guardia Lava",count:"12k + 50 Magma Guards",pct:68,color:"red"},{name:"Civiles Mustafarianos",count:"20k Mineros",pct:50,color:"yellow"},{name:"Fauna - Lava Flea",count:"Bestias volcánicas",pct:65,color:"green"}]
-},
-{
-id:"mandalore",name:"MANDALORE",x:18,y:42,size:60,color:"#c9a0ff",
-img:"./Mandalore_QP.png",imgDetail:"./Mandalore_Main.png",unitImg:"./Mandalore_Troops.png",
-status:"mandalore",statusText:"MANDALORE - NEUTRAL ARMADO",sector:"Borde Exterior - Mandalore",
-desc:"Mundo guerreros. Desiertos blancos, domos Sundari y bosques Concordia. Neutral por Satine Kryze, pero Death Watch de Pre Vizsla con Sable Oscuro quiere guerra.",
-stats:{poblacion:"4M Mandalorianos + Clanes",clima:"Desértico / Domos",recursos:"Beskar / Mercenarios",afiliacion:"Neutral / Death Watch"},
-forces:{guarnicion:"Clan Kryze + Death Watch",flota:"Kom'rk / Fang",amenaza:70},
-units:[{name:"Supercomandos Mandalorianos",count:"2,500 Beskar + Jetpack",pct:96,color:"blue"},{name:"Death Watch - Pre Vizsla",count:"800 Sable Oscuro",pct:90,color:"red"},{name:"Civiles Sundari",count:"3.5M Pacifistas",pct:65,color:"yellow"},{name:"Fauna - Shriek-Hawk",count:"Bestias Concordia",pct:50,color:"green"}]
-}
+{id:"coruscant",name:"CORUSCANT",x:50,y:50,color:"#4da6ff",img:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",unitImg:"./SH_TROOPS_QP.png",status:"republic",statusText:"CAPITAL REPUBLICA",sector:"Núcleo Interior",desc:"Ecumenópolis de 5,127 niveles. Templo Jedi con 10,000 Jedi activos.",stats:{poblacion:"1 Trillón",clima:"Urbano Total",recursos:"Político / Jedi",afiliacion:"República"},forces:{guarnicion:"Jedi + 8,200 Shock",flota:"Flota Núcleo",amenaza:15},units:[{name:"Alto Consejo",count:"12 Maestros",pct:100,color:"blue"}]},
+{id:"pulsar",name:"PULSAR",x:93,y:50,color:"#00ffcc",img:"./Pulsar_QP.png",imgDetail:"./Pulsar_QP.png",unitImg:"./Pulsar_QP.png",status:"alpha",statusText:"BASTIÓN ALPHA [CLASIFICADO]",sector:"Borde Exterior - Black Level",desc:"Luna fortificada, cuartel secreto QP. Solo ALPHA.",stats:{poblacion:"45k ALPHA",clima:"Templado",recursos:"Tech QP",afiliacion:"Quantum Pulse"},forces:{guarnicion:"3,200 Operadores",flota:"Flota Sombra",amenaza:95},units:[{name:"Operadores Sombra",count:"3,200",pct:98,color:"green"}],main:true},
+{id:"kamino",name:"KAMINO",x:18,y:14,color:"#8ecfff",img:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",unitImg:"./Kamino_troops.png",status:"republic",statusText:"CENTRO DE CLONACION",sector:"Extragaláctico",desc:"Mundo oceánico, Tipoca City produce 10k clones/día.",stats:{poblacion:"1M Kaminoanos",clima:"Oceánico",recursos:"Clonación",afiliacion:"República"},forces:{guarnicion:"Clonadores + Seguridad",flota:"Defensa Kamino",amenaza:30},units:[{name:"Defensa Tipoca",count:"5k Clones",pct:90,color:"blue"}]},
+{id:"umbara",name:"UMBARA",x:22,y:38,color:"#aa44ff",img:"./Umbara_QP.png",imgDetail:"./Umbara_QP.png",unitImg:"./Umbara_QP.png",status:"contested",statusText:"EN DISPUTA",sector:"Borde Medio",desc:"Mundo oscuro, batalla del 501st.",stats:{poblacion:"500k",clima:"Sombrío",recursos:"Doonium",afiliacion:"Disputa"},forces:{guarnicion:"501st + Umbaranos",flota:"Bloqueo",amenaza:75},units:[{name:"501st",count:"10k",pct:92,color:"blue"}]},
+{id:"anaxes",name:"ANAXES",x:22,y:62,color:"#ffcc00",img:"./Anaxes_QP.png",imgDetail:"./Anaxes_QP.png",unitImg:"./Anaxes_QP.png",status:"republic",statusText:"ASTILLERO REPUBLICA",sector:"Borde Interior",desc:"Astillero y fortaleza.",stats:{poblacion:"800k",clima:"Templado",recursos:"Naves",afiliacion:"República"},forces:{guarnicion:"Flota Anaxes",flota:"Venators",amenaza:40},units:[{name:"Flota Anaxes",count:"12 Venator",pct:88,color:"blue"}]},
+{id:"hoth",name:"HOTH",x:78,y:28,color:"#aaffff",img:"./Hoth_QP.png",imgDetail:"./Hoth_QP.png",unitImg:"./Hoth_QP.png",status:"civil",statusText:"BALIZA CLON",sector:"Anoat",desc:"-60°C, Wampa y Tauntaun.",stats:{poblacion:"20 Clones",clima:"Tundra",recursos:"Hielo",afiliacion:"Deshabitado"},forces:{guarnicion:"20 Técnicos",flota:"N/A",amenaza:70},units:[{name:"Fauna Wampa",count:"Depredadores",pct:90,color:"green"}]},
+{id:"geonosis",name:"GEONOSIS",x:68,y:62,color:"#ff8844",img:"./Geonosis_QP.png",imgDetail:"./Geonosis_QP.png",unitImg:"./Geonosis_QP.png",status:"separatist",statusText:"FABRICA DROIDE",sector:"Arkanis",desc:"Fábricas Separatistas.",stats:{poblacion:"100M Geonosianos",clima:"Desértico",recursos:"Droides",afiliacion:"Separatista"},forces:{guarnicion:"500k Droides",flota:"Lucrehulk",amenaza:85},units:[{name:"Droides",count:"500k",pct:90,color:"red"}]},
+{id:"mustafar",name:"MUSTAFAR",x:88,y:82,color:"#ff2244",img:"./Mustafar_QP.png",imgDetail:"./Mustafar_QP.png",unitImg:"./Mustafar_QP.png",status:"separatist",statusText:"FORJA SEPARATISTA",sector:"Atravis",desc:"Lava y forjas.",stats:{poblacion:"20k",clima:"Volcánico",recursos:"Minerales",afiliacion:"Separatista"},forces:{guarnicion:"Droides Guardia",flota:"N/A",amenaza:80},units:[{name:"Guardia Mustafar",count:"10k Droides",pct:85,color:"red"}]},
+{id:"ryloth",name:"RYLOTH",x:62,y:68,color:"#cc88ff",img:"./Ryloth_QP.png",imgDetail:"./Ryloth_QP.png",unitImg:"./Ryloth_QP.png",status:"contested",statusText:"EN DISPUTA 212th",sector:"Gaulus",desc:"Twi'lek, 212th y Resistencia Cham.",stats:{poblacion:"1.5M Twi'lek",clima:"Árido",recursos:"Doonium",afiliacion:"212th"},forces:{guarnicion:"10k 212th + 100k Droides",flota:"Venator",amenaza:85},units:[{name:"212th",count:"10k Ghost",pct:92,color:"gold"}]},
+{id:"christophsis",name:"CHRISTOPHSIS",x:46,y:46,color:"#55aaff",img:"./Christophsis_QP.png",imgDetail:"./Christophsis_QP.png",unitImg:"./Christophsis_QP.png",status:"contested",statusText:"501st / 212th",sector:"Savareen",desc:"Cristales, primera batalla con Ahsoka.",stats:{poblacion:"300k",clima:"Cristalino",recursos:"Kyber",afiliacion:"212th+501st"},forces:{guarnicion:"15k Clones + 200k Droides",flota:"12 Venator",amenaza:80},units:[{name:"501st",count:"7,500 Torrent",pct:94,color:"blue"}]}
 ];
-  const routes=[
-  // FRIENDLY - CYAN - República (abastecimiento)
-  {from:"kamino",to:"coruscant",type:"friendly"},
-  {from:"kamino",to:"anaxes",type:"friendly"},
-  {from:"coruscant",to:"christophsis",type:"friendly"},
-  {from:"coruscant",to:"anaxes",type:"friendly"},
-  {from:"coruscant",to:"pulsar",type:"friendly"},
-  {from:"anaxes",to:"tatooine",type:"friendly"},
-  {from:"tatooine",to:"felucia",type:"friendly"},
-  {from:"ryloth",to:"felucia",type:"friendly"},
-  {from:"geonosis",to:"mustafar",type:"friendly"}, // ruta separatista interna pero la dejamos cyan para que no sea todo rojo
 
-  // NEUTRAL / CONTESTED - AMARILLO - Frentes cruzados
-  {from:"hoth",to:"umbara",type:"neutral"},
-  {from:"umbara",to:"pulsar",type:"neutral"},
-  {from:"mandalore",to:"pulsar",type:"neutral"},
-  {from:"mandalore",to:"umbara",type:"neutral"},
-  {from:"coruscant",to:"umbara",type:"neutral"},
-  {from:"anaxes",to:"umbara",type:"neutral"},
-  {from:"anaxes",to:"christophsis",type:"neutral"},
-  {from:"christophsis",to:"umbara",type:"neutral"},
-  {from:"umbara",to:"felucia",type:"neutral"},
-  {from:"tatooine",to:"ryloth",type:"neutral"},
-  {from:"tatooine",to:"christophsis",type:"neutral"},
-  {from:"geonosis",to:"tatooine",type:"neutral"},
-  {from:"felucia",to:"tatooine",type:"neutral"},
-  {from:"felucia",to:"christophsis",type:"neutral"},
-
-  // HOSTILE - ROJO - Rutas separatistas nuevas
-  {from:"pulsar",to:"geonosis",type:"hostile"},
-  {from:"geonosis",to:"felucia",type:"hostile"},
-  {from:"geonosis",to:"anaxes",type:"hostile"},
-  {from:"mustafar",to:"tatooine",type:"hostile"},
-  {from:"mustafar",to:"felucia",type:"hostile"},
-  {from:"coruscant",to:"geonosis",type:"hostile"},
-  {from:"umbara",to:"geonosis",type:"hostile"},
-  {from:"hoth",to:"geonosis",type:"hostile"},
-];
-  
-const galaxy=document.getElementById('galaxy');
-const svg=document.getElementById('routes');
-let selectedId=null;
-let menuOpen=false;
-
-function toggleMenu(){
-  menuOpen=!menuOpen;
-  document.getElementById('menu-toggle').classList.toggle('open',menuOpen);
-  document.getElementById('menu-panel').classList.toggle('open',menuOpen);
-  sT();
-}
-function toggleSection(id){
-  document.getElementById(id).classList.toggle('open');
-  sT();
-}
-function render(){
-  galaxy.querySelectorAll('.planet').forEach(e=>e.remove());
-  svg.innerHTML="";
-  routes.forEach(r=>{
-    const pA=planets.find(p=>p.id===r.from);
-    const pB=planets.find(p=>p.id===r.to);
-    if(!pA||!pB)return;
-    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
-    l.setAttribute("x1",pA.x+"%"); l.setAttribute("y1",pA.y+"%");
-    l.setAttribute("x2",pB.x+"%"); l.setAttribute("y2",pB.y+"%");
-    l.classList.add(r.type);
-    svg.appendChild(l);
+const galaxy=document.getElementById('galaxy'); const routes=document.getElementById('routes');
+function drawRoutes(){
+  routes.innerHTML='';
+  const con=[["coruscant","christophsis"],["christophsis","anaxes"],["anaxes","umbara"],["umbara","coruscant"],["coruscant","pulsar"],["pulsar","geonosis"],["geonosis","mustafar"],["geonosis","ryloth"],["ryloth","anaxes"],["hoth","geonosis"],["kamino","umbara"]];
+  con.forEach(([a,b])=>{
+    let pa=planets.find(p=>p.id===a),pb=planets.find(p=>p.id===b); if(!pa||!pb)return;
+    let l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",pa.x+"%");l.setAttribute("y1",pa.y+"%");l.setAttribute("x2",pb.x+"%");l.setAttribute("y2",pb.y+"%");
+    l.setAttribute("class","neutral"); routes.appendChild(l);
   });
+}
+function renderPlanets(){
   planets.forEach(p=>{
-    const el=document.createElement('div');
-    el.className='planet'+(selectedId===p.id?' selected':'')+(p.main?' main':'');
-    el.style.left=p.x+'%'; el.style.top=p.y+'%';
-    el.style.width=p.size+'px'; el.style.height=p.size+'px';
-    el.style.color=p.color;
-    if(p.img){ el.style.backgroundImage=`url('${p.img}')`; }
-    else{ el.style.backgroundColor=p.color; }
-    el.innerHTML=`<div class="planet-label">${p.name}</div>`;
-    el.onclick=()=>showInfo(p);
-    el.onmouseenter=()=>sH();
-    galaxy.appendChild(el);
+    let d=document.createElement('div');d.className='planet'+(p.main?' main':'');d.style.left=p.x+'%';d.style.top=p.y+'%';d.style.backgroundColor=p.color;if(p.img)d.style.backgroundImage=`url(${p.img})`;d.style.color=p.color;
+    let lab=document.createElement('div');lab.className='planet-label';lab.textContent=p.name;lab.style.color=p.color; d.appendChild(lab);
+    d.addEventListener('mouseenter',sH); d.addEventListener('click',()=>openPlanet(p.id));
+    galaxy.appendChild(d);
   });
 }
-function switchTab(i){
-  sT();
-  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
-  document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i));
-}
-function showInfo(p){
-  sP();
-  selectedId=p.id;
-  render();
-  switchTab(0);
+let cur=null;
+function openPlanet(id){
+  sP(); let p=planets.find(x=>x.id===id); if(!p)return;
+  cur=p; document.querySelectorAll('.planet').forEach((el,i)=>{el.classList.toggle('selected',planets[i].id===id)});
   document.getElementById('info-panel').style.display='block';
-  document.getElementById('info-name').innerText=p.name;
-  document.getElementById('info-desc').innerText=p.desc;
-  document.getElementById('info-sector').innerText=p.sector;
-  document.getElementById('info-img').style.backgroundImage=`url('${p.imgDetail}')`;
-  document.getElementById('unit-img').style.backgroundImage=`url('${p.unitImg}')`;
-  const st=document.getElementById('info-status');
-  st.innerText=p.statusText;
-  st.className='status status-tag '+p.status;
-  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACIÓN</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACIÓN</span><b>${p.stats.afiliacion}</b></div>`;
-  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICIÓN</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
-  document.getElementById('threat-bar').style.width=p.forces.amenaza+'%';
-  let html='';
-  p.units.forEach(u=>{
-    const n=u.neon?' neon-yellow':'';
-    html+=`<div class="unit-row"><div class="unit-head"><b class="${n}">${u.name}</b><i>${u.count}</i></div><div class="bar"><div class="bar-fill ${u.color}" style="width:${u.pct}%"></div></div></div>`;
-  });
-  document.getElementById('info-units').innerHTML=html;
-
-  // === GLITCH SOLO PARA MUSTAFAR Y GEONOSIS - VERSION CYBERPUNK ===
-  const isGlitch = p.id==="mustafar" || p.id==="geonosis";
-  const img1 = document.getElementById('info-img');
-  const img2 = document.getElementById('unit-img');
-  img1.classList.toggle('glitch-img', isGlitch);
-  img2.classList.toggle('glitch-img', isGlitch);
-  if(isGlitch){ 
-    // glitch suave, no arcade
-    cyberBass(120, 30, 0.5, 0.22);
-    setTimeout(()=>cyberBip(300, 90, 0.4, 0.08, 'triangle', 1200), 80);
-  }
+  document.getElementById('info-name').textContent=p.name;
+  document.getElementById('info-sector').textContent=p.sector;
+  document.getElementById('info-desc').textContent=p.desc;
+  document.getElementById('info-img').style.backgroundImage=`url(${p.imgDetail||p.img})`;
+  document.getElementById('unit-img').style.backgroundImage=`url(${p.unitImg||p.img})`;
+  let st=document.getElementById('info-status'); st.textContent=p.statusText; st.className='status status-tag '+p.status;
+  document.getElementById('info-stats').innerHTML=`<div class="stat"><span>POBLACION</span><b>${p.stats.poblacion}</b></div><div class="stat"><span>CLIMA</span><b>${p.stats.clima}</b></div><div class="stat"><span>RECURSOS</span><b>${p.stats.recursos}</b></div><div class="stat"><span>AFILIACION</span><b>${p.stats.afiliacion}</b></div>`;
+  document.getElementById('info-forces').innerHTML=`<div class="stat"><span>GUARNICION</span><b>${p.forces.guarnicion}</b></div><div class="stat"><span>FLOTA</span><b>${p.forces.flota}</b></div>`;
+  let bar=document.getElementById('threat-bar'); bar.style.width=p.forces.amenaza+'%'; bar.className='bar-fill '+(p.forces.amenaza>70?'red':p.forces.amenaza>40?'yellow':'green');
+  document.getElementById('info-units').innerHTML=p.units.map(u=>`<div class="unit-row"><div class="unit-head"><span>${u.name}</span><span>${u.count}</span></div><div class="bar"><div class="bar-fill ${u.color==='blue'?'green':u.color==='red'?'red':'yellow'}" style="width:${u.pct}%"></div></div></div>`).join('');
+  switchTab(0);
 }
-function closePanel(){
-  sC();
-  document.getElementById('info-panel').style.display='none';
-  selectedId=null;
-  render();
-}
-render();
+function closePanel(){sC();document.getElementById('info-panel').style.display='none';document.querySelectorAll('.planet').forEach(e=>e.classList.remove('selected'))}
+function switchTab(i){sT();document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.tab-content').forEach((c,idx)=>c.classList.toggle('active',idx===i))}
+function toggleMenu(){document.getElementById('menu-toggle').classList.toggle('open');document.getElementById('menu-panel').classList.toggle('open')}
+function toggleSection(id){document.getElementById(id).classList.toggle('open')}
+drawRoutes();renderPlanets();
 </script>
 </body>
-</html>e
+</html>
