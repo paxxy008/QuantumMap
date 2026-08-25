@@ -19,8 +19,38 @@ text-shadow:none;box-shadow:0 8px 32px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,25
 text-align:left;
 }
 #title::before{content:'// SYSTEM ONLINE';display:block;font-size:7px;letter-spacing:3px;color:#00ff88;opacity:0.7;margin-bottom:4px;font-family:'Share Tech Mono'}
-.dev-controls{position:absolute;right:16px;top:16px;display:flex;gap:8px;z-index:101}
-.dev-btn{
+<div class="dev-controls" id="devControls" style="display:none">
+  <button class="dev-btn" onclick="addRepublic(10)">+10% REP</button>
+  <button class="dev-btn" onclick="addSeparatist(10)">+10% SEP</button>
+  <button class="dev-btn" onclick="resetWar()">RESET 0%</button>
+</div>
+
+<script>
+let tapCount=0, tapTimer=null, devUnlocked=false;
+const titleEl = document.getElementById('title');
+
+// SECRETO MOBILE: 4 toques rápidos al título "QUANTUM PULSE"
+titleEl.addEventListener('click', ()=>{
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(()=>tapCount=0, 900);
+  if(tapCount===4){
+    const p=document.getElementById('devControls');
+    devUnlocked=!devUnlocked;
+    p.style.display=devUnlocked?'flex':'none';
+    // vibración + sonido si podés
+    if(navigator.vibrate) navigator.vibrate(60);
+    if(typeof initAudio==='function'){initAudio(); if(typeof cyberTone==='function')cyberTone(600,1800,'sine','triangle',0.3,0.6,0,0,0);}
+    tapCount=0;
+  }
+});
+
+// Para que vos lo cierres: toque largo 1 seg en el título oculta
+let pressTimer;
+titleEl.addEventListener('touchstart', ()=>{ pressTimer=setTimeout(()=>{document.getElementById('devControls').style.display='none'; devUnlocked=false; tapCount=0;}, 1000); });
+titleEl.addEventListener('touchend', ()=>clearTimeout(pressTimer));
+</script>
+</div>.dev-btn{
 background:rgba(0,0,0,0.55);backdrop-filter:blur(10px);
 border:1px solid rgba(255,255,255,0.12);border-radius:6px;
 color:rgba(255,255,255,0.75);padding:8px 12px;font-size:9px;letter-spacing:1px;
