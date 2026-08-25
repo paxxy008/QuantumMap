@@ -121,9 +121,8 @@ body{color:#eafff0;font-family:'Rajdhani',sans-serif;user-select:none;-webkit-ta
 // x,y = posición en % en el mapa. status = Hostil/Amigable/Neutral
 // unitImg = tu foto actual, si no existe usa SH_TROOPS_QP.png
 // glitch:true = activa efecto corrupto para Geonosis/Mustafar
-
+<script>
 const planets = [
-
   {
     id: "Anaxes",
     x: 22.5,
@@ -135,6 +134,9 @@ const planets = [
     clima: "Industrial fortificado - Astilleros",
     population: "4.2B - Fortaleza República",
     benefit: "Astilleros Venator + Academia Táctica",
+    // AYUDA: ACA PONÉS TUS 3 FOTOS
+    imgMain: "./ANAXES_main.png",
+    imgDetail: "./ANAXES_detail.png",
     unitImg: "./ANAXES_qp_troops.png",
     produccion: [
       {label:"Lealtad República", value:"88%", pct:88, color:"#00aaff"},
@@ -158,6 +160,8 @@ const planets = [
     clima: "Oscuridad eterna - Niebla tóxica",
     population: "Umbarans + Guarnición 501st",
     benefit: "Doonium + Tecnología sigilo",
+    imgMain: "./UMBARA_main.png",
+    imgDetail: "./UMBARA_detail.png",
     unitImg: "./UMBARA_qp_troops.png",
     produccion: [
       {label:"Control Sombra", value:"71%", pct:71, color:"#aa44ff"},
@@ -181,6 +185,8 @@ const planets = [
     clima: "Desierto rocoso - Colmenas",
     population: "Geonosianos 100B + Fábricas droides",
     benefit: "Fábricas Droides B1/B2 + Sonido",
+    imgMain: "./GEONOSIS_main.png",
+    imgDetail: "./GEONOSIS_detail.png",
     unitImg: "./GEONOSIS_qp_troops.png",
     produccion: [
       {label:"Fábricas Activas", value:"66%", pct:66, color:"#ff6600"},
@@ -204,6 +210,8 @@ const planets = [
     clima: "Volcánico - Ríos de lava 800°C",
     population: "Mustafarianos + Droides minería",
     benefit: "Cristales Mustafar + Acero obsidiana",
+    imgMain: "./MUSTAFAR_main.png",
+    imgDetail: "./MUSTAFAR_detail.png",
     unitImg: "./MUSTAFAR_qp_troops.png",
     produccion: [
       {label:"Estabilidad Térmica", value:"08%", pct:8, color:"#ff0000"},
@@ -227,6 +235,8 @@ const planets = [
     clima: "Tundra helada - -60°C tormentas",
     population: "0 - Base Echo abandonada",
     benefit: "Posición estratégica + Hielo",
+    imgMain: "./HOTH_main.png",
+    imgDetail: "./HOTH_detail.png",
     unitImg: "./HOTH_qp_troops.png",
     produccion: [
       {label:"Supervivencia", value:"21%", pct:21, color:"#00ffff"},
@@ -250,6 +260,8 @@ const planets = [
     clima: "Desierto doble sol - 50°C",
     population: "Hutts, Jawas, Tusken",
     benefit: "Ruta Kessel + Contrabando",
+    imgMain: "./TATOOINE_main.png",
+    imgDetail: "./TATOOINE_detail.png",
     unitImg: "./TATOOINE_qp_troops.png",
     produccion: [
       {label:"Control Hutt", value:"77%", pct:77, color:"#ffaa00"},
@@ -273,6 +285,8 @@ const planets = [
     clima: "Oceánico tormenta eterna",
     population: "1M Kaminoanos + 200k clones creciendo",
     benefit: "Clonación + ADN Prime",
+    imgMain: "./KAMINO_main.png",
+    imgDetail: "./KAMINO_detail.png",
     unitImg: "./KAMINO_qp_troops.png",
     produccion: [
       {label:"Producción Clones", value:"96%", pct:96, color:"#00ff88"},
@@ -296,6 +310,8 @@ const planets = [
     clima: "Radiación pulsar - tormentas EM",
     population: "Piratas, Cyborgs",
     benefit: "Energía pulsar + Armas EM",
+    imgMain: "./PULSAR_main.png",
+    imgDetail: "./PULSAR_detail.png",
     unitImg: "./PULSAR_qp_troops.png",
     produccion: [
       {label:"Radiación", value:"LETHAL", pct:100, color:"#ff00ff"},
@@ -319,6 +335,8 @@ const planets = [
     clima: "Desierto blanco - Cúpulas",
     population: "Mandalorianos 4M - Divididos",
     benefit: "Beskar + Guerreros élite",
+    imgMain: "./MANDALORE_main.png",
+    imgDetail: "./MANDALORE_detail.png",
     unitImg: "./MANDALORE_qp_troops.png",
     produccion: [
       {label:"Lealtad", value:"Dividida", pct:50, color:"#aaaaaa"},
@@ -330,7 +348,7 @@ const planets = [
     civil: "Clanes Mandalorianos",
     troops: "5k - Bes"
   },
-    {
+  {
     id: "Coruscant",
     x: 51.2,
     y: 49.8,
@@ -341,12 +359,14 @@ const planets = [
     clima: "Ecumenópolis",
     population: "2 Trillones - Capital",
     benefit: "Senado + Templo Jedi + GAR HQ",
+    imgMain: "./CORUSCANT_main.png",
+    imgDetail: "./CORUSCANT_detail.png",
     unitImg: "./CORUSCANT_qp_troops.png",
     produccion: [
       {label:"Control República", value:"100%", pct:100, color:"#00aaff"},
       {label:"Seguridad", value:"MAX", pct:100, color:"#ffd700"}
     ],
-    lore: "CORUSCANT - CENTRO DEL TODO. 2 trillones de almas. 5127 niveles. Abajo no llega el sol, solo crimen. Arriba el Senado y el Templo Jedi. Shock troopers rojos patrullan. Ningún separatista tocó esta tierra en 1000 años. Si cae Coruscant, cae la República. Palpatine lo sabe.",
+    lore: "CORUSCANT - CENTRO DEL TODO. 2 trillones de almas. 5127 niveles. Abajo no llega el sol, solo crimen. Arriba el Senado y el Templo Jedi. Shock troopers rojos patrullan. Ningún separatista tocó esta tierra en 1000 años. Si cae Coruscant, cae la República.",
     forces: "Coruscant Guard 25k shock, 501st detachment, 40 AT-TE, Ala ARC-170.",
     fauna: "Trillones especies",
     civil: "Senado, Jedi, Underworld",
@@ -364,13 +384,15 @@ const planets = [
     clima: "Montañas y praderas templado",
     population: "2B - Pacifistas armados",
     benefit: "Diplomacia + Alimentos + Arte",
+    imgMain: "./ALDERAAN_main.png",
+    imgDetail: "./ALDERAAN_detail.png",
     unitImg: "./ALDERAAN_qp_troops.png",
     produccion: [
       {label:"Paz", value:"95%", pct:95, color:"#aaffff"},
       {label:"Apoyo República", value:"90%", pct:90, color:"#00ff88"}
     ],
-    lore: "ALDERAAN - BELLEZA QUE SERÁ CENIZA. Montañas nevadas, praderas infinitas. Bail Organa, el senador más noble, odia la guerra pero manda comida a todo el frente. Pacifistas pero con cañones orbitales escondidos. Todos saben que Alderaan pagará el precio más alto por oponerse al Imperio futuro.",
-    forces: "Guardia Alderaan 3k, 2 escuadrones Alderaanian cruiser, voluntarios.",
+    lore: "ALDERAAN - BELLEZA QUE SERÁ CENIZA. Montañas nevadas, praderas infinitas. Bail Organa, el senador más noble, odia la guerra pero manda comida a todo el frente. Pacifistas pero con cañones orbitales escondidos.",
+    forces: "Guardia Alderaan 3k, 2 escuadrones cruiser.",
     fauna: "Thranta, Nerf",
     civil: "Casa Organa, Artistas",
     troops: "3k - Paz"
@@ -387,12 +409,14 @@ const planets = [
     clima: "Jungla wroshyr 1km altura",
     population: "Wookiees 50M + Bestias",
     benefit: "Madera wroshyr + Ruta hiperespacial",
+    imgMain: "./KASHYYYK_main.png",
+    imgDetail: "./KASHYYYK_detail.png",
     unitImg: "./KASHYYYK_qp_troops.png",
     produccion: [
       {label:"Lealtad Wookiee", value:"100%", pct:100, color:"#00ff88"},
       {label:"Fuerza Bruta", value:"Infinita", pct:100, color:"#ffaa00"}
     ],
-    lore: "KASHYYYK - EL PLANETA QUE LUCHA SOLO. Árboles de 1km de alto, 7 niveles de jungla. Wookiees arrancan brazos droides. Chewbacca y Tarfful lideran. La 41st de Yoda peleó aquí. Separatistas trajeron tanques araña, Wookiees los tiraron con lianas. Si ganas un Wookiee, ganas un hermano para siempre.",
+    lore: "KASHYYYK - EL PLANETA QUE LUCHA SOLO. Árboles de 1km de alto, 7 niveles de jungla. Wookiees arrancan brazos droides. Chewbacca y Tarfful lideran. La 41st de Yoda peleó aquí. Separatistas trajeron tanques araña, Wookiees los tiraron con lianas.",
     forces: "Wookiee Warriors 20k, 41st Elite Corps 8k, Oorn, Dragflys.",
     fauna: "Wookiees, Wroshyr beasts, Terentatek",
     civil: "Aldeas Wookiee",
@@ -410,12 +434,14 @@ const planets = [
     clima: "Cristalino azul - Torres cristal",
     population: "Christophsians cristalinos",
     benefit: "Cristales + Posición cristal",
+    imgMain: "./CHRISTOPHSIS_main.png",
+    imgDetail: "./CHRISTOPHSIS_detail.png",
     unitImg: "./CHRISTOPHSIS_qp_troops.png",
     produccion: [
       {label:"Control Cristal", value:"45%", pct:45, color:"#00aaff"},
       {label:"Emboscadas", value:"Alto", pct:80, color:"#ff4444"}
     ],
-    lore: "CHRISTOPHSIS - CAMPO DE CRISTAL QUEBRADO. Torres de cristal azul que refractan disparos. Primera misión de Anakin y Obi-Wan juntos. Trampas: cristal corta armadura. Slick traicionó aquí. Ahora CSI usa torres como antenas de jamming. Cada cristal vibra y confunde sensores.",
+    lore: "CHRISTOPHSIS - CAMPO DE CRISTAL QUEBRADO. Torres de cristal azul que refractan disparos. Primera misión de Anakin y Obi-Wan juntos. Trampas: cristal corta armadura. Slick traicionó aquí.",
     forces: "CSI Droid Army 15k, 501st+212th 10k joint operation.",
     fauna: "Christophsians",
     civil: "Refugiados cristal",
@@ -433,12 +459,14 @@ const planets = [
     clima: "Praderas, lagos, pantanos",
     population: "Humanos Naboo + Gungans",
     benefit: "Plasma + Diplomacia Padmé",
+    imgMain: "./NABOO_main.png",
+    imgDetail: "./NABOO_detail.png",
     unitImg: "./NABOO_qp_troops.png",
     produccion: [
       {label:"Plasma", value:"88%", pct:88, color:"#00ffff"},
       {label:"Paz Gungan-Naboo", value:"92%", pct:92, color:"#00ff88"}
     ],
-    lore: "NABOO - DONDE NACIÓ LA REINA. Theed palacios dorados, pantanos Gungan con bestias gigantes. Batalla de Naboo: Gungans vs droides. Padmé Amidala, la senadora que desafía a Palpatine. Plasma de Naboo alimenta 20% de Theed y naves. Gungans con escudos burbuja que paran blasters.",
+    lore: "NABOO - DONDE NACIÓ LA REINA. Theed palacios dorados, pantanos Gungan con bestias gigantes. Batalla de Naboo: Gungans vs droides. Padmé Amidala, la senadora que desafía a Palpatine. Plasma de Naboo alimenta 20% de naves.",
     forces: "Naboo Guard 2k, Gungan Grand Army 5k, 501st detachment.",
     fauna: "Gungans, Kaadu, Fambaa",
     civil: "Casa Naberrie, Gungans",
@@ -456,12 +484,14 @@ const planets = [
     clima: "Sumideros gigantes - Cráteres",
     population: "Pau'ans, Utai",
     benefit: "Kyber oculto + Sumideros",
+    imgMain: "./UTAPAU_main.png",
+    imgDetail: "./UTAPAU_detail.png",
     unitImg: "./UTAPAU_qp_troops.png",
     produccion: [
       {label:"Control Sumidero", value:"33%", pct:33, color:"#ff4444"},
       {label:"Kyber", value:"Detectado", pct:70, color:"#ff00ff"}
     ],
-    lore: "UTAPAU - EL AGUJERO DONDE MUERE GRIEVOUS. Planeta de sumideros de 10km profundidad. Ciudades en paredes de cráteres. Pau'ans altos y flacos, Utai bajos. Grievous se escondió aquí con el Consejo Separatista. Obi-Wan vs Grievous. Lugar hostil, vientos que te tiran al abismo.",
+    lore: "UTAPAU - EL AGUJERO DONDE MUERE GRIEVOUS. Planeta de sumideros de 10km profundidad. Ciudades en paredes de cráteres. Grievous se escondió aquí con el Consejo Separatista. Obi-Wan vs Grievous.",
     forces: "CSI remanente 8k, Pau'an resistencia 1k, Droides Grievous.",
     fauna: "Varactyl Boga, Dactillion",
     civil: "Pau'an, Utai",
@@ -479,12 +509,14 @@ const planets = [
     clima: "Glaciar cristalino -40°C",
     population: "Lurmen + Muuns",
     benefit: "Cristales Nova + Banco",
+    imgMain: "./MYGEETO_main.png",
+    imgDetail: "./MYGEETO_detail.png",
     unitImg: "./MYGEETO_qp_troops.png",
     produccion: [
       {label:"Cristales", value:"92%", pct:92, color:"#00ffff"},
       {label:"Banco", value:"88%", pct:88, color:"#ffd700"}
     ],
-    lore: "MYGEETO - BANCO DE HIELO. Cristales que valen naves enteras. Muuns del Clan Bancario. Ki-Adi-Mundi murió aquí en Orden 66, traicionado. Puentes de cristal que se rompen bajo AT-TE. Lurmen pacifistas atrapados. Cada puente es una tumba.",
+    lore: "MYGEETO - BANCO DE HIELO. Cristales que valen naves enteras. Muuns del Clan Bancario. Ki-Adi-Mundi murió aquí en Orden 66, traicionado. Puentes de cristal que se rompen bajo AT-TE.",
     forces: "21st Nova Corps Galactic Marines 9k, Muun guard 2k.",
     fauna: "Lurmen, Muuns",
     civil: "Banqueros, Cristaleros",
@@ -502,12 +534,14 @@ const planets = [
     clima: "Luna rocosa - Niebla",
     population: "Puesto escucha Rishi",
     benefit: "Alerta temprana Kamino",
+    imgMain: "./RISHI_main.png",
+    imgDetail: "./RISHI_detail.png",
     unitImg: "./RISHI_qp_troops.png",
     produccion: [
       {label:"Alerta", value:"ONLINE", pct:90, color:"#00ff88"},
       {label:"Sigilo", value:"76%", pct:76, color:"#00aaff"}
     ],
-    lore: "RISHI MOON - EL TIMBRE QUE SALVÓ KAMINO. Luna sin nada, solo una estación. 4 clones shinies defendieron Kamino entero. Comando droides infiltrados, Capitán Rex y Cody salvaron. Si Rishi cae, Kamino no tiene aviso y los clones mueren en tanques. Puesto más importante de la guerra.",
+    lore: "RISHI MOON - EL TIMBRE QUE SALVÓ KAMINO. Luna sin nada, solo una estación. 4 clones shinies defendieron Kamino entero. Comando droides infiltrados, Capitán Rex y Cody salvaron. Si Rishi cae, Kamino no tiene aviso.",
     forces: "Rishi Station 4 clones (Domino Squad leyenda), 501st QRF.",
     fauna: "Rishi Eel",
     civil: "Técnicos escucha",
@@ -525,19 +559,68 @@ const planets = [
     clima: "Desierto rocoso - Tundra nocturna",
     population: "Twi'leks 5M esclavizados",
     benefit: "Especias Ryll + Ruta",
+    imgMain: "./RYLOTH_main.png",
+    imgDetail: "./RYLOTH_detail.png",
     unitImg: "./RYLOTH_qp_troops.png",
     produccion: [
       {label:"Liberación", value:"58%", pct:58, color:"#ff88ff"},
       {label:"Esclavitud CSI", value:"42%", pct:42, color:"#ff4444"}
     ],
-    lore: "RYLOTH - PLANETA ESCLAVO. Mitad día abrasador, mitad noche helada. Twi'leks viven en crepúsculo. Wat Tambor esclavizó todo por especias Ryll que es droga y medicina. Cham Syndulla y su resistencia, Hera niña. Mace Windu liberó. Ahora CSI volvió. Cada cueva es refugio rebelde.",
+    lore: "RYLOTH - PLANETA ESCLAVO. Mitad día abrasador, mitad noche helada. Twi'leks viven en crepúsculo. Wat Tambor esclavizó todo por especias Ryll que es droga y medicina. Cham Syndulla y su resistencia, Hera niña. Mace Windu liberó.",
     forces: "Twi'lek Resistencia 6k, 212th Attack Battalion 8k, CSI 10k droides.",
     fauna: "Twi'leks, Gutkurr, Lylek",
     civil: "Twi'lek clanes",
     troops: "14k - Twi"
   }
+  <script>
+  ];
+// AYUDA: AHORA USA imgMain para planeta, imgDetail para lore, unitImg para tropas
+function showPlanet(id){
+  const p=planets.find(x=>x.id===id); if(!p) return;
+  currentPlanet=p;
+  const img=document.getElementById('detailImg');
+  const wrap=document.getElementById('detailImgWrap');
+  // usa imgMain principal, si no existe usa imgDetail, si no usa unitImg
+  img.src = p.imgMain || p.imgDetail || p.unitImg;
+  img.onerror=function(){ 
+    // fallback en cascada
+    if(this.src.includes('_main')){ this.src = p.imgDetail || p.unitImg; }
+    else if(this.src.includes('_detail')){ this.src = p.unitImg; }
+    else{ this.src='./SH_TROOPS_QP.png'; }
+  };
+  wrap.className='detail-img'+(p.glitch?' glitch':'');
+  document.getElementById('detailName').innerText=p.id.toUpperCase();
+  document.getElementById('detailMeta').innerText=`${p.sector} // ${p.clima} // ${p.status.toUpperCase()}`;
+  switchTab('lore');
+  document.getElementById('detail').classList.add('open');
+  sOpen();
+}
+function closeDetail(){ document.getElementById('detail').classList.remove('open'); sClose(); }
+function switchTab(type){
+  if(!currentPlanet) return;
+  currentTab=type;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const idx={lore:0,datos:1,fuerzas:2,unidades:3}[type];
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  const p=currentPlanet, c=document.getElementById('detailContent');
+  const statusColor = p.status==='Hostil'?'#ff3344':p.status==='Amigable'?'#00aaff':'#ffd700';
+  const badge=`<div class="status-badge ${p.status.toLowerCase()}" style="border-color:${statusColor};color:${statusColor}">RUTA: ${p.status.toUpperCase()} - ${p.faction}</div>`;
 
-];
+  if(type==='lore') c.innerHTML=`${badge}
+    <div style="width:100%;height:160px;border-radius:10px;overflow:hidden;margin-bottom:12px;border:1px solid rgba(255,255,255,0.1)"><img src="${p.imgDetail || p.imgMain}" onerror="this.src='${p.imgMain || p.unitImg}'" style="width:100%;height:100%;object-fit:cover"></div>
+    <div style="font-weight:700;line-height:1.7"><span style="color:var(--neon);font-family:Orbitron;font-size:10px;letter-spacing:2px">LORE EXPANDIDO // 22 ABY:</span><br><br>${p.lore}<br><br><span style="color:var(--neon)">CLIMA:</span> ${p.clima}<br><span style="color:var(--neon)">FACCIÓN:</span> ${p.faction}</div>`;
+
+  if(type==='datos') c.innerHTML=`${badge}<div><span style="color:var(--neon);font-family:Orbitron">POBLACIÓN:</span><br>${p.population}<br><br><span style="color:var(--gold);font-family:Orbitron">BENEFICIO:</span><br>${p.benefit}<br><br><span style="color:var(--neon)">SECTOR:</span> ${p.sector}<br><br>${p.produccion.map(pr=>`<div style="display:flex;justify-content:space-between;font-size:11px;margin:12px 0 5px 0;font-family:Orbitron;font-weight:900"><span>${pr.label}</span><span style="color:${pr.color};text-shadow:0 0 8px ${pr.color}">${pr.value}</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:${pr.pct}%;height:100%;background:${pr.color};box-shadow:0 0 12px ${pr.color}"></div></div>`).join('')}</div>`;
+
+  if(type==='fuerzas') c.innerHTML=`${badge}<div><span style="color:var(--neon);font-family:Orbitron">FUERZAS:</span><br>${p.forces}<br><br><span style="color:var(--neon)">FAUNA:</span><br>${p.fauna}<br><br><span style="color:var(--neon)">CIVILES:</span><br>${p.civil}</div>`;
+
+  if(type==='unidades') c.innerHTML=`${badge}
+    <div style="width:100%;height:230px;border:1px solid ${statusColor};border-radius:12px;overflow:hidden;box-shadow:0 0 18px ${statusColor}55"><img src="${p.unitImg}" onerror="this.src='./SH_TROOPS_QP.png'" style="width:100%;height:100%;object-fit:cover"></div>
+    <div style="margin-top:8px;font-family:'Share Tech Mono';font-size:9px;opacity:0.6">TROPAS: ${p.unitImg}</div>
+    <div style="margin-top:14px">${p.produccion.map(pr=>`<div style="display:flex;justify-content:space-between;font-size:11px;margin:10px 0 5px 0;font-family:Orbitron;font-weight:900"><span>${pr.label}</span><span style="color:${pr.color}">${pr.value}</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:${pr.pct}%;height:100%;background:${pr.color};box-shadow:0 0 12px ${pr.color}"></div></div>`).join('')}<div style="margin-top:14px;padding:12px;border:1px dashed rgba(0,255,136,0.25);border-radius:10px;font-family:'Share Tech Mono';font-size:10px;color:var(--neon)">UNIDAD: ${p.faction}<br>TROPAS: ${p.troops}<br>RUTA: ${p.status}</div></div>`;
+
+  sHover();
+}
 </script>
   <script>
 // AYUDA: AUDIO MOTOR PESADO ESTILO JUEGO
