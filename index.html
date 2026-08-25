@@ -20,119 +20,139 @@ body{background:#000;font-family:'Rajdhani',sans-serif;color:#fff;overflow:auto}
 }
 #galaxy::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(0,0,0,0.1) 20%,rgba(0,0,0,0.78) 95%);z-index:1;pointer-events:none}
 
-/* PLANETAS - SIZE RECOMENDADO PARA MAPA GIGANTE */
+/* PLANETAS TODOS 40PX */
 .planet{
   position:absolute;
-  width:58px;
-  height:58px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   cursor:pointer;
   transform:translate(-50%,-50%) translateZ(0);
-  box-shadow:0 0 22px currentColor,inset -7px -7px 14px rgba(0,0,0,0.95);
+  box-shadow:0 0 18px currentColor,inset -6px -6px 12px rgba(0,0,0,0.95);
   transition:.35s;
   z-index:3;
-  border:1.8px solid rgba(255,255,255,0.9);
+  border:1.5px solid rgba(255,255,255,0.9);
   background-size:cover;
   background-position:center;
   will-change:transform
 }
-.planet:hover{transform:translate(-50%,-50%) scale(1.35);filter:brightness(1.3)}
+.planet:hover{transform:translate(-50%,-50%) scale(1.4);filter:brightness(1.3)}
 .planet:active{transform:translate(-50%,-50%) scale(1.65);filter:brightness(1.5)}
-.planet.selected{transform:translate(-50%,-50%) scale(1.7);z-index:6;animation:pulse 1.6s infinite;box-shadow:0 0 25px currentColor,0 0 50px currentColor,0 0 80px currentColor !important}
+.planet.selected{transform:translate(-50%,-50%) scale(1.8);z-index:6;animation:pulse 1.6s infinite;box-shadow:0 0 25px currentColor,0 0 50px currentColor,0 0 80px currentColor !important}
 @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
-.planet.main{
-  width:88px;
-  height:88px;
-  box-shadow:0 0 35px #00ff88,0 0 70px #00ff88,0 0 110px rgba(0,255,136,0.6),inset -7px -7px 14px rgba(0,0,0,0.85);
-  border:2.5px solid #00ffcc
-}
-.planet.small{width:32px;height:32px}
-.planet-label{
-  position:absolute;
-  top:145%;
-  left:50%;
-  transform:translateX(-50%);
-  font-family:'Orbitron';
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:2.2px;
-  white-space:nowrap;
-  text-shadow:0 2px 6px #000,0 0 14px currentColor,0 0 24px currentColor;
-  pointer-events:none
-}
+.planet.main{width:52px;height:52px;box-shadow:0 0 30px #00ff88,0 0 60px #00ff88,0 0 90px rgba(0,255,136,0.5),inset -6px -6px 12px rgba(0,0,0,0.85);border:2px solid #00ffcc}
+.planet-label{position:absolute;top:145%;left:50%;transform:translateX(-50%);font-family:'Orbitron';font-size:11px;font-weight:800;letter-spacing:1.8px;white-space:nowrap;text-shadow:0 2px 6px #000,0 0 12px currentColor,0 0 20px currentColor;pointer-events:none}
 svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
-svg#routes line{stroke-width:2.5;stroke-linecap:round;opacity:0.85}
+svg#routes line{stroke-width:2.2;stroke-linecap:round;opacity:0.85}
 line.friendly{stroke:#00ffcc;filter:drop-shadow(0 0 6px #00ffcc) drop-shadow(0 0 12px #00ffcc)}
-line.hostile{stroke:#ff2244;filter:drop-shadow(0 0 6px #ff2244) drop-shadow(0 0 14px #ff2244);stroke-width:3.2}
+line.hostile{stroke:#ff2244;filter:drop-shadow(0 0 6px #ff2244) drop-shadow(0 0 14px #ff2244);stroke-width:2.8}
 line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 12px #ffcc00)}
 
-/* PANEL INFO - AGRANDADO X1.5 */
+/* TITULO QUANTUM PULSE NEON VERDE GIGANTE */
+.title-bar{
+  position:fixed;
+  left:90px;
+  top:18px;
+  z-index:50;
+  font-family:'Orbitron';
+  font-weight:900;
+  font-size:24px;
+  letter-spacing:4px;
+  color:#00ff88;
+  text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88,0 0 55px rgba(0,255,136,0.6);
+  opacity:1;
+  animation:neonPulse 2s infinite alternate;
+  pointer-events:none;
+}
+@keyframes neonPulse{
+  0%{text-shadow:0 0 8px #00ff88,0 0 18px #00ff88,0 0 32px #00ff88,0 0 55px rgba(0,255,136,0.6);opacity:1}
+  100%{text-shadow:0 0 12px #00ff88,0 0 24px #00ff88,0 0 45px #00ff88,0 0 75px rgba(0,255,136,0.8);opacity:0.92}
+}
+
+/* PANEL DERECHA GORDO CUADRADO + LETRAS GRANDES NEGRITAS */
 #info-panel{
   position:fixed;
-  right:22px;
-  top:22px;
-  width:560px;
-  max-height:94vh;
+  right:18px;
+  top:18px;
+  width:680px;
+  max-width:42vw;
+  min-height:520px;
+  max-height:82vh;
   overflow-y:auto;
   background:linear-gradient(160deg,rgba(0,22,14,0.98),rgba(0,10,8,0.99));
-  border:2px solid #00ff88;
-  box-shadow:0 0 35px rgba(0,255,136,0.45),0 0 70px rgba(0,255,136,0.2);
-  backdrop-filter:blur(14px);
-  border-radius:12px;
+  border:2.5px solid #00ff88;
+  box-shadow:0 0 40px rgba(0,255,136,0.45),0 0 80px rgba(0,255,136,0.25);
+  backdrop-filter:blur(16px);
+  border-radius:14px;
   display:none;
   z-index:100
 }
 .panel-img{width:100%;height:320px;background-size:cover;background-position:center;position:relative;border-bottom:1.5px solid rgba(0,255,136,0.35);background-color:#001a0f}
 .panel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,15,10,1) 10%,transparent 70%)}
-.sector-tag{position:absolute;bottom:14px;left:16px;z-index:2;background:rgba(0,0,0,0.7);border:1.5px solid #ffd700;color:#ffd700;font-family:'Orbitron';font-size:11px;padding:6px 12px;border-radius:4px}
+.sector-tag{position:absolute;bottom:14px;left:16px;z-index:2;background:rgba(0,0,0,0.7);border:1.5px solid #ffd700;color:#ffd700;font-family:'Orbitron';font-size:11px;padding:6px 12px;border-radius:4px;font-weight:700}
 .status-tag{position:absolute;top:16px;left:16px;z-index:2}
-.panel-body{padding:22px 24px 24px}
-#info-panel h2{margin:0 0 6px;color:#00ff88;letter-spacing:3px;font-size:28px;font-family:'Orbitron';text-shadow:0 0 12px #00ff88}
-.status{padding:7px 14px;border-radius:4px;font-size:12px;display:inline-block;font-weight:bold;letter-spacing:1.4px;font-family:'Orbitron'}
+.panel-body{padding:22px 26px 26px;display:flex;flex-direction:column;gap:6px}
+#info-panel h2{margin:0 0 8px;color:#00ff88;letter-spacing:3px;font-size:30px;font-family:'Orbitron';text-shadow:0 0 12px #00ff88;font-weight:900}
+.status{padding:8px 16px;border-radius:4px;font-size:12px;display:inline-block;font-weight:900;letter-spacing:1.6px;font-family:'Orbitron'}
 .republic{background:#0a2a40;border:1px solid #3ad4ff;color:#3ad4ff;box-shadow:0 0 10px #3ad4ff} 
 .separatist{background:#3a0a0a;border:1px solid #ff4444;color:#ff6666;box-shadow:0 0 10px #ff4444} 
 .contested{background:#3a300a;border:1px solid #ffcc33;color:#ffdd55;box-shadow:0 0 10px #ffcc33} 
 .alpha{background:#0a2a1a;border:1px solid #00ff88;color:#00ff88;box-shadow:0 0 12px rgba(0,255,136,0.6)} 
 .mandalore{background:#2a0a3a;border:1px solid #c9a0ff;color:#c9a0ff;box-shadow:0 0 12px rgba(201,160,255,0.5)}
-  .tabs{display:flex;gap:14px;margin:18px 0;border-bottom:1.5px solid rgba(0,255,136,0.2);padding-bottom:10px;flex-wrap:wrap}
-.tab{cursor:pointer;font-family:'Orbitron';font-size:11px;letter-spacing:1.4px;color:rgba(255,255,255,0.5);padding-bottom:6px;border-bottom:2.5px solid transparent;transition:.25s}
+.tabs{display:flex;gap:14px;margin:18px 0;border-bottom:1.5px solid rgba(0,255,136,0.2);padding-bottom:10px;flex-wrap:wrap}
+.tab{cursor:pointer;font-family:'Orbitron';font-size:12px;letter-spacing:1.4px;color:rgba(255,255,255,0.5);padding-bottom:6px;border-bottom:2.5px solid transparent;transition:.25s;font-weight:700}
 .tab.active{color:#00ff88;border-bottom:2.5px solid #00ff88;text-shadow:0 0 10px #00ff88}
 .tab-content{display:none;animation:fadeIn .3s ease} .tab-content.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-#info-panel p{font-size:17px;line-height:1.7;opacity:.95;color:#c8ffe0}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+
+/* DESCRIPCIONES GRANDES Y NEGRITAS - CAMBIO PRINCIPAL */
+#info-panel p{
+  font-size:18px;
+  line-height:1.65;
+  opacity:.98;
+  color:#e0ffee;
+  font-weight:700;
+  letter-spacing:0.3px;
+  text-shadow:0 1px 2px rgba(0,0,0,0.8);
+  max-height:200px;
+  overflow-y:auto;
+  padding-right:8px;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
 .stat{background:rgba(0,255,136,0.08);border:1.5px solid rgba(0,255,136,0.2);padding:14px 14px;border-radius:8px}
-.stat span{display:block;font-family:'Orbitron';font-size:10px;letter-spacing:1.2px;color:#ffd700;opacity:.8;margin-bottom:4px} .stat b{font-size:15px;color:#fff}
-.unit-row{margin-bottom:16px} .unit-head{display:flex;justify-content:space-between;margin-bottom:6px;font-family:'Orbitron';font-size:12px;letter-spacing:1.2px}
+.stat span{display:block;font-family:'Orbitron';font-size:10px;letter-spacing:1.2px;color:#ffd700;opacity:.9;margin-bottom:4px;font-weight:800} 
+.stat b{font-size:16px;color:#fff;font-weight:800;letter-spacing:0.5px}
+.unit-row{margin-bottom:18px} 
+.unit-head{display:flex;justify-content:space-between;margin-bottom:7px;font-family:'Orbitron';font-size:13px;letter-spacing:1.2px;font-weight:800}
 .unit-head b{color:#fff} .unit-head i{color:#00ff88;font-style:normal}
-.neon-yellow{color:#ffff66!important;text-shadow:0 0 8px #ffff00,0 0 18px #ffff00,0 0 30px #ffff00;animation:flicker 1.5s infinite alternate}
+.neon-yellow{color:#ffff66!important;text-shadow:0 0 8px #ffff00,0 0 18px #ffff00,0 0 30px #ffff00;animation:flicker 1.5s infinite alternate;font-weight:900}
 @keyframes flicker{0%{opacity:1}100%{opacity:.85}}
-.bar{width:100%;height:7px;background:rgba(0,255,136,0.1);border-radius:3px;overflow:hidden} .bar-fill{height:100%;border-radius:3px;box-shadow:0 0 8px currentColor}
+.bar{width:100%;height:8px;background:rgba(0,255,136,0.12);border-radius:4px;overflow:hidden} 
+.bar-fill{height:100%;border-radius:4px;box-shadow:0 0 8px currentColor}
 .gold{background:linear-gradient(90deg,#ffff66,#ffff00);color:#ffff00;box-shadow:0 0 12px #ffff00} .red{background:linear-gradient(90deg,#ff4444,#ff0000);color:#ff4444} .green{background:linear-gradient(90deg,#00ff88,#00ffcc);color:#00ff88} .blue{background:linear-gradient(90deg,#3ad4ff,#00aaff);color:#3ad4ff}
-.unit-img{width:100%;height:200px;border-radius:8px;background-size:cover;background-position:center top;margin-bottom:16px;border:1.5px solid rgba(255,255,100,0.6);box-shadow:0 0 22px rgba(255,255,0,0.3);background-color:#001a0f}
-.btn{margin-top:18px;background:linear-gradient(90deg,#003322,#006644);border:1.5px solid #00ff88;padding:11px 14px;border-radius:6px;cursor:pointer;color:#00ff88;font-weight:bold;width:100%;letter-spacing:2px;font-family:'Orbitron'}
-.btn:hover{background:linear-gradient(90deg,#004422,#008855);box-shadow:0 0 15px #00ff88}
-.title-bar{position:absolute;left:24px;top:20px;z-index:4;font-family:'Orbitron';font-weight:800;letter-spacing:3px;font-size:13px;color:#00ff88;opacity:.9}
-#side-menu{position:absolute;left:0;top:0;height:100vh;z-index:12;display:flex;flex-direction:column}
-#menu-toggle{width:48px;height:48px;margin:18px 0 0 18px;background:linear-gradient(160deg,rgba(0,22,14,0.97),rgba(0,10,8,0.99));border:1.5px solid #00ff88;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(0,255,136,0.35);transition:.25s;z-index:13}
-#menu-toggle span{display:block;width:20px;height:2px;background:#00ff88;position:relative;transition:.25s}
-#menu-toggle span::before,#menu-toggle span::after{content:'';position:absolute;left:0;width:20px;height:2px;background:#00ff88;transition:.25s}
-#menu-toggle span::before{top:-6px} #menu-toggle span::after{top:6px}
-#menu-toggle.open span{background:transparent}
+.unit-img{width:100%;height:210px;border-radius:8px;background-size:cover;background-position:center top;margin-bottom:16px;border:1.5px solid rgba(255,255,100,0.6);box-shadow:0 0 22px rgba(255,255,0,0.3);background-color:#001a0f}
+.btn{margin-top:20px;background:linear-gradient(90deg,#003322,#006644);border:1.5px solid #00ff88;padding:13px 14px;border-radius:8px;cursor:pointer;color:#00ff88;font-weight:900;width:100%;letter-spacing:2.5px;font-family:'Orbitron';font-size:12px}
+.btn:hover{background:linear-gradient(90deg,#004422,#008855);box-shadow:0 0 18px #00ff88}
+#side-menu{position:fixed;left:0;top:0;height:100vh;z-index:60;display:flex;flex-direction:column}
+#menu-toggle{width:58px;height:58px;margin:16px 0 0 16px;background:linear-gradient(160deg,rgba(0,28,18,0.99),rgba(0,14,8,0.99));border:2px solid #00ff88;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 22px rgba(0,255,136,0.45),0 0 40px rgba(0,255,136,0.2);transition:.25s;z-index:61}
+#menu-toggle span{display:block;width:26px;height:3px;background:#00ff88;position:relative;transition:.25s;box-shadow:0 0 6px #00ff88}
+#menu-toggle span::before,#menu-toggle span::after{content:'';position:absolute;left:0;width:26px;height:3px;background:#00ff88;transition:.25s;box-shadow:0 0 6px #00ff88}
+#menu-toggle span::before{top:-8px} #menu-toggle span::after{top:8px}
+#menu-toggle.open span{background:transparent;box-shadow:none}
 #menu-toggle.open span::before{top:0;transform:rotate(45deg)} #menu-toggle.open span::after{top:0;transform:rotate(-45deg)}
-#menu-panel{width:0;overflow:hidden;background:linear-gradient(160deg,rgba(0,18,12,0.98),rgba(0,8,6,0.99));border-right:1.5px solid #00ff88;box-shadow:8px 0 30px rgba(0,255,136,0.2);backdrop-filter:blur(14px);transition:width .32s ease;margin-top:12px;display:flex;flex-direction:column}
-#menu-panel.open{width:300px}
-.menu-header{padding:18px 20px 12px;font-family:'Orbitron';font-size:12px;letter-spacing:2px;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);white-space:nowrap}
-.menu-body{flex:1;overflow-y:auto;padding:8px 0}
-.menu-section{border-bottom:1px solid rgba(0,255,136,0.12)}
-.menu-section-title{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;font-family:'Orbitron';font-size:11px;letter-spacing:1.5px;color:#c8ffe0;transition:.2s;user-select:none}
-.menu-section-title:hover{background:rgba(0,255,136,0.07);color:#00ff88}
-.menu-section-title .arrow{font-size:10px;transition:transform .25s;color:#00ff88;opacity:.7}
+#menu-panel{width:0;overflow:hidden;background:linear-gradient(160deg,rgba(0,22,16,0.99),rgba(0,12,8,0.99));border-right:2.5px solid #00ff88;box-shadow:10px 0 40px rgba(0,255,136,0.35),0 0 20px rgba(0,255,136,0.2);backdrop-filter:blur(16px);transition:width .35s ease;margin-top:12px;display:flex;flex-direction:column}
+#menu-panel.open{width:380px}
+.menu-header{padding:22px 24px 16px;font-family:'Orbitron';font-size:16px;letter-spacing:3px;color:#00ff88;border-bottom:1.5px solid rgba(0,255,136,0.3);white-space:nowrap;font-weight:800;text-shadow:0 0 10px #00ff88}
+.menu-body{flex:1;overflow-y:auto;padding:10px 0}
+.menu-section{border-bottom:1.5px solid rgba(0,255,136,0.15)}
+.menu-section-title{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;cursor:pointer;font-family:'Orbitron';font-size:14px;letter-spacing:1.8px;color:#e8ffee;transition:.2s;user-select:none;font-weight:700}
+.menu-section-title:hover{background:rgba(0,255,136,0.12);color:#00ff88;text-shadow:0 0 8px #00ff88}
+.menu-section-title .arrow{font-size:14px;transition:transform .25s;color:#00ff88;opacity:.9}
 .menu-section.open .menu-section-title .arrow{transform:rotate(90deg)}
-.menu-section-content{max-height:0;overflow:hidden;transition:max-height .3s ease;background:rgba(0,0,0,0.25)}
-.menu-section.open .menu-section-content{max-height:400px}
-.menu-placeholder{padding:16px 20px;font-size:13px;line-height:1.5;color:rgba(200,255,224,0.55);font-style:italic}
-.menu-footer{padding:12px 20px;border-top:1px solid rgba(0,255,136,0.15);font-family:'Orbitron';font-size:8px;letter-spacing:1px;color:rgba(0,255,136,0.5);white-space:nowrap}
+.menu-section-content{max-height:0;overflow:hidden;transition:max-height .35s ease;background:rgba(0,0,0,0.35)}
+.menu-section.open .menu-section-content{max-height:600px}
+.menu-placeholder{padding:20px 24px;font-size:15px;line-height:1.6;color:rgba(200,255,224,0.7);font-style:italic;font-weight:600}
+.menu-footer{padding:16px 24px;border-top:1.5px solid rgba(0,255,136,0.2);font-family:'Orbitron';font-size:10px;letter-spacing:1.5px;color:rgba(0,255,136,0.6);white-space:nowrap}
 .glitch-img{filter:contrast(1.8) brightness(0.5) hue-rotate(-20deg) saturate(0.3) !important;border-color:#ff2222 !important;position:relative;animation:flicker-glitch 0.16s infinite steps(2) !important}
 .glitch-img::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,0,0,0.15) 2px,transparent 3px);z-index:2;pointer-events:none}
 @keyframes flicker-glitch{0%{opacity:0.95;transform:translateX(0)} 20%{opacity:0.6;transform:translateX(-1px)} 40%{opacity:0.9;transform:translateX(1px)} 60%{opacity:0.5} 80%{opacity:0.95;transform:translateX(-1px)} 100%{opacity:0.9}}
@@ -141,23 +161,37 @@ line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 
 ::-webkit-scrollbar-thumb{background:#00ff88;border-radius:5px;box-shadow:0 0 8px #00ff88}
 ::-webkit-scrollbar-corner{background:#000}
 @media(max-width:768px){
-  #galaxy{background-attachment:scroll !important;min-width:1800px;min-height:1400px}
-  .planet{width:44px !important;height:44px !important;box-shadow:0 0 12px currentColor !important; border-width:1px !important}
-  .planet.main{width:66px !important;height:66px !important}
-  .planet:active{transform:translate(-50%,-50%) scale(1.6) !important; filter:brightness(1.4) !important}
-  .planet.selected{transform:translate(-50%,-50%) scale(1.7) !important}
-  svg#routes line{stroke-width:1.8 !important; opacity:0.9 !important}
-  #info-panel{right:8px;left:8px;top:auto;bottom:8px;width:auto;max-height:65vh;backdrop-filter:none !important;background:rgba(0,18,12,0.97) !important}
-  .panel-img{height:180px}
-  .unit-img{height:130px}
-  .title-bar{font-size:9px;letter-spacing:1.5px;left:70px}
-  #menu-panel.open{width:260px}
+  #galaxy{min-width:1800px;min-height:1400px}
+  .planet{width:32px !important;height:32px !important}
+  .planet.main{width:44px !important;height:44px !important}
+  .title-bar{font-size:14px !important;left:80px !important;letter-spacing:2px !important;top:20px !important}
+  #menu-panel.open{width:300px !important}
+  .menu-header{font-size:13px !important;padding:18px 20px 14px !important}
+  .menu-section-title{font-size:12px !important;padding:15px 20px !important}
+  #info-panel{
+    right:0 !important;
+    left:0 !important;
+    top:auto !important;
+    bottom:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-height:auto !important;
+    max-height:78vh !important;
+    border-radius:18px 18px 0 0 !important;
+    border-left:none !important;
+    border-right:none !important;
+    border-bottom:none !important;
+  }
+  .panel-img{height:200px}
+  .unit-img{height:140px}
+  #info-panel h2{font-size:24px}
+  #info-panel p{max-height:120px;font-size:16px;font-weight:700}
 }
 </style>
 </head>
 <body>
 <div id="galaxy">
-  <div class="title-bar">QUANTUM PULSE // HOLOMAPA GALÁCTICO — ALPHA v2.5</div>
+  <div class="title-bar">QUANTUM PULSE // MAPA GALACTICO</div>
   <svg id="routes"></svg>
   <div id="info-panel">
     <div class="panel-img" id="info-img">
