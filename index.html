@@ -11,10 +11,10 @@ body{margin:0;background:#02080a;color:#fff;overflow:hidden;font-family:'Share T
 #map{position:relative;width:100vw;height:82vh;background:url('./Galaxy_Quantum_Main_Map.png') center/cover no-repeat, radial-gradient(ellipse at center,#081a2a 0%,#020208 80%);border-bottom:2px solid rgba(0,255,136,0.22)}
 #title{position:absolute;top:12px;left:50%;transform:translateX(-50%);border:2px solid #00ff88;padding:14px 38px;background:rgba(0,0,0,0.94);color:#00ff88;z-index:100;letter-spacing:7px;font-size:18px;font-weight:900;font-family:'Orbitron',sans-serif;text-shadow:0 0 14px #00ff88,0 0 30px #00ff88;box-shadow:0 0 24px #00ff88,0 0 60px rgba(0,255,136,0.28),inset 0 0 20px rgba(0,255,136,0.08);text-align:center;line-height:1.2}
 .planet{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:3;text-align:center}
-.planet.aura{width:52px;height:52px;border-radius:50%;padding:2px;background:currentColor;box-shadow:0 0 16px currentColor,0 0 36px currentColor,0 0 65px currentColor;display:flex;align-items:center;justify-content:center;transition:0.34s cubic-bezier(0.175,0.885,0.32,1.275)}
-.planet.aura img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#000;border:1px solid #000;display:block}
-.planet:hover.aura{transform:scale(1.55);box-shadow:0 0 28px currentColor,0 0 60px currentColor,0 0 95px currentColor}
-.planet.label{font-size:10px;margin-top:8px;font-weight:900;letter-spacing:2px;color:currentColor;font-family:'Orbitron',sans-serif;text-shadow:0 0 12px currentColor,0 0 18px currentColor}
+.planet .aura{width:50px;height:50px;border-radius:50%;padding:2px;background:currentColor;box-shadow:0 0 16px currentColor,0 0 36px currentColor,0 0 65px currentColor;display:flex;align-items:center;justify-content:center;transition:0.34s cubic-bezier(0.175,0.885,0.32,1.275)}
+.planet .aura img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#000;border:1px solid #000;display:block}
+.planet:hover .aura{transform:scale(1.55);box-shadow:0 0 28px currentColor,0 0 60px currentColor,0 0 95px currentColor}
+.planet .label{font-size:10px;margin-top:8px;font-weight:900;letter-spacing:2px;color:currentColor;font-family:'Orbitron',sans-serif;text-shadow:0 0 12px currentColor,0 0 18px currentColor}
 canvas#routes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 #planets-layer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2}
 #detail{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96%;max-width:660px;max-height:92vh;overflow-y:auto;background:rgba(6,18,14,0.985);border:2px solid #00ff88;border-radius:14px;display:none;z-index:90;box-shadow:0 0 34px #00ff88,0 0 100px rgba(0,255,136,0.32),inset 0 0 36px rgba(0,255,136,0.07)}
