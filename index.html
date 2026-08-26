@@ -16,12 +16,29 @@ body{color:#eafff0;font-family:'Rajdhani',sans-serif;user-select:none;-webkit-ta
 #map{position:relative;width:100vw;height:100vh;background:#020208 url('./Galaxy_Quantum_Main_Map.png') center/cover no-repeat}
 #routes{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
 
-/* LINEAS FINAS NEON COMO TU CAPTURA - RECTAS LISAS */
-.route-line{fill:none;stroke-width:1.15;stroke-linecap:round;opacity:0.92}
-.route-line.amigable{stroke:#00ffcc;filter:drop-shadow(0 0 2px #00ffcc) drop-shadow(0 0 7px #00ffcc)}
-.route-line.hostil{stroke:#ff2a3d;filter:drop-shadow(0 0 2px #ff2a3d) drop-shadow(0 0 7px #ff2a3d)}
-.route-line.neutral{stroke:#ffcc00;filter:drop-shadow(0 0 2px #ffcc00) drop-shadow(0 0 7px #ffcc00)}
-.route-line.comercio{stroke:#ffcc00;filter:drop-shadow(0 0 2px #ffcc00) drop-shadow(0 0 7px #ffcc00)}
+/* RUTAS CYBERPUNK FINAS - SIN NEON, SIN GLOW */
+.route-line{fill:none;stroke-width:0.9;stroke-linecap:round;stroke-linejoin:round;opacity:0.55}
+.route-line.amigable{stroke:#00ffcc}
+.route-line.hostil{stroke:#ff3344}
+.route-line.neutral{stroke:#ffcc00}
+.route-line.comercio{stroke:#ffcc00;stroke-width:0.7;opacity:0.4}
+
+/* AURA EN CADA PLANETA - SE MANTIENE */
+.planet-icon{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);cursor:pointer;z-index:25;transition:0.2s ease}
+.planet-icon:hover{transform:translate(-50%,-50%) scale(1.35);z-index:50}
+.planet-icon.aura{position:absolute;inset:-7px;border-radius:50%;filter:blur(7px);opacity:0.9;z-index:1;pointer-events:none;animation:auraPulse 2.4s infinite alternate}
+.planet-icon.amigable.aura{background:radial-gradient(circle,#00ffcc 0%, rgba(0,255,204,0.3) 35%, transparent 70%)}
+.planet-icon.hostil.aura{background:radial-gradient(circle,#ff3344 0%, rgba(255,51,68,0.3) 35%, transparent 70%)}
+.planet-icon.neutral.aura{background:radial-gradient(circle,#ffcc00 0%, rgba(255,204,0,0.3) 35%, transparent 70%)}
+.planet-icon.central{width:46px;height:46px;z-index:30}
+.planet-icon.central.aura{inset:-16px;filter:blur(14px);opacity:1;background:radial-gradient(circle,#aaffff 0%, #00ffcc 30%, rgba(0,255,204,0.4) 55%, transparent 75%)}
+@keyframes auraPulse{0%{transform:scale(0.92);opacity:0.65}100%{transform:scale(1.18);opacity:1}}
+.planet-icon img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;border:1.8px solid rgba(255,255,255,0.92);z-index:2;display:block;background:#000}
+.planet-icon.central img{border:2.5px solid #fff;box-shadow:0 0 12px #00ffcc,0 0 24px #00ffcc}
+.planet-label{position:absolute;transform:translateX(-50%);font-family:'Orbitron';font-size:7.5px;letter-spacing:2.2px;pointer-events:none;white-space:nowrap;z-index:26;font-weight:800;margin-top:6px;text-shadow:0 0 6px currentColor}
+.dev-controls{position:absolute;right:14px;top:14px;z-index:200;display:none;flex-direction:column;gap:8px}
+.dev-controls.active{display:flex}
+.dev-btn{background:rgba(0,0,0,0.85);border:1px solid var(--neon);border-radius:8px;color:var(--neon);padding:11px 16px;font-family:'Orbitron';font-size:9px;letter-spacing:1px;cursor:pointer}
 
 /* AURA EN CADA PLANETA - COMO TU FOTO */
 .planet-icon{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);cursor:pointer;z-index:25;transition:0.2s ease}
@@ -134,11 +151,7 @@ function drawRoutes(){
     line.setAttribute('x2',p.b.x); line.setAttribute('y2',p.b.y);
     let cls='comercio';
     if(p.a.status===p.b.status) cls=p.a.status.toLowerCase();
-    else if(p.a.status!==p.b.status) cls='neutral';
-    // si uno es Pulsar o Coruscant, usa cyan amigable como en tu foto
-    if(p.a.id==='Coruscant' || p.b.id==='Coruscant' || p.a.id==='Pulsar' || p.b.id==='Pulsar') {
-      if(Math.random()>0.3) cls='amigable';
-    }
+    else cls='neutral';
     line.setAttribute('class','route-line '+cls);
     svg.appendChild(line);
   });
