@@ -2,283 +2,90 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>QUANTUM PULSE - CWRP </title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Audiowide&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUANTUM PULSE - CWRP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden;background:#020208}
-body{color:#eafff0;font-family:'Rajdhani',sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
-:root{--neon:#00ffcc;--red:#ff3344;--gold:#ffcc00}
- #title{position:absolute;top:14px;left:14px;z-index:100;width:385px;background:rgba(0,18,10,0.93);border:2px solid var(--neon);box-shadow:0 0 18px rgba(0,255,204,0.7),inset 0 0 22px rgba(0,255,204,0.18);padding:18px 18px 14px 18px;backdrop-filter:blur(14px);clip-path:polygon(18px 0,calc(100% - 90px) 0,calc(100% - 80px) 8px,calc(100% - 18px) 8px,100% 18px,100% calc(100% - 22px),calc(100% - 12px) 100%,calc(100% - 30px) 100%,calc(100% - 40px) calc(100% - 8px),22px calc(100% - 8px),0 calc(100% - 22px),0 18px);cursor:pointer}
-.t-main{display:block;font-family:'Audiowide','Orbitron',sans-serif;font-weight:900;font-size:17px;letter-spacing:4px;color:#eafff0;text-shadow:0 0 12px var(--neon)}
-.t-sub{display:block;margin-top:4px;font-family:'Orbitron';font-weight:700;font-size:11px;letter-spacing:8px;color:var(--neon)}
-#map{position:relative;width:100vw;height:100vh;background:#020208 url('./Galaxy_Quantum_Main_Map.png') center/cover no-repeat}
-#routes{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
-
-/* RUTAS CYBERPUNK FINAS - SIN NEON, SIN GLOW */
- svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border-radius:18px}
-  svg#routes line{
-    stroke-width:1.6;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    opacity:0.8;
-    /* SÓLIDAS Y FINAS */
-    stroke-dasharray: none !important;
-  }
-  .route-main{stroke:#ffcc33; filter: drop-shadow(0 0 3px rgba(255,204,51,0.4));}
-  .route-danger{stroke:#ff2d55; stroke-width:2.2; opacity:0.9; filter: drop-shadow(0 0 5px rgba(255,45,85,0.6));}
-  .route-special{stroke:#33e5ff; stroke-width:2; opacity:0.9; filter: drop-shadow(0 0 5px rgba(51,229,255,0.6));}
-
-/* AURA EN CADA PLANETA - SE MANTIENE */
-.planet-icon{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);cursor:pointer;z-index:25;transition:0.2s ease}
-.planet-icon:hover{transform:translate(-50%,-50%) scale(1.35);z-index:50}
-.planet-icon.aura{position:absolute;inset:-7px;border-radius:50%;filter:blur(7px);opacity:0.9;z-index:1;pointer-events:none;animation:auraPulse 2.4s infinite alternate}
-.planet-icon.amigable.aura{background:radial-gradient(circle,#00ffcc 0%, rgba(0,255,204,0.3) 35%, transparent 70%)}
-.planet-icon.hostil.aura{background:radial-gradient(circle,#ff3344 0%, rgba(255,51,68,0.3) 35%, transparent 70%)}
-.planet-icon.neutral.aura{background:radial-gradient(circle,#ffcc00 0%, rgba(255,204,0,0.3) 35%, transparent 70%)}
-.planet-icon.central{width:46px;height:46px;z-index:30}
-.planet-icon.central.aura{inset:-16px;filter:blur(14px);opacity:1;background:radial-gradient(circle,#aaffff 0%, #00ffcc 30%, rgba(0,255,204,0.4) 55%, transparent 75%)}
-@keyframes auraPulse{0%{transform:scale(0.92);opacity:0.65}100%{transform:scale(1.18);opacity:1}}
-.planet-icon img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;border:1.8px solid rgba(255,255,255,0.92);z-index:2;display:block;background:#000}
-.planet-icon.central img{border:2.5px solid #fff;box-shadow:0 0 12px #00ffcc,0 0 24px #00ffcc}
-.planet-label{position:absolute;transform:translateX(-50%);font-family:'Orbitron';font-size:7.5px;letter-spacing:2.2px;pointer-events:none;white-space:nowrap;z-index:26;font-weight:800;margin-top:6px;text-shadow:0 0 6px currentColor}
-.dev-controls{position:absolute;right:14px;top:14px;z-index:200;display:none;flex-direction:column;gap:8px}
-.dev-controls.active{display:flex}
-.dev-btn{background:rgba(0,0,0,0.85);border:1px solid var(--neon);border-radius:8px;color:var(--neon);padding:11px 16px;font-family:'Orbitron';font-size:9px;letter-spacing:1px;cursor:pointer}
-
-/* AURA EN CADA PLANETA - COMO TU FOTO */
-.planet-icon{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);cursor:pointer;z-index:25;transition:0.2s ease}
-.planet-icon:hover{transform:translate(-50%,-50%) scale(1.35);z-index:50}
-.planet-icon.aura{position:absolute;inset:-7px;border-radius:50%;filter:blur(7px);opacity:0.9;z-index:1;pointer-events:none;animation:auraPulse 2.4s infinite alternate}
-.planet-icon.amigable.aura{background:radial-gradient(circle,#00ffcc 0%, rgba(0,255,204,0.3) 35%, transparent 70%)}
-.planet-icon.hostil.aura{background:radial-gradient(circle,#ff3344 0%, rgba(255,51,68,0.3) 35%, transparent 70%)}
-.planet-icon.neutral.aura{background:radial-gradient(circle,#ffcc00 0%, rgba(255,204,0,0.3) 35%, transparent 70%)}
-.planet-icon.central{width:46px;height:46px;z-index:30}
-.planet-icon.central.aura{inset:-16px;filter:blur(14px);opacity:1;background:radial-gradient(circle,#aaffff 0%, #00ffcc 30%, rgba(0,255,204,0.4) 55%, transparent 75%)}
-@keyframes auraPulse{0%{transform:scale(0.92);opacity:0.65}100%{transform:scale(1.18);opacity:1}}
-.planet-icon img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;border:1.8px solid rgba(255,255,255,0.92);z-index:2;display:block;background:#000}
-.planet-icon.central img{border:2.5px solid #fff;box-shadow:0 0 12px #00ffcc,0 0 24px #00ffcc}
-.planet-label{position:absolute;transform:translateX(-50%);font-family:'Orbitron';font-size:7.5px;letter-spacing:2.2px;pointer-events:none;white-space:nowrap;z-index:26;font-weight:800;margin-top:6px;text-shadow:0 0 6px currentColor}
-.dev-controls{position:absolute;right:14px;top:14px;z-index:200;display:none;flex-direction:column;gap:8px}
-.dev-controls.active{display:flex}
-.dev-btn{background:rgba(0,0,0,0.85);border:1px solid var(--neon);border-radius:8px;color:var(--neon);padding:11px 16px;font-family:'Orbitron';font-size:9px;letter-spacing:1px;cursor:pointer}
-  #detail{position:absolute;right:0;top:0;width:445px;height:100vh;background:rgba(4,12,10,0.98);backdrop-filter:blur(20px);border-left:2px solid rgba(0,255,204,0.35);box-shadow:-24px 0 80px rgba(0,0,0,0.9);z-index:90;transform:translateX(105%);opacity:0;visibility:hidden;pointer-events:none;transition:transform 0.5s cubic-bezier(0.2,0.8,0.2,1), opacity 0.3s, visibility 0.3s;display:flex;flex-direction:column;overflow:hidden}
-#detail.open{transform:translateX(0);opacity:1;visibility:visible;pointer-events:all}
-.detail-img{width:100%;aspect-ratio:1/1;max-height:42vh;overflow:hidden;border-bottom:2px solid rgba(0,255,204,0.35);position:relative;background:#000;flex-shrink:0}
-.detail-img img{width:100%;height:100%;object-fit:cover;display:block}
-.detail-img.glitch::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(255,0,0,0.22) 2px 3px);z-index:2;pointer-events:none;animation:scan 0.18s linear infinite}
-@keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(6px)}}
-#detailHeader{padding:14px 18px 0 18px;flex-shrink:0}
-#detailName{font-family:'Audiowide','Orbitron',sans-serif;font-size:20px;color:var(--neon);letter-spacing:3px;text-shadow:0 0 14px var(--neon)}
-#detailMeta{font-family:'Share Tech Mono';font-size:9px;letter-spacing:1px;opacity:0.7;margin-top:4px}
-.tabs{display:flex;gap:6px;margin:14px 18px;flex-shrink:0}
-.tab{flex:1;padding:9px 2px;font-size:9px;letter-spacing:1px;font-family:'Orbitron';background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#999;cursor:pointer;text-align:center}
-.tab.active{background:rgba(0,255,204,0.18);border-color:var(--neon);color:var(--neon);box-shadow:0 0 12px rgba(0,255,204,0.3)}
-#detailContent{font-family:'Rajdhani';font-size:14.5px;line-height:1.6;color:#d0e8d0;flex:1;overflow-y:auto;padding:0 18px 14px 18px}
-#detailContent::-webkit-scrollbar{width:6px}
-#detailContent::-webkit-scrollbar-thumb{background:var(--neon);border-radius:10px}
-.status-badge{display:inline-block;padding:4px 10px;border-radius:20px;font-family:'Orbitron';font-size:8px;letter-spacing:2px;margin-bottom:12px;border:1px solid}
-.status-badge.hostil{color:#ff3344;border-color:#ff3344;background:rgba(255,51,68,0.15)}
-.status-badge.amigable{color:#00ffcc;border-color:#00ffcc;background:rgba(0,255,204,0.15)}
-.status-badge.neutral{color:#ffcc00;border-color:#ffcc00;background:rgba(255,204,0,0.15)}
-.close-btn{flex-shrink:0;margin:0;padding:16px;background:rgba(0,0,0,0.92);border:none;border-top:2px solid var(--neon);color:var(--neon);font-family:'Orbitron';letter-spacing:5px;font-size:11px;cursor:pointer;width:100%;position:sticky;bottom:0;z-index:10}
-@media(max-width:800px){#title{width:92%;left:4%;top:10px;padding:12px 14px}.t-main{font-size:13px}.t-sub{font-size:9px;letter-spacing:4px} #detail{width:100%;height:100vh}.planet-icon{width:22px;height:22px}.planet-icon.central{width:38px;height:38px}}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#00d4ff;--red:#ff2244;--yellow:#ffcc00;--violet:#a855f7;--orange:#ff7a00}
+body{background:#02020a;overflow:hidden;font-family:'Rajdhani',sans-serif;color:#fff;user-select:none}
+#viewport{width:100vw;height:100vh;overflow:hidden;position:relative;background:#000;cursor:grab}
+#viewport:active{cursor:grabbing}
+#world{width:2000px;height:1400px;background: url('./fondo.jpg') center/cover no-repeat, radial-gradient(ellipse at center,#1a1a3a 0%,#050510 70%,#000 100%);position:absolute;left:50%;top:50%;transform-origin:center center;will-change:transform; transform:translate(-50%,-50%) scale(1);}
+svg#routes{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+svg#routes line{stroke-width:1.3;stroke-linecap:round;opacity:0.9;filter:drop-shadow(0 0 4px currentColor)}
+.route-rep{stroke:var(--blue)} .route-cis{stroke:var(--red)} .route-neutral{stroke:var(--yellow)} .route-mandalore{stroke:var(--violet)} .route-hutt{stroke:var(--orange)}
+.planet{position:absolute;width:42px;height:42px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;z-index:3}
+.planet-core{width:100%;height:100%;border-radius:50%;box-shadow: inset -6px -6px 12px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.7)}
+.planet-aura{position:absolute;inset:-10px;border-radius:50%;opacity:0.55;filter:blur(8px);z-index:-1}
+.planet:hover{transform:translate(-50%,-50%) scale(1.35)}
+.planet-label{position:absolute;top:120%;left:50%;transform:translateX(-50%);font-family:'Orbitron';font-size:9.5px;font-weight:700;letter-spacing:1.5px;white-space:nowrap;text-shadow:0 0 6px currentColor}
+#title-box{position:fixed;left:50%;top:22px;transform:translateX(-50%);z-index:20;border:1px solid rgba(255,255,255,0.9); background:rgba(0,0,0,0.75); backdrop-filter:blur(10px);padding:12px 36px;clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);box-shadow: 0 0 20px rgba(255,255,255,0.25)}
+#title-box h1{font-family:'Orbitron';font-size:22px;letter-spacing:5px;font-weight:900;color:#fff; text-shadow: 0 0 12px #fff, 0 0 30px rgba(100,200,255,0.8)}
+#controls{position:fixed;left:18px;bottom:18px;z-index:20;display:flex;gap:8px}
+.ctrl-btn{width:38px;height:38px;background:rgba(0,0,0,0.8);border:1px solid var(--blue);color:var(--blue);font-family:'Orbitron';font-weight:700;cursor:pointer;border-radius:6px}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:30;display:none;backdrop-filter:blur(6px)}
+#planet-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:31;width:92vw;max-width:560px; background:rgba(8,14,28,0.96); border:1px solid var(--blue); box-shadow:0 0 40px rgba(0,212,255,0.3);display:none}
+.modal-head{display:grid;grid-template-columns:120px 1fr 1fr;gap:10px;padding:14px;border-bottom:1px solid rgba(0,212,255,0.2)}
+.modal-img{height:92px;border:1px solid rgba(255,255,255,0.15);background-size:cover;background-position:center;display:flex;align-items:end;padding:4px;font-family:'Orbitron';font-size:8px}
+.modal-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.1)}
+.tab{flex:1;padding:10px 6px;text-align:center;font-family:'Orbitron';font-size:10px;cursor:pointer;background:rgba(255,255,255,0.03)}
+.tab.active{background:var(--blue);color:#000;font-weight:700}
+.tab-content{padding:16px;min-height:130px;font-size:14px;line-height:1.5}
+.close-btn{width:100%;padding:12px;background:transparent;border:0;border-top:1px solid var(--blue);color:var(--blue);font-family:'Orbitron';font-size:12px;letter-spacing:3px;font-weight:700;cursor:pointer}
+.close-btn:hover{background:var(--blue);color:#000}
 </style>
 </head>
 <body>
-<div id="map"><svg id="routes"></svg></div>
-<div id="title"><span class="t-main">QUANTUM-PULSE-CWRP</span><span class="t-sub">MAPA GALACTICO V16 AURA + NEON</span></div>
-<div class="dev-controls" id="devControls">
-  <button class="dev-btn" onclick="addRepublic(10)">+10% REPÚBLICA</button>
-  <button class="dev-btn" onclick="addSeparatist(10)">+10% SEPARATISTA</button>
-  <button class="dev-btn" onclick="resetWar()">RESET GUERRA</button>
+<div id="viewport"><div id="world"><svg id="routes"></svg></div></div>
+<div id="title-box"><h1>QUANTUM PULSE - CWRP</h1></div>
+<div id="controls"><button class="ctrl-btn" onclick="zoom(0.15)">+</button><button class="ctrl-btn" onclick="zoom(-0.15)">-</button><button class="ctrl-btn" onclick="resetView()" style="width:auto;padding:0 10px;font-size:10px">RESET</button></div>
+<div id="overlay" onclick="closeModal()"></div>
+<div id="planet-modal">
+  <div class="modal-head"><div id="m-img-planet" class="modal-img">PLANET</div><div id="m-img-main" class="modal-img">MAIN</div><div id="m-img-troops" class="modal-img">TROOPS</div></div>
+  <div class="modal-tabs"><div class="tab active" data-t="lore" onclick="switchTab('lore')">LORE</div><div class="tab" data-t="benef" onclick="switchTab('benef')">BENEFICIO / PRODUCCIÓN</div><div class="tab" data-t="troops" onclick="switchTab('troops')">TROPAS / CIVILES / FAUNA</div></div>
+  <div id="tab-lore" class="tab-content"></div><div id="tab-benef" class="tab-content" style="display:none"></div><div id="tab-troops" class="tab-content" style="display:none"></div>
+  <button class="close-btn" onclick="closeModal()">CERRAR TRANSMISIÓN</button>
 </div>
-<div id="detail">
-  <div class="detail-img" id="detailImgWrap"><img id="detailImg" src="./SH_TROOPS_QP.png" alt="planet"></div>
-  <div id="detailHeader"><h2 id="detailName"></h2><div id="detailMeta"></div></div>
-  <div class="tabs">
-    <div class="tab active" data-tab="lore" onclick="switchTab('lore')">LORE</div>
-    <div class="tab" data-tab="datos" onclick="switchTab('datos')">DATOS</div>
-    <div class="tab" data-tab="fuerzas" onclick="switchTab('fuerzas')">FUERZAS</div>
-    <div class="tab" data-tab="unidades" onclick="switchTab('unidades')">UNIDADES</div>
-  </div>
-  <div id="detailContent"></div>
-  <button class="close-btn" id="closeBtn">CERRAR TRANSMISIÓN</button>
-</div><script>
+<script>
 const planets = [
-  {id:"Anaxes",x:22.5,y:38.2,status:"Amigable",glitch:false,sector:"Outer Rim - Sector Anaxes",faction:"88th Legion + Howzer Unit",clima:"Industrial fortificado - Astilleros",population:"4.2B - Fortaleza República",benefit:"Astilleros Venator + Academia Táctica",imgPlanet:"./Anaxes_qp_Planet.png",imgDetail:"./ANAXES_qp_main.png",imgTroops:"./ANAXES_qp_troops.png",produccion:[{label:"Lealtad República",value:"88%",pct:88,color:"#00ffcc"},{label:"Producción Flota",value:"94%",pct:94,color:"#00aaff"}],lore:"ANAXES - LA FORTALEZA QUE NUNCA CAYÓ. Fundada en 1032 ABY.",forces:"88th + Howzer Unit. 12k Clones Fase II, 8 AT-TE, 14 LAAT/i.",fauna:"Humanos, Anaxsi, Droides astillero",civil:"Ingenieros Kuat, Oficiales flota",troops:"12k - Ca"},
-  {id:"Umbara",x:31.2,y:52.4,status:"Hostil",glitch:false,sector:"Expansion Region - Ghost Nebula",faction:"501st + Umbarans leales",clima:"Oscuridad eterna - Niebla tóxica",population:"Umbarans + Guarnición 501st",benefit:"Doonium + Tecnología sigilo",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control Sombra",value:"71%",pct:71,color:"#aa44ff"},{label:"Visibilidad",value:"12%",pct:12,color:"#ff3344"}],lore:"UMBARA - PLANETA QUE NO VE EL SOL. Batalla traición Krell.",forces:"501st remanente 6k, Milicianos Umbaran 4k.",fauna:"Banshees, Vixus, Umbarans",civil:"Clanes Umbaran oscuros",troops:"6k - Noct"},
-  {id:"Geonosis",x:42.1,y:71.3,status:"Hostil",glitch:true,sector:"Outer Rim - Arkanis Sector",faction:"212th + Geonosianos Reina",clima:"Desierto rocoso - Colmenas",population:"Geonosianos 100B + Fábricas droides",benefit:"Fábricas Droides B1/B2",imgPlanet:"./Geonosis_QP.png",imgDetail:"./Geonosis_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Fábricas Activas",value:"66%",pct:66,color:"#ff9900"},{label:"Peligro",value:"EXTREMO",pct:95,color:"#ff3344"}],lore:"GEONOSIS - DONDE EMPEZÓ TODO. Reina Karina vive bajo arena.",forces:"Colmenas 100B, Super Battle Droids, 212th 7k.",fauna:"Geonosianos, Orray, Gusanos cerebrales",civil:"Colmena Geonosis, Techno Union",troops:"7k - Des"},
-  {id:"Mustafar",x:68.4,y:76.5,status:"Hostil",glitch:true,sector:"Outer Rim - Atravis Sector",faction:"Separatista - Black Sun",clima:"Volcánico - Ríos lava 800°C",population:"Mustafarianos + Droides minería",benefit:"Cristales + Acero obsidiana",imgPlanet:"./Mustafar_planet.png",imgDetail:"./Mustafar_main.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Estabilidad Térmica",value:"08%",pct:8,color:"#ff3344"},{label:"Valor Mineral",value:"99%",pct:99,color:"#ff9900"}],lore:"MUSTAFAR - EL INFIERNO. Castillo Vader interferencia oscura.",forces:"Guardias Mustafar, Droides lava, Black Sun 3k.",fauna:"Mustafarianos, Lava fleas",civil:"Mineros, Sith cultistas",troops:"3k - Lava"},
-  {id:"Hoth",x:18.2,y:15.6,status:"Neutral",glitch:false,sector:"Outer Rim - Anoat Sector",faction:"Ninguna - Rebelde futuro",clima:"Tundra helada -60°C",population:"0 - Base Echo abandonada",benefit:"Posición estratégica",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Supervivencia",value:"21%",pct:21,color:"#00aaff"},{label:"Blizzard",value:"Activo",pct:45,color:"#aaaaff"}],lore:"HOTH - TUMBA BLANCA.",forces:"0 oficial. Wampas, Tauntauns.",fauna:"Wampa, Tauntaun",civil:"Ninguno",troops:"0 - Frío"},
-  {id:"Tatooine",x:55.3,y:68.9,status:"Neutral",glitch:false,sector:"Outer Rim - Arkanis",faction:"Hutts - 104th Wolfpack",clima:"Desierto doble sol 50°C",population:"Hutts, Jawas, Tusken",benefit:"Ruta Kessel + Contrabando",imgPlanet:"./Tatooine_planet.png",imgDetail:"./Tatooine_main.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control Hutt",value:"77%",pct:77,color:"#ff9900"},{label:"Anarquía",value:"Alta",pct:85,color:"#ff3344"}],lore:"TATOOINE - DONDE NACEN LEYENDAS.",forces:"Wolfpack 104th 4k, Mercenarios Hutt 6k.",fauna:"Sarlacc, Krayt Dragon, Tusken",civil:"Jawas, Granjeros humedad",troops:"4k - Des"},
-  {id:"Kamino",x:82.4,y:60,status:"Amigable",glitch:false,sector:"Wild Space - Extragaláctico",faction:"R&D Kamino + 212th",clima:"Oceánico tormenta eterna",population:"1M Kaminoanos + 200k clones",benefit:"Clonación + ADN Prime",imgPlanet:"./Kamino_QP.png",imgDetail:"./IKamino_QP_main.png",imgTroops:"./Kamino_troops.png",produccion:[{label:"Producción Clones",value:"96%",pct:96,color:"#00ffcc"},{label:"Defensa",value:"82%",pct:82,color:"#00aaff"}],lore:"KAMINO - CUNA DE TODOS NOSOTROS.",forces:"10k cadetes + 212th Support.",fauna:"Aiwhas, Kaminoanos",civil:"Clonadores, Entrenadores",troops:"10k - Ca"},
-  {id:"Pulsar",x:12.4,y:72.1,status:"Amigable",glitch:false,sector:"CLASSIFIED - Sector Pulsar // NIVEL 5",faction:"SOMBRAS DE LA REPÚBLICA - GAR BLACK OPS",clima:"Pulsar artificial - Radiación controlada",population:"CLASSIFIED: 800 Clones Sombra",benefit:"Despliegue rápido sombras + Infiltración Legiones",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Secreto Nivel 5",value:"MAX",pct:100,color:"#00ffcc"},{label:"Sombras Activas",value:"800",pct:92,color:"#aa44ff"}],lore:"PULSAR - PLANETA QUE NO EXISTE. Coordenadas borradas. Base negra de la República con 800 CLONES SOMBRA: entrenados para imitar cualquier legión (501st, 212th, 88th). Se despliegan invisibles como refuerzos. Solo Yoda y 12 comandantes saben. Se marca como Hostil en mapa público para que nadie se acerque, pero es Amigable nivel 5.",forces:"800 Clones Sombra Negro Mate: 200 francotiradores, 200 infiltrados, 200 pesados, 200 comando. 6 Venator sigilo.",fauna:"Solo clones.",civil:"Técnicos Nivel 5, 12 ARC Alfa",troops:"800 - Sombra // Nivel 5"},
-  {id:"Mandalore",x:44.5,y:28.3,status:"Neutral",glitch:false,sector:"Outer Rim - Mandalore Sector",faction:"Death Watch + Duchess Satine",clima:"Desierto blanco - Cúpulas",population:"Mandalorianos 4M - Divididos",benefit:"Beskar + Guerreros élite",imgPlanet:"./Mandalore_QP.png",imgDetail:"./Mandalore_Main.png",imgTroops:"./Mandalore_troops.png",produccion:[{label:"Lealtad",value:"Dividida",pct:50,color:"#aaaaff"},{label:"Beskar",value:"100%",pct:100,color:"#88ffff"}],lore:"MANDALORE - HONOR Y TRAICIÓN.",forces:"Death Watch 3k supercommandos.",fauna:"Mandalorianos, Mythosaur huesos",civil:"Clanes Mandalorianos",troops:"5k - Bes"},
-    {id:"Coruscant",x:51.2,y:49.8,status:"Amigable",glitch:false,sector:"Core Worlds - Corusca",faction:"Coruscant Guard + 501st",clima:"Ecumenópolis",population:"2 Trillones - Capital",benefit:"Senado + Templo Jedi + GAR HQ",imgPlanet:"./Coruscant_QP.png",imgDetail:"./CORUSCANT_CITY_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control República",value:"100%",pct:100,color:"#00ffcc"},{label:"Seguridad",value:"MAX",pct:100,color:"#ff9900"}],lore:"CORUSCANT - CENTRO DEL TODO. 5127 niveles.",forces:"Coruscant Guard 25k shock, 501st detachment.",fauna:"Trillones especies",civil:"Senado, Jedi, Underworld",troops:"25k - Ca"},
-  {id:"Alderaan",x:48.3,y:38.7,status:"Amigable",glitch:false,sector:"Core Worlds - Alderaan Sector",faction:"Alderaan Guard + Bail Organa",clima:"Montañas y praderas templado",population:"2B - Pacifistas armados",benefit:"Diplomacia + Alimentos + Arte",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Paz",value:"95%",pct:95,color:"#aaffff"},{label:"Apoyo República",value:"90%",pct:90,color:"#00ffcc"}],lore:"ALDERAAN - BELLEZA QUE SERÁ CENIZA.",forces:"Guardia Alderaan 3k.",fauna:"Thranta, Nerf",civil:"Casa Organa, Artistas",troops:"3k - Paz"},
-  {id:"Kashyyyk",x:28.4,y:78.3,status:"Amigable",glitch:false,sector:"Mid Rim - Kashyyyk System",faction:"Wookiees + 41st Elite",clima:"Jungla wroshyr 1km altura",population:"Wookiees 50M + Bestias",benefit:"Madera wroshyr + Ruta hiperespacial",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Lealtad Wookiee",value:"100%",pct:100,color:"#00ffcc"},{label:"Fuerza Bruta",value:"Infinita",pct:100,color:"#ff9900"}],lore:"KASHYYYK - EL PLANETA QUE LUCHA SOLO.",forces:"Wookiee Warriors 20k, 41st Elite Corps 8k.",fauna:"Wookiees, Wroshyr beasts",civil:"Aldeas Wookiee",troops:"20k - Wook"},
-  {id:"Christophsis",x:58.1,y:42.5,status:"Hostil",glitch:false,sector:"Outer Rim - Savareen Sector",faction:"CSI + 501st / 212th",clima:"Cristalino azul - Torres cristal",population:"Christophsians cristalinos",benefit:"Cristales + Posición cristal",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control Cristal",value:"45%",pct:45,color:"#00aaff"},{label:"Emboscadas",value:"Alto",pct:80,color:"#ff3344"}],lore:"CHRISTOPHSIS - CAMPO DE CRISTAL QUEBRADO.",forces:"CSI Droid Army 15k, 501st+212th 10k.",fauna:"Christophsians",civil:"Refugiados cristal",troops:"10k - Cris"},
-  {id:"Naboo",x:52.1,y:62.4,status:"Amigable",glitch:false,sector:"Mid Rim - Chommell",faction:"Gungan + Naboo Guard + 501st",clima:"Praderas, lagos, pantanos",population:"Humanos Naboo + Gungans",benefit:"Plasma + Diplomacia Padmé",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Plasma",value:"88%",pct:88,color:"#00aaff"},{label:"Paz Gungan-Naboo",value:"92%",pct:92,color:"#00ffcc"}],lore:"NABOO - DONDE NACIÓ LA REINA.",forces:"Naboo Guard 2k, Gungan Grand Army 5k.",fauna:"Gungans, Kaadu, Fambaa",civil:"Casa Naberrie, Gungans",troops:"7k - Pla"},
-  {id:"Utapau",x:62.3,y:55.1,status:"Hostil",glitch:false,sector:"Outer Rim - Tarabba Sector",faction:"CSI + Pau'an leales República",clima:"Sumideros gigantes",population:"Pau'ans, Utai",benefit:"Kyber oculto + Sumideros",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control Sumidero",value:"33%",pct:33,color:"#ff3344"},{label:"Kyber",value:"Detectado",pct:70,color:"#ff00ff"}],lore:"UTAPAU - AGUJERO DONDE MUERE GRIEVOUS.",forces:"CSI remanente 8k, Pau'an resistencia 1k.",fauna:"Varactyl Boga, Dactillion",civil:"Pau'an, Utai",troops:"8k - Sink"},
-  {id:"Mygeeto",x:61.5,y:24.7,status:"Hostil",glitch:false,sector:"Outer Rim - Albarrio Sector",faction:"21st Nova Corps",clima:"Glaciar cristalino -40°C",population:"Lurmen + Muuns",benefit:"Cristales Nova + Banco",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Cristales",value:"92%",pct:92,color:"#00aaff"},{label:"Banco",value:"88%",pct:88,color:"#ff9900"}],lore:"MYGEETO - BANCO DE HIELO.",forces:"21st Nova Corps Galactic Marines 9k.",fauna:"Lurmen, Muuns",civil:"Banqueros, Cristaleros",troops:"9k - Ice"},
-  {id:"Rishi Moon",x:71.2,y:61.3,status:"Amigable",glitch:false,sector:"Outer Rim - Abron System",faction:"Rishi Station + 501st",clima:"Luna rocosa - Niebla",population:"Puesto escucha Rishi",benefit:"Alerta temprana Kamino",imgPlanet:"./SH_TROOPS_QP.png",imgDetail:"./SH_TROOPS_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Alerta",value:"ONLINE",pct:90,color:"#00ffcc"},{label:"Sigilo",value:"76%",pct:76,color:"#00aaff"}],lore:"RISHI MOON - EL TIMBRE QUE SALVÓ KAMINO.",forces:"Rishi Station 4 clones Domino Squad.",fauna:"Rishi Eel",civil:"Técnicos escucha",troops:"4 - Echo"},
-  {id:"Ryloth",x:36.4,y:58.2,status:"Hostil",glitch:false,sector:"Outer Rim - Gaulus Sector",faction:"Twi'lek Resistencia + 212th",clima:"Desierto rocoso - Tundra nocturna",population:"Twi'leks 5M esclavizados",benefit:"Especias Ryll + Ruta",imgPlanet:"./Felucia_QP.png",imgDetail:"./Felucia_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Liberación",value:"58%",pct:58,color:"#ff88ff"},{label:"Esclavitud CSI",value:"42%",pct:42,color:"#ff3344"}],lore:"RYLOTH - PLANETA ESCLAVO.",forces:"Twi'lek Resistencia 6k, 212th 8k, CSI 10k.",fauna:"Twi'leks, Gutkurr, Lylek",civil:"Twi'lek clanes",troops:"14k - Twi"},
-  {id:"Felucia",x:34.1,y:65.3,status:"Neutral",glitch:false,sector:"Outer Rim - Sector Felucia",faction:"327th Star Corps",clima:"Jungla tóxica bioluminiscente",population:"Felucians nativos + Guarnición",benefit:"Cristales de Nysillin",imgPlanet:"./Felucia_QP.png",imgDetail:"./Felucia_QP.png",imgTroops:"./SH_TROOPS_QP.png",produccion:[{label:"Control Jungla",value:"64%",pct:64,color:"#ff9900"},{label:"Riesgo Separatista",value:"Alto",pct:70,color:"#ff3344"}],lore:"FELUCIA - LA JUNGLA QUE MATA.",forces:"327th Star Corps - 8k Clones.",fauna:"Rancors enanos, Spores",civil:"Aldeas Felucian, Shamans",troops:"8k - Ju"}
+  {id:"coruscant", name:"CORUSCANT", x:1000, y:680, color:"#4da6ff", faction:"rep", size:54, lore:"Capital de la República. Ciudad-planeta.", benef:"REP: +15% créditos misiones políticas.", troops:"Guardia Coruscanti, Shock Troopers. Fauna: Convors.", img:""},
+  {id:"alderaan", name:"ALDERAAN", x:890, y:560, color:"#8ecfff", faction:"rep", size:38, lore:"Mundo pacifista.", benef:"REP: +10% diplomacia.", troops:"Alderaan Security. Fauna: Thranta.", img:""},
+  {id:"anaxes", name:"ANAXES", x:460, y:520, color:"#ffcc66", faction:"rep", size:36, lore:"Fortaleza naval.", benef:"REP: Desbloquea Venator +20% daño.", troops:"Anaxes Officers, ARC.", img:""},
+  {id:"kashyyyk", name:"KASHYYYK", x:620, y:1120, color:"#5aff8a", faction:"rep", size:40, lore:"Mundo Wookiee.", benef:"REP: Madera Wroshyr.", troops:"Wookiee Warriors. Fauna: Wyyyschokk.", img:""},
+  {id:"naboo", name:"NABOO", x:1080, y:880, color:"#4da6ff", faction:"rep", size:40, lore:"Naboo y Gungans.", benef:"REP: Plasma +12% escudos.", troops:"Gungan Army. Fauna: Kaadu.", img:""},
+  {id:"rishi", name:"RISHI MOON", x:1580, y:800, color:"#33e5ff", faction:"rep", size:32, lore:"Puesto escucha.", benef:"REP: +25% radar.", troops:"Shinies. Fauna: Rishi Eel.", img:""},
+  {id:"kamino", name:"KAMINO", x:1820, y:1240, color:"#33e5ff", faction:"rep", size:36, lore:"Clonadores.", benef:"REP: -20% coste tropas.", troops:"Kaminoans, Clones. Fauna: Aiwhas.", img:""},
+  {id:"pulsar", name:"PULSAR", x:180, y:980, color:"#33ffcc", faction:"rep", size:28, lore:"Estación relé. SOLO ruta directa a Coruscant.", benef:"REP: +30% transmisión. Ruta exclusiva.", troops:"Técnicos.", img:""},
+  {id:"hoth", name:"HOTH", x:320, y:120, color:"#cceeff", faction:"neutral", size:30, lore:"Helado Borde Exterior.", benef:"NEUTRAL: Cristales hielo.", troops:"Contrabandistas. Fauna: Wampa.", img:""},
+  {id:"felucia", name:"FELUCIA", x:620, y:860, color:"#66ff99", faction:"neutral", size:34, lore:"Selva bioluminiscente.", benef:"NEUTRAL: +8% curación.", troops:"Felucian. Fauna: Acklay.", img:""},
+  {id:"lothal", name:"LOTHAL", x:680, y:700, color:"#ffdd77", faction:"neutral", size:34, lore:"Mundo agrícola.", benef:"NEUTRAL: Recursos grano.", troops:"Granjeros. Fauna: Loth-cat.", img:""},
+  {id:"mandalore", name:"MANDALORE", x:980, y:380, color:"#a855f7", faction:"mandalore", size:38, lore:"Mandalorianos.", benef:"VIOLETA: Beskar limitado.", troops:"Mandalorianos. Fauna: Mythosaur.", img:""},
+  {id:"tatooine", name:"TATOOINE", x:1210, y:980, color:"#ff7a00", faction:"hutt", size:38, lore:"Desierto Hutt.", benef:"NARANJA HUTT: Mercado negro.", troops:"Mercenarios Hutt. Fauna: Krayt.", img:""},
+  {id:"kessel", name:"KESSEL", x:1380, y:300, color:"#ff5533", faction:"cis", size:32, lore:"Minas especia.", benef:"CIS: Spice +20% hiper.", troops:"Pyke. Fauna: Energy spiders.", img:""},
+  {id:"christophsis", name:"CHRISTOPHSIS", x:1280, y:600, color:"#ff88aa", faction:"cis", size:38, lore:"Cristalino.", benef:"CIS: Cristales cañones.", troops:"B1/B2 Droides.", img:""},
+  {id:"utapau", name:"UTAPAU", x:1400, y:760, color:"#ffaa66", faction:"cis", size:36, lore:"Sumideros.", benef:"CIS: Refugio oculto.", troops:"Utapau Security. Fauna: Varactyl.", img:""},
+  {id:"mustafar", name:"MUSTAFAR", x:1500, y:1060, color:"#ff3300", faction:"cis", size:36, lore:"Volcánico CIS.", benef:"CIS: +18% droides.", troops:"Mustafarians. Fauna: Lava flea.", img:""},
+  {id:"geonosis", name:"GEONOSIS", x:820, y:1030, color:"#ff5533", faction:"cis", size:40, lore:"Fábricas droides.", benef:"CIS: -25% coste droides.", troops:"Geonosians. Fauna: Orray.", img:""},
+  {id:"cato", name:"CATO NEIMOIDIA", x:720, y:760, color:"#c8ff8a", faction:"cis", size:32, lore:"Federación Comercio.", benef:"CIS: +20% créditos.", troops:"Neimoidian Guards.", img:""},
 ];
-</script>
-<script>
-let audioCtx, masterGain;
-function initAudio(){ if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); masterGain = audioCtx.createGain(); masterGain.gain.value = 0.22; masterGain.connect(audioCtx.destination); } }
-function sciTone(freq,type,dur,vol,opts={}){ try{initAudio(); const now=audioCtx.currentTime; const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),filter=audioCtx.createBiquadFilter(); filter.type=opts.filterType||'lowpass'; filter.frequency.value=opts.filterFreq||3500; osc.type=type; osc.frequency.value=freq; gain.gain.setValueAtTime(0,now); gain.gain.linearRampToValueAtTime(vol,now+0.01); gain.gain.exponentialRampToValueAtTime(0.001,now+dur); osc.connect(filter); filter.connect(gain); gain.connect(masterGain); osc.start(now); osc.stop(now+dur+0.2); if(opts.secondFreq){ const osc2=audioCtx.createOscillator(),gain2=audioCtx.createGain(); osc2.type=opts.secondType||'sine'; osc2.frequency.value=opts.secondFreq; gain2.gain.setValueAtTime(0,now); gain2.gain.linearRampToValueAtTime(vol*0.6,now+0.02); gain2.gain.exponentialRampToValueAtTime(0.001,now+dur*1.2); osc2.connect(gain2); gain2.connect(masterGain); osc2.start(now+0.04); osc2.stop(now+dur*1.2+0.2); } }catch(e){} }
-function sHover(){ sciTone(1200,'sine',0.18,0.12,{filterFreq:4500}); }
-function sClick(){ sciTone(90,'sawtooth',0.35,0.28,{filterFreq:800,secondFreq:880,secondType:'sine'}); setTimeout(()=>sciTone(1800,'triangle',0.22,0.09,{filterFreq:6000}),80); }
-function sOpen(){ sciTone(60,'sine',0.6,0.32,{filterFreq:300,secondFreq:440,secondType:'triangle'}); setTimeout(()=>sciTone(700,'sine',0.5,0.16,{filterFreq:4000}),140); }
-function sClose(){ sciTone(700,'sine',0.25,0.14,{filterFreq:2500}); setTimeout(()=>sciTone(55,'triangle',0.65,0.26,{filterFreq:400}),120); }
-function sWar(){ sciTone(45,'square',0.8,0.35,{filterFreq:250,secondFreq:120,secondType:'sawtooth'}); }
-function sGlitch(){ sciTone(2100,'square',0.09,0.16,{filterFreq:8000}); setTimeout(()=>sciTone(38,'sawtooth',0.4,0.3,{filterFreq:180}),40); }
-
-function drawRoutes(){
-  const svg=document.getElementById('routes'); if(!svg) return;
-  svg.innerHTML=''; svg.setAttribute('viewBox','0 0 100 100'); svg.setAttribute('preserveAspectRatio','none');
-  const pairs=[];
-  for(let i=0;i<planets.length;i++){
-    for(let j=i+1;j<planets.length;j++){
-      const a=planets[i], b=planets[j];
-      const d=Math.hypot(a.x-b.x,a.y-b.y);
-      if(d>4 && d<60) pairs.push({a,b,d});
-    }
-  }
-  pairs.sort((x,y)=>x.d-y.d);
-  const routesToDraw = pairs.slice(0,44);
-  routesToDraw.forEach(p=>{
-    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1',p.a.x); line.setAttribute('y1',p.a.y);
-    line.setAttribute('x2',p.b.x); line.setAttribute('y2',p.b.y);
-    let cls='comercio';
-    if(p.a.status===p.b.status) cls=p.a.status.toLowerCase();
-    else cls='neutral';
-    line.setAttribute('class','route-line '+cls);
-    svg.appendChild(line);
-  });
-}
-let currentPlanet=null,currentTab='lore',devClicks=0,warBalance=0;
-</script>
-<script>
-function renderMap(){
-  const map=document.getElementById('map');
-  [...map.children].forEach(el=>{ if(el.id!=='routes') el.remove(); });
-  drawRoutes();
-  planets.forEach(p=>{
-    const isCentral = p.id==='Coruscant';
-    const icon=document.createElement('div');
-    icon.className='planet-icon '+(isCentral?'central ':'')+p.status.toLowerCase()+(p.glitch?' glitch-map':'');
-    icon.style.left=p.x+'%'; icon.style.top=p.y+'%';
-
-    const aura=document.createElement('div');
-    aura.className='aura';
-    icon.appendChild(aura);
-
-    const img=document.createElement('img');
-    img.src = p.imgPlanet;
-    img.alt = p.id;
-    img.onerror = function(){
-      if(this.src!==p.imgDetail){ this.src = p.imgDetail; this.onerror = function(){ this.src = p.imgTroops || "./SH_TROOPS_QP.png"; this.onerror=null; }; }
-    };
-    icon.appendChild(img);
-
-    icon.addEventListener('mouseenter', ()=>{ sHover(); });
-    icon.addEventListener('click', (e)=>{ e.stopPropagation(); sClick(); if(p.glitch) sGlitch(); showPlanet(p.id); });
-
-    const label=document.createElement('div');
-    label.className='planet-label';
-    label.style.left=p.x+'%';
-    label.style.top='calc('+p.y+'% + '+(isCentral?'32px':'20px')+')';
-    label.style.color = p.status==='Hostil'? '#ff6b7a' : p.status==='Amigable'? '#00ffcc' : '#ffdd66';
-    label.innerText=p.id.toUpperCase();
-
-    map.appendChild(icon);
-    map.appendChild(label);
-  });
-}
-</script>
-<script>
-function showPlanet(id){
-  const p=planets.find(x=>x.id===id); if(!p) return;
-  currentPlanet=p;
-  const img=document.getElementById('detailImg');
-  const wrap=document.getElementById('detailImgWrap');
-  img.src = p.imgPlanet;
-  img.onerror = function(){
-    if(this.src!==p.imgDetail){ this.src = p.imgDetail; this.onerror = function(){ this.src = p.imgTroops || "./SH_TROOPS_QP.png"; this.onerror=null; }; }
-  };
-  wrap.className='detail-img' + (p.glitch?' glitch':'');
-  document.getElementById('detailName').innerText=p.id.toUpperCase();
-  document.getElementById('detailMeta').innerText=p.sector+' // '+p.clima+' // '+p.status.toUpperCase();
-  switchTab('lore');
-  const detail=document.getElementById('detail'); detail.classList.add('open'); detail.style.pointerEvents='all';
-  sOpen(); if(p.glitch) setTimeout(sGlitch,250);
-}
-function closeDetail(){
-  const detail=document.getElementById('detail'); detail.classList.remove('open'); sClose();
-  setTimeout(()=>{ if(!detail.classList.contains('open')) detail.style.pointerEvents='none'; },550);
-}
-function switchTab(type){
-  if(!currentPlanet) return;
-  currentTab=type;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelector(`.tab[data-tab="${type}"]`)?.classList.add('active');
-  const p=currentPlanet, c=document.getElementById('detailContent');
-  const col = p.status==='Hostil'?'#ff3344':p.status==='Amigable'?'#00ffcc':'#ffcc00';
-  const badge='<div class="status-badge '+p.status.toLowerCase()+'" style="border-color:'+col+';color:'+col+'">RUTA: '+p.status.toUpperCase()+' - '+p.faction+'</div>';
-  if(type==='lore') c.innerHTML = badge+
-    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
-    '<div style="font-weight:700;line-height:1.75"><span style="color:var(--neon);font-family:Orbitron;font-size:10px;letter-spacing:2px">LORE EXPANDIDO // 22 ABY:</span><br><br>'+p.lore+'<br><br><span style="color:var(--neon)">CLIMA:</span> '+p.clima+'<br><span style="color:var(--neon)">FACCIÓN:</span> '+p.faction+'</div>';
-  if(type==='datos') c.innerHTML = badge+
-    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
-    '<div><span style="color:var(--neon);font-family:Orbitron">POBLACIÓN:</span><br>'+p.population+'<br><br><span style="color:var(--gold);font-family:Orbitron">BENEFICIO:</span><br>'+p.benefit+'<br><br><span style="color:var(--neon)">SECTOR:</span> '+p.sector+'<br><br>'+
-    p.produccion.map(pr=>'<div style="display:flex;justify-content:space-between;font-size:11px;margin:12px 0 5px 0;font-family:Orbitron;font-weight:900"><span>'+pr.label+'</span><span style="color:'+pr.color+'">'+pr.value+'</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:'+pr.pct+'%;height:100%;background:'+pr.color+'"></div></div>').join('')+'</div>';
-  if(type==='fuerzas') c.innerHTML = badge+
-    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
-    '<div><span style="color:var(--neon);font-family:Orbitron">FUERZAS:</span><br>'+p.forces+'<br><br><span style="color:var(--neon)">FAUNA:</span><br>'+p.fauna+'<br><br><span style="color:var(--neon)">CIVILES:</span><br>'+p.civil+'</div>';
-  if(type==='unidades') c.innerHTML = badge+
-    '<div style="width:100%;aspect-ratio:1/1;max-height:200px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
-    '<div style="width:100%;aspect-ratio:1/1;max-height:240px;border:1px solid '+col+';border-radius:12px;overflow:hidden;box-shadow:0 0 18px '+col+'66"><img src="'+p.imgTroops+'" onerror="this.src=\'./SH_TROOPS_QP.png\'" style="width:100%;height:100%;object-fit:cover"></div>'+
-    '<div style="margin-top:14px">'+
-    p.produccion.map(pr=>'<div style="display:flex;justify-content:space-between;font-size:11px;margin:10px 0 5px 0;font-family:Orbitron;font-weight:900"><span>'+pr.label+'</span><span style="color:'+pr.color+'">'+pr.value+'</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:'+pr.pct+'%;height:100%;background:'+pr.color+'"></div></div>').join('')+
-    '<div style="margin-top:14px;padding:12px;border:1px dashed rgba(0,255,204,0.25);border-radius:10px;font-family:Share Tech Mono;font-size:10px;color:var(--neon)">UNIDAD: '+p.faction+'<br>TROPAS: '+p.troops+'<br>RUTA: '+p.status+'</div></div>';
-  sHover();
-}
-</script>
-<script>
-function addRepublic(v){ warBalance=Math.min(100,warBalance+v); renderMap(); sWar(); }
-function addSeparatist(v){ warBalance=Math.max(-100,warBalance-v); renderMap(); sWar(); }
-function resetWar(){ warBalance=0; renderMap(); sClose(); }
-document.getElementById('title').addEventListener('click', ()=>{
-  devClicks++; sciTone(600+devClicks*70,'sine',0.12,0.08,{filterFreq:4000});
-  if(devClicks>=5){ document.getElementById('devControls').classList.toggle('active'); devClicks=0; sOpen(); }
-  setTimeout(()=>{ if(devClicks>0 && devClicks<5) devClicks=0; },3000);
-});
-document.getElementById('closeBtn').addEventListener('click', (e)=>{ e.stopPropagation(); closeDetail(); });
-window.addEventListener('keydown', (e)=>{
-  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='d'){ document.getElementById('devControls').classList.toggle('active'); sClick(); }
-  if(e.key==='Escape') closeDetail();
-});
-document.getElementById('map').addEventListener('click', (e)=>{ if(e.target.id==='map' || e.target.id==='routes') closeDetail(); });
-document.getElementById('detail').addEventListener('click', (e)=>{ e.stopPropagation(); });
-window.addEventListener('resize', ()=>{ drawRoutes(); });
-</script>
-<script>
-window.addEventListener('load', ()=>{
-  renderMap(); initAudio();
-  console.log('%c QUANTUM PULSE V16 - AURA + NEON FINO ONLINE ','background:#00ffcc;color:#000;font-family:Orbitron;padding:12px;font-weight:900');
-  const observer=new MutationObserver(()=>{
-    const detail=document.getElementById('detail');
-    if(detail.classList.contains('open')) detail.style.pointerEvents='all';
-  });
-  observer.observe(document.getElementById('detail'), {attributes:true});
-});
+let routes = [["pulsar","coruscant"],["coruscant","alderaan"],["coruscant","anaxes"],["coruscant","lothal"],["coruscant","naboo"],["alderaan","mandalore"],["mandalore","kessel"],["kessel","christophsis"],["christophsis","utapau"],["anaxes","lothal"],["lothal","felucia"],["felucia","kashyyyk"],["kashyyyk","geonosis"],["geonosis","cato"],["cato","lothal"],["naboo","felucia"],["naboo","cato"],["naboo","tatooine"],["tatooine","mustafar"],["mustafar","rishi"],["mustafar","kamino"],["utapau","rishi"],["christophsis","tatooine"],["tatooine","geonosis"],["utapau","tatooine"],["hoth","anaxes"],["hoth","mandalore"],["kashyyyk","naboo"],["alderaan","christophsis"],["anaxes","felucia"]];
+let scale=1, tx=0, ty=0, isDragging=false, startX, startY;
+const world=document.getElementById('world'), viewport=document.getElementById('viewport'), svg=document.getElementById('routes');
+function getRouteType(a,b){ if(a==="pulsar"||b==="pulsar") return "rep"; if(a==="mandalore"||b==="mandalore") return "mandalore"; if(a==="tatooine"||b==="tatooine") return "hutt"; const A=planets.find(p=>p.id===a), B=planets.find(p=>p.id===b); if(A.faction==="rep"&&B.faction==="rep") return "rep"; if(A.faction==="cis"&&B.faction==="cis") return "cis"; return "neutral"; }
+function render(){ svg.innerHTML=""; routes.forEach(([a,b])=>{ const pA=planets.find(p=>p.id===a), pB=planets.find(p=>p.id===b); if(!pA||!pB) return; const type=getRouteType(a,b); const line=document.createElementNS("http://www.w3.org/2000/svg","line"); line.setAttribute("x1",pA.x); line.setAttribute("y1",pA.y); line.setAttribute("x2",pB.x); line.setAttribute("y2",pB.y); line.setAttribute("class","route-"+type); svg.appendChild(line); }); world.querySelectorAll('.planet').forEach(e=>e.remove()); planets.forEach(p=>{ const el=document.createElement('div'); el.className='planet'; el.style.left=p.x+'px'; el.style.top=p.y+'px'; el.style.width=p.size+'px'; el.style.height=p.size+'px'; el.style.color=p.color; el.innerHTML=`<div class='planet-aura' style='background:${p.color}'></div><div class='planet-core' style='background:${p.color}'></div><div class='planet-label' style='color:${p.color}'>${p.name}</div>`; el.onclick=(e)=>{ e.stopPropagation(); openPlanet(p); playSound(800,0.12); }; world.appendChild(el); }); }
+function openPlanet(p){ document.getElementById('overlay').style.display='block'; document.getElementById('planet-modal').style.display='block'; document.getElementById('tab-lore').innerHTML=p.lore; document.getElementById('tab-benef').innerHTML=p.benef; document.getElementById('tab-troops').innerHTML=p.troops; }
+function switchTab(t){ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.querySelector(`[data-t="${t}"]`).classList.add('active'); document.getElementById('tab-lore').style.display=t==='lore'?'block':'none'; document.getElementById('tab-benef').style.display=t==='benef'?'block':'none'; document.getElementById('tab-troops').style.display=t==='troops'?'block':'none'; }
+function closeModal(){ document.getElementById('overlay').style.display='none'; document.getElementById('planet-modal').style.display='none'; }
+function applyTransform(){ world.style.transform=`translate(-50%,-50%) translate(${tx}px,${ty}px) scale(${scale})`; }
+function zoom(d){ scale=Math.min(2.5, Math.max(0.45, scale+d)); applyTransform(); }
+function resetView(){ scale=1; tx=0; ty=0; applyTransform(); }
+viewport.addEventListener('wheel', e=>{ e.preventDefault(); zoom(e.deltaY>0?-0.08:0.08); }, {passive:false});
+viewport.addEventListener('mousedown', e=>{ isDragging=true; startX=e.clientX-tx; startY=e.clientY-ty; });
+window.addEventListener('mousemove', e=>{ if(!isDragging) return; tx=e.clientX-startX; ty=e.clientY-startY; applyTransform(); });
+window.addEventListener('mouseup', ()=>isDragging=false);
+let audioCtx; function playSound(f,v){ try{ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type='sawtooth'; o.frequency.value=f; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+0.25); o.start(); o.stop(audioCtx.currentTime+0.26);}catch(e){} }
+render();
 </script>
 </body>
 </html>
