@@ -506,36 +506,28 @@ function sClose(){ sciTone(700,'sine',0.25,0.14,{filterFreq:2500}); setTimeout((
 function sWar(){ sciTone(45,'square',0.8,0.35,{filterFreq:250,secondFreq:120,secondType:'sawtooth'}); }
 function sGlitch(){ sciTone(2100,'square',0.09,0.16,{filterFreq:8000}); setTimeout(()=>sciTone(38,'sawtooth',0.4,0.3,{filterFreq:180}),40); }
 
-// 40 RUTAS - DOBLE QUE PLANETAS
 function drawRoutes(){
   const svg=document.getElementById('routes'); if(!svg) return;
   svg.innerHTML=''; svg.setAttribute('viewBox','0 0 100 100'); svg.setAttribute('preserveAspectRatio','none');
-
-  // calcula todas las distancias
   const pairs=[];
   for(let i=0;i<planets.length;i++){
     for(let j=i+1;j<planets.length;j++){
       const a=planets[i], b=planets[j];
       const d=Math.hypot(a.x-b.x,a.y-b.y);
-      if(d>6 && d<50) pairs.push({a,b,d});
+      if(d>6 && d<48) pairs.push({a,b,d});
     }
   }
-  // ordena por distancia corta primero
   pairs.sort((x,y)=>x.d-y.d);
-  // agarra 40 primeras
-  const routesToDraw = pairs.slice(0,40);
-
+  const routesToDraw = pairs.slice(0,42);
   routesToDraw.forEach(p=>{
     const line=document.createElementNS('http://www.w3.org/2000/svg','line');
     line.setAttribute('x1',p.a.x); line.setAttribute('y1',p.a.y);
     line.setAttribute('x2',p.b.x); line.setAttribute('y2',p.b.y);
-    // si mismo status usa su color, si distinto es ruta comercio azul
     let cls='comercio';
     if(p.a.status===p.b.status) cls=p.a.status.toLowerCase();
     line.setAttribute('class','route-line '+cls);
     svg.appendChild(line);
   });
-  console.log('[RUTAS] Dibujadas:', routesToDraw.length);
 }
 let currentPlanet=null,currentTab='lore',devClicks=0,warBalance=0;
 </script>
