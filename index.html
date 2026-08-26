@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>QUANTUM PULSE V15 // PULSAR SECRET + 40 ROUTES</title>
+<title>QUANTUM PULSE // CWRP</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Audiowide&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -525,3 +525,113 @@ function drawRoutes(){
 }
 let currentPlanet=null,currentTab='lore',devClicks=0,warBalance=0;
 </script>
+<script>
+function renderMap(){
+  const map=document.getElementById('map');
+  [...map.children].forEach(el=>{ if(el.id!=='routes') el.remove(); });
+  drawRoutes();
+  planets.forEach(p=>{
+    const icon=document.createElement('div');
+    icon.className='planet-icon '+p.status.toLowerCase()+(p.glitch?' glitch-map':'');
+    icon.style.left=p.x+'%'; icon.style.top=p.y+'%';
+    icon.title=p.id+' - '+p.status+(p.glitch?' [SEÑAL CORRUPTA]':'');
+    const aura=document.createElement('div');
+    aura.className='aura';
+    icon.appendChild(aura);
+    const img=document.createElement('img');
+    img.src = p.imgPlanet;
+    img.alt = p.id;
+    img.onerror = function(){
+      if(this.src!==p.imgDetail){ this.src = p.imgDetail; this.onerror = function(){ this.src = p.imgTroops || "./SH_TROOPS_QP.png"; this.onerror=null; }; }
+    };
+    icon.appendChild(img);
+    icon.addEventListener('mouseenter', ()=>{ sHover(); });
+    icon.addEventListener('click', (e)=>{ e.stopPropagation(); sClick(); if(p.glitch) sGlitch(); showPlanet(p.id); });
+    const label=document.createElement('div');
+    label.className='planet-label';
+    label.style.left=p.x+'%'; label.style.top='calc('+p.y+'% + 32px)';
+    label.style.color = p.status==='Hostil'? '#ff6b7a' : p.status==='Amigable'? '#00ff88' : '#ffb84d';
+    label.innerText=p.id.toUpperCase();
+    map.appendChild(icon); map.appendChild(label);
+  });
+}
+</script>
+<script>
+function showPlanet(id){
+  const p=planets.find(x=>x.id===id); if(!p) return;
+  currentPlanet=p;
+  const img=document.getElementById('detailImg');
+  const wrap=document.getElementById('detailImgWrap');
+  img.src = p.imgPlanet;
+  img.onerror = function(){
+    if(this.src!==p.imgDetail){ this.src = p.imgDetail; this.onerror = function(){ this.src = p.imgTroops || "./SH_TROOPS_QP.png"; this.onerror=null; }; }
+  };
+  wrap.className='detail-img' + (p.glitch?' glitch':'');
+  document.getElementById('detailName').innerText=p.id.toUpperCase();
+  document.getElementById('detailMeta').innerText=p.sector+' // '+p.clima+' // '+p.status.toUpperCase();
+  switchTab('lore');
+  const detail=document.getElementById('detail'); detail.classList.add('open'); detail.style.pointerEvents='all';
+  sOpen(); if(p.glitch) setTimeout(sGlitch,250);
+}
+function closeDetail(){
+  const detail=document.getElementById('detail'); detail.classList.remove('open'); sClose();
+  setTimeout(()=>{ if(!detail.classList.contains('open')) detail.style.pointerEvents='none'; },550);
+}
+function switchTab(type){
+  if(!currentPlanet) return;
+  currentTab=type;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${type}"]`)?.classList.add('active');
+  const p=currentPlanet, c=document.getElementById('detailContent');
+  const col = p.status==='Hostil'?'#ff3344':p.status==='Amigable'?'#00ff88':'#ff9900';
+  const badge='<div class="status-badge '+p.status.toLowerCase()+'" style="border-color:'+col+';color:'+col+'">RUTA: '+p.status.toUpperCase()+' - '+p.faction+'</div>';
+  if(type==='lore') c.innerHTML = badge+
+    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
+    '<div style="font-weight:700;line-height:1.75"><span style="color:var(--neon);font-family:Orbitron;font-size:10px;letter-spacing:2px">LORE EXPANDIDO // 22 ABY:</span><br><br>'+p.lore+'<br><br><span style="color:var(--neon)">CLIMA:</span> '+p.clima+'<br><span style="color:var(--neon)">FACCIÓN:</span> '+p.faction+'</div>';
+  if(type==='datos') c.innerHTML = badge+
+    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
+    '<div><span style="color:var(--neon);font-family:Orbitron">POBLACIÓN:</span><br>'+p.population+'<br><br><span style="color:var(--gold);font-family:Orbitron">BENEFICIO:</span><br>'+p.benefit+'<br><br><span style="color:var(--neon)">SECTOR:</span> '+p.sector+'<br><br>'+
+    p.produccion.map(pr=>'<div style="display:flex;justify-content:space-between;font-size:11px;margin:12px 0 5px 0;font-family:Orbitron;font-weight:900"><span>'+pr.label+'</span><span style="color:'+pr.color+'">'+pr.value+'</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:'+pr.pct+'%;height:100%;background:'+pr.color+'"></div></div>').join('')+'</div>';
+  if(type==='fuerzas') c.innerHTML = badge+
+    '<div style="width:100%;aspect-ratio:1/1;max-height:260px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
+    '<div><span style="color:var(--neon);font-family:Orbitron">FUERZAS:</span><br>'+p.forces+'<br><br><span style="color:var(--neon)">FAUNA:</span><br>'+p.fauna+'<br><br><span style="color:var(--neon)">CIVILES:</span><br>'+p.civil+'</div>';
+  if(type==='unidades') c.innerHTML = badge+
+    '<div style="width:100%;aspect-ratio:1/1;max-height:200px;border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid '+col+'66"><img src="'+p.imgDetail+'" onerror="this.src=\''+p.imgPlanet+'\'" style="width:100%;height:100%;object-fit:cover"></div>'+
+    '<div style="width:100%;aspect-ratio:1/1;max-height:240px;border:1px solid '+col+';border-radius:12px;overflow:hidden;box-shadow:0 0 18px '+col+'66"><img src="'+p.imgTroops+'" onerror="this.src=\'./SH_TROOPS_QP.png\'" style="width:100%;height:100%;object-fit:cover"></div>'+
+    '<div style="margin-top:14px">'+
+    p.produccion.map(pr=>'<div style="display:flex;justify-content:space-between;font-size:11px;margin:10px 0 5px 0;font-family:Orbitron;font-weight:900"><span>'+pr.label+'</span><span style="color:'+pr.color+'">'+pr.value+'</span></div><div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden"><div style="width:'+pr.pct+'%;height:100%;background:'+pr.color+'"></div></div>').join('')+
+    '<div style="margin-top:14px;padding:12px;border:1px dashed rgba(0,255,136,0.25);border-radius:10px;font-family:Share Tech Mono;font-size:10px;color:var(--neon)">UNIDAD: '+p.faction+'<br>TROPAS: '+p.troops+'<br>RUTA: '+p.status+'</div></div>';
+  sHover();
+}
+</script>
+<script>
+function addRepublic(v){ warBalance=Math.min(100,warBalance+v); renderMap(); sWar(); }
+function addSeparatist(v){ warBalance=Math.max(-100,warBalance-v); renderMap(); sWar(); }
+function resetWar(){ warBalance=0; renderMap(); sClose(); }
+document.getElementById('title').addEventListener('click', ()=>{
+  devClicks++; sciTone(600+devClicks*70,'sine',0.12,0.08,{filterFreq:4000});
+  if(devClicks>=5){ document.getElementById('devControls').classList.toggle('active'); devClicks=0; sOpen(); }
+  setTimeout(()=>{ if(devClicks>0 && devClicks<5) devClicks=0; },3000);
+});
+document.getElementById('closeBtn').addEventListener('click', (e)=>{ e.stopPropagation(); closeDetail(); });
+window.addEventListener('keydown', (e)=>{
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='d'){ document.getElementById('devControls').classList.toggle('active'); sClick(); }
+  if(e.key==='Escape') closeDetail();
+});
+document.getElementById('map').addEventListener('click', (e)=>{ if(e.target.id==='map' || e.target.id==='routes') closeDetail(); });
+document.getElementById('detail').addEventListener('click', (e)=>{ e.stopPropagation(); });
+window.addEventListener('resize', ()=>{ drawRoutes(); });
+</script>
+<script>
+window.addEventListener('load', ()=>{
+  renderMap(); initAudio();
+  console.log('%c QUANTUM PULSE V15 - 40 RUTAS - PULSAR SOMBRA ONLINE ','background:#00ff88;color:#000;font-family:Orbitron;padding:12px;font-weight:900');
+  const observer=new MutationObserver(()=>{
+    const detail=document.getElementById('detail');
+    if(detail.classList.contains('open')) detail.style.pointerEvents='all';
+  });
+  observer.observe(document.getElementById('detail'), {attributes:true});
+});
+</script>
+</body>
+</html>
