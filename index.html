@@ -88,6 +88,8 @@ const planets = [
     clima: "Industrial fortificado - Astilleros",
     population: "4.2B - Fortaleza República",
     benefit: "Astilleros Venator + Academia Táctica - +40% producción flota",
+    imgPlanet: "./ANAXES_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./ANAXES_qp_troops.png",
     produccion: [
       {label:"Lealtad República", value:"88%", pct:88, color:"#00aaff"},
@@ -110,13 +112,15 @@ const planets = [
     clima: "Oscuridad eterna - Niebla tóxica",
     population: "Umbarans + Guarnición 501st",
     benefit: "Doonium + Tecnología sigilo - Cazas invisibles",
+    imgPlanet: "./UMBARA_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./UMBARA_qp_troops.png",
     produccion: [
       {label:"Control Sombra", value:"71%", pct:71, color:"#aa44ff"},
       {label:"Visibilidad", value:"12%", pct:12, color:"#ff4444"}
     ],
-    lore: "UMBARA - EL PLANETA QUE NO VE EL SOL. Eterna noche. Los Umbarans ven en ultravioleta. La Batalla de Umbara fue traición: Krell mandó clones contra clones. 501st perdió 40% aquí. Ahora hostil, milicianos con camuflaje atacan en niebla. Sin visores nocturnos, estás muerto.",
-    forces: "501st remanente 6k, Milicianos Umbaran 4k, Tanques Umbaran, Caza Umbaran.",
+    lore: "UMBARA - EL PLANETA QUE NO VE EL SOL. Eterna noche. Los Umbarans ven en ultravioleta. La Batalla de Umbara fue traición: Krell mandó clones contra clones.",
+    forces: "501st remanente 6k, Milicianos Umbaran 4k",
     fauna: "Banshees, Vixus, Umbarans",
     civil: "Clanes Umbaran oscuros",
     troops: "6k - Noct"
@@ -132,15 +136,17 @@ const planets = [
     clima: "Desierto rocoso - Colmenas",
     population: "Geonosianos 100B + Fábricas",
     benefit: "Fábricas Droides B1/B2 + Sónicas - +50% droides",
+    imgPlanet: "./GEONOSIS_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./GEONOSIS_qp_troops.png",
     produccion: [
       {label:"Fábricas Activas", value:"66%", pct:66, color:"#ff6600"},
       {label:"Peligro Geonosiano", value:"EXTREMO", pct:95, color:"#ff0000"}
     ],
-    lore: "GEONOSIS - DONDE EMPEZÓ TODO. Polvo rojo que entra en pulmones y no sale. La Reina Karina nunca murió, sigue poniendo huevos bajo arena. Segunda batalla: gas venenoso, cerebros gusano. Cada túnel es trampa. Transmisiones con glitch, se escuchan gritos geonosianos en radio.",
-    forces: "Colmenas Geonosianas 100B, Super Battle Droids, 212th asalto 7k clones con lanzallamas.",
-    fauna: "Geonosianos, Orray, Gusanos cerebrales",
-    civil: "Colmena Geonosis, Techno Union",
+    lore: "GEONOSIS - DONDE EMPEZÓ TODO. Polvo rojo que entra en pulmones y no sale. La Reina Karina nunca murió.",
+    forces: "Colmenas 100B, 212th asalto 7k",
+    fauna: "Geonosianos",
+    civil: "Colmena",
     troops: "7k - Des"
   },
   {
@@ -152,17 +158,19 @@ const planets = [
     sector: "Outer Rim - Atravis Sector",
     faction: "Separatista - Black Sun",
     clima: "Volcánico - Ríos de lava 800°C",
-    population: "Mustafarianos + Droides minería",
-    benefit: "Cristales Mustafar + Acero obsidiana - Armas élite",
+    population: "Mustafarianos + Droides",
+    benefit: "Cristales Mustafar + Acero obsidiana",
+    imgPlanet: "./MUSTAFAR_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./MUSTAFAR_qp_troops.png",
     produccion: [
       {label:"Estabilidad Térmica", value:"08%", pct:8, color:"#ff0000"},
       {label:"Valor Mineral", value:"99%", pct:99, color:"#ff8800"}
     ],
-    lore: "MUSTAFAR - EL INFIERNO. Aquí murió Anakin. Ríos de lava que funden duracero. El aire quema pulmones. Black Sun extrae acero obsidiana que vale más que coaxium. Vader tiene su castillo aquí, su ira hace que sensores tengan glitch. Transmisiones se cortan, se escucha respiración mecánica.",
-    forces: "Guardias Mustafar, Droides lava, Black Sun mercenarios 3k, 2 altares Vader.",
-    fauna: "Mustafarianos, Lava fleas",
-    civil: "Mineros, Sith cultistas",
+    lore: "MUSTAFAR - EL INFIERNO. Aquí murió Anakin. Castillo Vader con glitch.",
+    forces: "Guardias Mustafar, Black Sun 3k",
+    fauna: "Mustafarianos",
+    civil: "Mineros",
     troops: "3k - Lava"
   },
   {
@@ -172,18 +180,20 @@ const planets = [
     status: "Neutral",
     glitch: false,
     sector: "Outer Rim - Anoat Sector",
-    faction: "Ninguna - Rebelde futuro",
-    clima: "Tundra helada - -60°C tormentas",
-    population: "0 - Base Echo abandonada",
-    benefit: "Posición estratégica + Hielo - Escondite perfecto",
+    faction: "Ninguna",
+    clima: "Tundra helada - -60°C",
+    population: "0 - Base Echo",
+    benefit: "Posición estratégica + Hielo",
+    imgPlanet: "./HOTH_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./HOTH_qp_troops.png",
     produccion: [
       {label:"Supervivencia", value:"21%", pct:21, color:"#00ffff"},
       {label:"Cobertura", value:"Blizzard", pct:45, color:"#aaaaff"}
     ],
-    lore: "HOTH - TUMBA BLANCA. Nada vive aquí. Wampas cazan en ventiscas de 200km/h. Base Echo abandonada tras fallo. Cada noche sensores detectan movimiento bajo hielo. Los que van no vuelven. República lo marcó neutral porque no vale la sangre que costaría tomarlo.",
-    forces: "0 oficial. Wampas, Tauntauns salvajes, 2 puestos avanzados perdidos.",
-    fauna: "Wampa, Tauntaun",
+    lore: "HOTH - TUMBA BLANCA. Wampas en ventiscas 200km/h.",
+    forces: "0 oficial",
+    fauna: "Wampa",
     civil: "Ninguno",
     troops: "0 - Frío"
   },
@@ -197,19 +207,21 @@ const planets = [
     faction: "Hutts - 104th Wolfpack",
     clima: "Desierto doble sol - 50°C",
     population: "Hutts, Jawas, Tusken",
-    benefit: "Ruta Kessel + Contrabando - +25% créditos ilegales",
+    benefit: "Ruta Kessel + Contrabando",
+    imgPlanet: "./TATOOINE_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./TATOOINE_qp_troops.png",
     produccion: [
       {label:"Control Hutt", value:"77%", pct:77, color:"#ffaa00"},
       {label:"Anarquía", value:"Alta", pct:85, color:"#ff4400"}
     ],
-    lore: "TATOOINE - DONDE NACEN LAS LEYENDAS. Doble sol que te cocina. Jabba controla agua y todo lo demás. Tusken Raiders atacan caravanas, Jawas venden chatarra que a veces es droide de guerra. Anakin y Luke nacieron aquí. 104th Wolfpack patrulla porque cada cargamento puede ser ejército separatista disfrazado.",
-    forces: "Wolfpack 104th 4k, Mercenarios Hutt 6k, Sarlacc.",
-    fauna: "Sarlacc, Krayt Dragon, Tusken",
-    civil: "Jawas, Granjeros humedad",
+    lore: "TATOOINE - DONDE NACEN LAS LEYENDAS. Doble sol.",
+    forces: "Wolfpack 4k, Hutt 6k",
+    fauna: "Sarlacc, Tusken",
+    civil: "Jawas",
     troops: "4k - Des"
   },
-   {
+    {
     id: "Kamino",
     x: 82.4,
     y: 88.2,
@@ -218,17 +230,19 @@ const planets = [
     sector: "Wild Space - Extragaláctico",
     faction: "R&D Kamino + 212th",
     clima: "Oceánico tormenta eterna",
-    population: "1M Kaminoanos + 200k clones creciendo",
-    benefit: "Clonación + ADN Prime - +100% producción clones",
+    population: "1M Kaminoanos + 200k clones",
+    benefit: "Clonación + ADN Prime",
+    imgPlanet: "./KAMINO_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./KAMINO_qp_troops.png",
     produccion: [
       {label:"Producción Clones", value:"96%", pct:96, color:"#00ff88"},
       {label:"Defensa", value:"82%", pct:82, color:"#00aaff"}
     ],
-    lore: "KAMINO - CUNA DE TODOS NOSOTROS. Lluvia que nunca para. Tipoca City flotando sobre abismo de 10km. Cada clon nació en tanque de esta agua. Batalla de Kamino: separatistas quisieron borrar nuestro futuro, mandaron trident. Perdieron. Si Kamino cae, la República cae.",
-    forces: "10k cadetes + 212th Support, Submarinos, Mantas Aquáticas.",
-    fauna: "Aiwhas, Kaminoanos",
-    civil: "Clonadores, Entrenadores",
+    lore: "KAMINO - CUNA DE TODOS NOSOTROS. Lluvia que nunca para.",
+    forces: "10k cadetes + 212th",
+    fauna: "Aiwhas",
+    civil: "Clonadores",
     troops: "10k - Ca"
   },
   {
@@ -240,17 +254,19 @@ const planets = [
     sector: "Outer Rim - Mandalore Sector",
     faction: "Death Watch + Duchess Satine",
     clima: "Desierto blanco - Cúpulas",
-    population: "Mandalorianos 4M - Divididos",
-    benefit: "Beskar + Guerreros élite - Armadura antiblaster",
+    population: "Mandalorianos 4M",
+    benefit: "Beskar + Guerreros élite",
+    imgPlanet: "./MANDALORE_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./MANDALORE_qp_troops.png",
     produccion: [
       {label:"Lealtad", value:"Dividida", pct:50, color:"#aaaaaa"},
       {label:"Beskar", value:"100%", pct:100, color:"#88ffff"}
     ],
-    lore: "MANDALORE - HONOR Y TRAICIÓN. Planeta de guerreros que casi vence a Jedi. Ahora pacifistas vs Death Watch. Pre Vizsla quiere guerra, Satine quiere paz. Beskar, metal que resiste sables. Si eliges bando, ganas mejor acero de galaxia, pero te ganas enemigo eterno.",
-    forces: "Death Watch 3k supercommandos, New Mandalorians guardia 2k, 1k True Mandalorians.",
-    fauna: "Mandalorianos, Mythosaur huesos",
-    civil: "Clanes Mandalorianos",
+    lore: "MANDALORE - HONOR Y TRAICIÓN. Beskar resiste sables.",
+    forces: "Death Watch 3k, New Mandalorians 2k",
+    fauna: "Mythosaur",
+    civil: "Clanes",
     troops: "5k - Bes"
   },
   {
@@ -261,17 +277,19 @@ const planets = [
     glitch: false,
     sector: "Unknown - Pulsar Sector",
     faction: "Piratas Pulsar + CSI",
-    clima: "Radiación pulsar - tormentas EM",
+    clima: "Radiación pulsar",
     population: "Piratas, Cyborgs",
-    benefit: "Energía pulsar + Armas EM - Pulso EMP",
+    benefit: "Energía pulsar + Armas EM",
+    imgPlanet: "./PULSAR_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./PULSAR_qp_troops.png",
     produccion: [
       {label:"Radiación", value:"LETHAL", pct:100, color:"#ff00ff"},
       {label:"Botín", value:"89%", pct:89, color:"#ffaa00"}
     ],
-    lore: "PULSAR - EL FARO QUE MATA. Estrella de neutrones que pulsa cada 0.8 seg y fríe electrónica. Piratas modificados viven aquí, implantes los hacen inmunes. Atacan convoyes y desaparecen en radiación. Ningún Jedi puede usar Fuerza aquí, el pulsar la distorsiona.",
-    forces: "Piratas Pulsar 5k cyborgs, Droides EM, 2 fragatas modificadas.",
-    fauna: "Cyborgs radiación",
+    lore: "PULSAR - EL FARO QUE MATA. Estrella neutrones fríe electrónica.",
+    forces: "Piratas 5k cyborgs",
+    fauna: "Cyborgs",
     civil: "Piratas",
     troops: "5k - Rad"
   },
@@ -283,18 +301,20 @@ const planets = [
     glitch: false,
     sector: "Core Worlds - Corusca",
     faction: "Coruscant Guard + 501st",
-    clima: "Ecumenópolis - Ciudad Planetaria",
-    population: "2 Trillones - Capital Galáctica",
-    benefit: "Consejo Jedi + Senado + Comando GAR - +50% créditos +3 flotas",
+    clima: "Ecumenópolis",
+    population: "2 Trillones",
+    benefit: "Senado + Templo Jedi + GAR HQ - +50% créditos +3 flotas",
+    imgPlanet: "./CORUSCANT_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./CORUSCANT_qp_troops.png",
     produccion: [
       {label:"Control República", value:"100%", pct:100, color:"#00aaff"},
-      {label:"Seguridad Nivel", value:"MAX", pct:100, color:"#ffd700"}
+      {label:"Seguridad", value:"MAX", pct:100, color:"#ffd700"}
     ],
-    lore: "CORUSCANT - CORAZÓN DE LA GALAXIA. 2 trillones de almas. 5127 niveles. Abajo no llega sol, solo crimen. Arriba Senado y Templo Jedi. Shock troopers rojos patrullan. Ningún separatista tocó esta superficie en 1000 años. Si cae Coruscant, cae República. Palpatine lo sabe.",
-    forces: "Coruscant Guard 25k shock, 501st detachment, 40 AT-TE, Ala ARC-170.",
-    fauna: "Trillones especies",
-    civil: "Senado, Jedi, Underworld",
+    lore: "CORUSCANT - CORAZÓN DE LA GALAXIA. 5127 niveles. Shock troopers rojos.",
+    forces: "Coruscant Guard 25k, 501st detachment",
+    fauna: "Trillones",
+    civil: "Senado, Jedi",
     troops: "25k - Ca"
   },
   {
@@ -305,18 +325,20 @@ const planets = [
     glitch: false,
     sector: "Core Worlds - Alderaan Sector",
     faction: "Alderaan Guard + Bail Organa",
-    clima: "Montañas y praderas templado",
-    population: "2B - Pacifistas armados",
-    benefit: "Diplomacia + Alimentos + Arte - +30% moral",
+    clima: "Montañas y praderas",
+    population: "2B - Pacifistas",
+    benefit: "Diplomacia + Alimentos",
+    imgPlanet: "./ALDERAAN_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./ALDERAAN_qp_troops.png",
     produccion: [
       {label:"Paz", value:"95%", pct:95, color:"#aaffff"},
       {label:"Apoyo República", value:"90%", pct:90, color:"#00ff88"}
     ],
-    lore: "ALDERAAN - BELLEZA QUE SERÁ CENIZA. Montañas nevadas, praderas infinitas. Bail Organa, senador más noble, odia guerra pero manda comida a todo frente. Pacifistas pero con cañones orbitales escondidos. Todos saben que Alderaan pagará precio más alto por oponerse a Imperio futuro.",
-    forces: "Guardia Alderaan 3k, 2 escuadrones cruiser, voluntarios.",
-    fauna: "Thranta, Nerf",
-    civil: "Casa Organa, Artistas",
+    lore: "ALDERAAN - BELLEZA QUE SERÁ CENIZA. Bail Organa.",
+    forces: "Guardia 3k",
+    fauna: "Thranta",
+    civil: "Casa Organa",
     troops: "3k - Paz"
   },
   {
@@ -327,21 +349,23 @@ const planets = [
     glitch: false,
     sector: "Mid Rim - Kashyyyk System",
     faction: "Wookiees + 41st Elite",
-    clima: "Jungla wroshyr 1km altura",
-    population: "Wookiees 50M + Bestias",
-    benefit: "Madera wroshyr + Ruta hiperespacial - +20% velocidad flota",
+    clima: "Jungla wroshyr 1km",
+    population: "Wookiees 50M",
+    benefit: "Madera wroshyr + Ruta hiperespacial",
+    imgPlanet: "./KASHYYYK_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./KASHYYYK_qp_troops.png",
     produccion: [
       {label:"Lealtad Wookiee", value:"100%", pct:100, color:"#00ff88"},
       {label:"Fuerza Bruta", value:"Infinita", pct:100, color:"#ffaa00"}
     ],
-    lore: "KASHYYYK - EL PLANETA QUE LUCHA SOLO. Árboles de 1km de alto, 7 niveles de jungla. Wookiees arrancan brazos droides. Chewbacca y Tarfful lideran. 41st de Yoda peleó aquí. Separatistas trajeron tanques araña, Wookiees los tiraron con lianas. Si ganas un Wookiee, ganas hermano para siempre.",
-    forces: "Wookiee Warriors 20k, 41st Elite Corps 8k, Oorn, Dragflys.",
-    fauna: "Wookiees, Wroshyr beasts, Terentatek",
-    civil: "Aldeas Wookiee",
+    lore: "KASHYYYK - EL PLANETA QUE LUCHA SOLO. Árboles 1km, Wookiees arrancan brazos droides.",
+    forces: "Wookiee 20k, 41st 8k",
+    fauna: "Wookiees",
+    civil: "Aldeas",
     troops: "20k - Wook"
   },
-   {
+    {
     id: "Christophsis",
     x: 58.1,
     y: 42.5,
@@ -349,18 +373,20 @@ const planets = [
     glitch: false,
     sector: "Outer Rim - Savareen Sector",
     faction: "CSI + 501st / 212th",
-    clima: "Cristalino azul - Torres cristal",
-    population: "Christophsians cristalinos",
-    benefit: "Cristales + Posición cristal - +15% alcance sensores",
+    clima: "Cristalino azul",
+    population: "Christophsians",
+    benefit: "Cristales + Posición cristal",
+    imgPlanet: "./CHRISTOPHSIS_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./CHRISTOPHSIS_qp_troops.png",
     produccion: [
       {label:"Control Cristal", value:"45%", pct:45, color:"#00aaff"},
       {label:"Emboscadas", value:"Alto", pct:80, color:"#ff4444"}
     ],
-    lore: "CHRISTOPHSIS - CAMPO DE CRISTAL QUEBRADO. Torres de cristal azul que refractan disparos. Primera misión de Anakin y Obi-Wan juntos. Trampas: cristal corta armadura. Slick traicionó aquí. Ahora CSI usa torres como antenas de jamming. Cada cristal vibra y confunde sensores.",
-    forces: "CSI Droid Army 15k, 501st+212th 10k joint operation.",
+    lore: "CHRISTOPHSIS - CAMPO DE CRISTAL QUEBRADO. Torres refractan disparos.",
+    forces: "CSI 15k, 501st+212th 10k",
     fauna: "Christophsians",
-    civil: "Refugiados cristal",
+    civil: "Refugiados",
     troops: "10k - Cris"
   },
   {
@@ -373,16 +399,18 @@ const planets = [
     faction: "Gungan + Naboo Guard + 501st",
     clima: "Praderas, lagos, pantanos",
     population: "Humanos Naboo + Gungans",
-    benefit: "Plasma + Diplomacia Padmé - +20% energía",
+    benefit: "Plasma + Diplomacia Padmé",
+    imgPlanet: "./NABOO_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./NABOO_qp_troops.png",
     produccion: [
       {label:"Plasma", value:"88%", pct:88, color:"#00ffff"},
       {label:"Paz Gungan-Naboo", value:"92%", pct:92, color:"#00ff88"}
     ],
-    lore: "NABOO - DONDE NACIÓ LA REINA. Theed palacios dorados, pantanos Gungan con bestias gigantes. Batalla de Naboo: Gungans vs droides. Padmé Amidala, senadora que desafía a Palpatine. Plasma de Naboo alimenta 20% de Theed y naves. Gungans con escudos burbuja que paran blasters.",
-    forces: "Naboo Guard 2k, Gungan Grand Army 5k, 501st detachment.",
-    fauna: "Gungans, Kaadu, Fambaa",
-    civil: "Casa Naberrie, Gungans",
+    lore: "NABOO - DONDE NACIÓ LA REINA. Theed dorada, escudos Gungan.",
+    forces: "Naboo 2k, Gungan 5k",
+    fauna: "Gungan, Kaadu",
+    civil: "Casa Naberrie",
     troops: "7k - Pla"
   },
   {
@@ -393,17 +421,19 @@ const planets = [
     glitch: false,
     sector: "Outer Rim - Tarabba Sector",
     faction: "CSI + Pau'an leales República",
-    clima: "Sumideros gigantes - Cráteres",
+    clima: "Sumideros gigantes",
     population: "Pau'ans, Utai",
-    benefit: "Kyber oculto + Sumideros - Cristales sable",
+    benefit: "Kyber oculto + Sumideros",
+    imgPlanet: "./UTAPAU_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./UTAPAU_qp_troops.png",
     produccion: [
       {label:"Control Sumidero", value:"33%", pct:33, color:"#ff4444"},
       {label:"Kyber", value:"Detectado", pct:70, color:"#ff00ff"}
     ],
-    lore: "UTAPAU - EL AGUJERO DONDE MUERE GRIEVOUS. Planeta de sumideros de 10km profundidad. Ciudades en paredes de cráteres. Pau'ans altos y flacos, Utai bajos. Grievous se escondió aquí con Consejo Separatista. Obi-Wan vs Grievous. Lugar hostil, vientos que te tiran al abismo.",
-    forces: "CSI remanente 8k, Pau'an resistencia 1k, Droides Grievous.",
-    fauna: "Varactyl Boga, Dactillion",
+    lore: "UTAPAU - AGUJERO DONDE MUERE GRIEVOUS. Ciudades en paredes cráteres 10km.",
+    forces: "CSI 8k",
+    fauna: "Varactyl Boga",
     civil: "Pau'an, Utai",
     troops: "8k - Sink"
   },
@@ -418,15 +448,17 @@ const planets = [
     clima: "Glaciar cristalino - -40°C",
     population: "Lurmen + Muuns bancarios",
     benefit: "Cristales Nova + Reservas Bancarias - +40% créditos",
+    imgPlanet: "./MYGEETO_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./MYGEETO_qp_troops.png",
     produccion: [
       {label:"Cristales", value:"92%", pct:92, color:"#00ffff"},
       {label:"Interés Bancario", value:"88%", pct:88, color:"#ffd700"}
     ],
-    lore: "MYGEETO - BANCO DE HIELO. Cristales que valen más que naves. Clan Bancario guarda fortuna. General Ki-Adi-Mundi y Bacara pelean a -40 grados. Cada puente de cristal es trampa mortal. Lurmen pacifistas sufren guerra de ricos.",
-    forces: "Galactic Marines 21st - 9k Clones con armadura fría. Walkers adaptados.",
-    fauna: "Lurmen, Muuns, Droides de hielo",
-    civil: "Banqueros, Cristaleros",
+    lore: "MYGEETO - BANCO DE HIELO. Ki-Adi-Mundi murió Orden 66.",
+    forces: "Galactic Marines 21st - 9k",
+    fauna: "Lurmen, Muuns",
+    civil: "Banqueros",
     troops: "9k - Ice"
   },
   {
@@ -440,15 +472,17 @@ const planets = [
     clima: "Luna rocosa - Niebla",
     population: "Puesto escucha Rishi",
     benefit: "Alerta temprana Kamino - +100% defensa Kamino",
+    imgPlanet: "./RISHI_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./RISHI_qp_troops.png",
     produccion: [
       {label:"Alerta", value:"ONLINE", pct:90, color:"#00ff88"},
       {label:"Sigilo", value:"76%", pct:76, color:"#00aaff"}
     ],
-    lore: "RISHI MOON - EL TIMBRE QUE SALVÓ KAMINO. Luna sin nada, solo estación. 4 clones shinies defendieron Kamino entero. Comando droides infiltrados, Capitán Rex y Cody salvaron. Si Rishi cae, Kamino no tiene aviso y clones mueren en tanques. Puesto más importante de guerra.",
-    forces: "Rishi Station 4 clones (Domino Squad leyenda), 501st QRF.",
+    lore: "RISHI MOON - EL TIMBRE QUE SALVÓ KAMINO. 4 clones shinies.",
+    forces: "Rishi Station 4 clones Domino Squad",
     fauna: "Rishi Eel",
-    civil: "Técnicos escucha",
+    civil: "Técnicos",
     troops: "4 - Echo"
   },
   {
@@ -462,14 +496,16 @@ const planets = [
     clima: "Desierto rocoso - Tundra nocturna",
     population: "Twi'leks 5M esclavizados",
     benefit: "Especias Ryll + Ruta - Ruta contrabando",
+    imgPlanet: "./RYLOTH_qp_planet.png",
+    imgMain: "./Galaxy_Quantum_Main_Map.png",
     unitImg: "./RYLOTH_qp_troops.png",
     produccion: [
       {label:"Liberación", value:"58%", pct:58, color:"#ff88ff"},
       {label:"Esclavitud CSI", value:"42%", pct:42, color:"#ff4444"}
     ],
-    lore: "RYLOTH - PLANETA ESCLAVO. Mitad día abrasador, mitad noche helada. Twi'leks viven en crepúsculo. Wat Tambor esclavizó todo por especias Ryll que es droga y medicina. Cham Syndulla y su resistencia, Hera niña. Mace Windu liberó. Ahora CSI volvió. Cada cueva es refugio rebelde.",
-    forces: "Twi'lek Resistencia 6k, 212th Attack Battalion 8k, CSI 10k droides.",
-    fauna: "Twi'leks, Gutkurr, Lylek",
+    lore: "RYLOTH - PLANETA ESCLAVO. Wat Tambor esclavizó por especias Ryll.",
+    forces: "Twi'lek 6k, 212th 8k, CSI 10k",
+    fauna: "Twi'leks",
     civil: "Twi'lek clanes",
     troops: "14k - Twi"
   }
@@ -547,7 +583,13 @@ function showPlanet(id){
   currentPlanet=p;
   const img=document.getElementById('detailImg');
   const wrap=document.getElementById('detailImgWrap');
-  img.src=p.unitImg; img.onerror=function(){ this.src='./SH_TROOPS_QP.png'; };
+img.src=p.imgPlanet || p.unitImg; 
+img.dataset.troops = p.unitImg;
+img.dataset.main = p.imgMain;
+img.onerror=function(){ 
+  if(this.src.includes('_planet')){ this.src=this.dataset.troops; } 
+  else { this.src='./SH_TROOPS_QP.png'; } 
+};
   wrap.className='detail-img'+(p.glitch?' glitch':'');
   document.getElementById('detailName').innerText=p.id.toUpperCase();
   document.getElementById('detailMeta').innerText=`${p.sector} // ${p.clima} // ${p.status.toUpperCase()}`;
