@@ -145,8 +145,20 @@ const world=document.getElementById('world'),viewport=document.getElementById('v
 function getRouteType(a,b){if(a==="pulsar"||b==="pulsar")return "rep";if(a==="mandalore"||b==="mandalore")return "mandalore";if(a==="tatooine"||b==="tatooine")return "hutt";const A=planets.find(p=>p.id===a),B=planets.find(p=>p.id===b);if(!A||!B)return "neutral";if(A.faction==="rep"&&B.faction==="rep")return "rep";if(A.faction==="cis"&&B.faction==="cis")return "cis";return "neutral"}
 // Dibuja rutas y planetas
 function render(){svg.innerHTML="";routes.forEach(r=>{const pA=planets.find(p=>p.id===r[0]),pB=planets.find(p=>p.id===r[1]);if(!pA||!pB)return;const line=document.createElementNS("http://www.w3.org/2000/svg","line");line.setAttribute("x1",pA.x);line.setAttribute("y1",pA.y);line.setAttribute("x2",pB.x);line.setAttribute("y2",pB.y);line.setAttribute("class","route-"+getRouteType(r[0],r[1]));svg.appendChild(line)});world.querySelectorAll('.planet').forEach(e=>e.remove());planets.forEach(p=>{const el=document.createElement('div');el.className='planet';el.style.left=p.x+'px';el.style.top=p.y+'px';el.style.width=p.size+'px';el.style.height=p.size+'px';el.style.color=p.color;el.innerHTML=`<div class='planet-aura' style='background:${p.color}'></div><div class='planet-core'><img src="${p.imgPlanet}" onerror="this.style.display='none'"></div><div class='planet-label'>${p.name}</div>`;el.onclick=e=>{e.stopPropagation();playSFX('open');openPlanet(p)};world.appendChild(el)})}
-// Abre la ventana del planeta
-function openPlanet(p){document.getElementById('overlay').style.display='block';document.getElementById('planet-modal').style.display='block';document.getElementById('banner').style.backgroundImage=`url(${p.imgPlanet})`;document.getElementById('b-name').innerText=p.name;document.getElementById('b-meta').innerText=`X:${p.x} Y:${p.y} // ${p.faction.toUpperCase()}`;setTabImg('img-lore'');,'');setTabImg('img-benef',p.imgMain,p.id);setTabImg('img-troops',p.imgTroops,'');document.getElementById('text-lore').innerHTML=`<span class='badge'>LORE</span><br>${p.lore}`;document.getElementById('text-benef').innerHTML=`<span class='badge'>BENEFICIO</span><br>${p.benef}`;document.getElementById('text-troops').innerHTML=`<span class='badge'>TROPAS</span><br>${p.troops}`;switchTab('lore',true)}
+// Abre la ventana del planetafunction openPlanet(p){
+  function openPlanet(p){
+  document.getElementById('overlay').style.display='block';
+  document.getElementById('planet-modal').style.display='block';
+  document.getElementById('banner').style.backgroundImage=`url(${p.imgPlanet})`;
+  document.getElementById('b-name').innerText=p.name;
+  document.getElementById('b-meta').innerText=`X:${p.x} Y:${p.y} // ${p.faction.toUpperCase()}`;
+  setTabImg('img-benef',p.imgMain,p.id);
+  setTabImg('img-troops',p.imgTroops,'');
+  document.getElementById('text-lore').innerHTML=`<span class='badge'>LORE</span><br>${p.lore}`;
+  document.getElementById('text-benef').innerHTML=`<span class='badge'>BENEFICIO</span><br>${p.benef}`;
+  document.getElementById('text-troops').innerHTML=`<span class='badge'>TROPAS</span><br>${p.troops}`;
+  switchTab('lore',true)
+}
 function setTabImg(id,url,pid){const el=document.getElementById(id);el.style.backgroundImage=`url(${url})`;el.className='content-img';if(pid==='geonosis'||pid==='mustafar')el.classList.add('glitch-red');else if(pid==='hoth'&&id==='img-benef')el.classList.add('glitch-snow')}
 function switchTab(t,silent){ if(!silent) playSFX('tab'); document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelector(`[data-t="${t}"]`).classList.add('active');document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active')}
 function closeModal(){ playSFX('close'); document.getElementById('overlay').style.display='none';document.getElementById('planet-modal').style.display='none'}
