@@ -31,7 +31,8 @@ svg#routes line{stroke-width:3.2px;stroke-linecap:round;opacity:1;filter:drop-sh
 .ctrl-btn{height:42px;min-width:42px;padding:0 14px;background:rgba(0,20,12,0.92);border:1px solid var(--green);color:var(--green);font-family:'Orbitron';font-weight:800;font-size:11px;cursor:pointer}
 .ctrl-btn:hover{background:var(--green);color:#000}
 #overlay{position:fixed;inset:0;background:rgba(0,12,6,0.84);z-index:30;display:none}
-#planet-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:31;width:94vw;max-width:640px;background:#0a1c12;border:1px solid var(--green);box-shadow:0 0 45px rgba(0,255,136,0.4);display:none;overflow:hidden}
+#planet-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:31;width:94vw;max-width:640px;max-height:92vh;background:#0a1c12;border:1px solid var(--green);box-shadow:0 0 45px rgba(0,255,136,0.4);display:none;overflow:hidden;overflow-y:auto}
+.content-body{padding:16px;font-size:14px;line-height:1.55;color:#c8ffd8;min-height:80px}
 .modal-banner{height:195px;position:relative;background-size:cover;background-position:center;border-bottom:1px solid var(--green)}
 .modal-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,28,18,1) 12%, transparent 70%)}
 .banner-info{position:absolute;left:16px;bottom:12px;z-index:2}
