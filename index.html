@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>QUANTUM PULSE - CWRP // V8.3 FINAL</title>
+<title>QUANTUM PULSE 2.0 - CWRP - AR</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--green:#00ff88;--green-dim:rgba(0,255,136,0.18);--blue:#00d4ff;--red:#ff2a4a;--yellow:#ffcc00;--violet:#a855f7;--orange:#ff7a00}
@@ -54,7 +54,7 @@ svg#routes line{stroke-width:2.6px;stroke-linecap:round;opacity:0.85;filter:none
 </head>
 <body>
 <div id="viewport"><div id="world"><svg id="routes"></svg></div></div>
-<div id="title-box"><h1>QUANTUM PULSE - CWRP</h1></div>
+<div id="title-box"><h1>QUANTUM PULSE 2.0 - CWRP - AR</h1></div>
 <div id="controls">
 <button class="ctrl-btn" onclick="zoom(0.18)">+</button>
 <button class="ctrl-btn" onclick="zoom(-0.18)">-</button>
@@ -76,7 +76,7 @@ svg#routes line{stroke-width:2.6px;stroke-linecap:round;opacity:0.85;filter:none
 <script>
   const planets=[
 {id:"hoth",name:"HOTH",x:320,y:200,color:"#00ff88",faction:"neutral",size:44,lore:`HOTH - Borde Exterior. Base Echo. Ventiscas nivel 4. Agrega acá tu lore largo, la ventana se expande sola.`,benef:`NEUTRAL: +12% resistencia sobrecalentamiento motores. Ideal para emboscadas.`,troops:`FAUNA: Wampa, Tauntaun.`,imgPlanet:"./HOTH_qp_planet.png",imgMain:"./HOTH_qp_main.png",imgTroops:"./HOTH_qp_troops.png"},
-{id:"anaxes",name:"ANAXES",x:620,y:420,color:"#00ff88",faction:"rep",size:52,lore:`ANAXES - Fortaleza naval legendaria. Centro de estrategia República.`,benef:`REP: Venator +22% daño flota.`,troops:`TROPAS: Anaxes High Command, ARC Troopers.`,imgPlanet:"./ANAXES_qp_planet.png",imgMain:"./ANAXES_qp_main.png",imgTroops:"./ANAXES_qp_troops.png"},
+{id:"anaxes",name:"ANAXES",x:620,y:420,color:"#00ff88",faction:"rep",size:52,lore:`ANAXES - Fortaleza naval legendaria. Centro de estrategia República.`,benef:`REP: Venator +22% daño flota.`,troops:`TROPAS: Anaxes High Command, ARC Troopers.`,imgPlanet:"./Anaxes_qp_planet.png",imgMain:"./ANAXES_qp_main.png",imgTroops:"./ANAXES_qp_troops.png"},
 {id:"muunilinst",name:"MUUNILINST",x:780,y:240,color:"#00ff88",faction:"cis",size:44,lore:`MUUNILINST - Mundo bancario del Clan Bancario.`,benef:`CIS: +28% créditos.`,troops:`TROPAS: Muun Guards.`,imgPlanet:"./MUUNILINST_qp_planet.png",imgMain:"./MUUNILINST_qp_main.png",imgTroops:"./MUUNILINST_qp_troops.png"},
 {id:"mygeeto",name:"MYGEETO",x:1020,y:200,color:"#00ff88",faction:"cis",size:42,lore:`MYGEETO - Mundo cristalino gélido.`,benef:`CIS: Cristales para cañones pesados.`,troops:`TROPAS: Lurmen + Droides.`,imgPlanet:"./MYGEETO_qp_planet.png",imgMain:"./MYGEETO_qp_main.png",imgTroops:"./MYGEETO_qp_troops.png"},
 {id:"mandalore",name:"MANDALORE",x:1200,y:380,color:"#a855f7",faction:"mandalore",size:50,lore:`MANDALORE - Mundo de guerreros. Beskar puro.`,benef:`VIOLETA: Acceso a Beskar limitado.`,troops:`TROPAS: Clanes Mandalorianos.`,imgPlanet:"./MANDALORE_qp_planet.png",imgMain:"./MANDALORE_qp_main.png",imgTroops:"./MANDALORE_qp_troops.png"},
